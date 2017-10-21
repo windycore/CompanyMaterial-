@@ -1,0 +1,4 @@
+使用方法：
+1.登入：http://61.178.127.9:8080/rewriter/CNKI/http/0Z9Z9Z912Z/kns55/这个网址 
+2.然后输入账号密码即可使用！ 账号：bylib 密码：bylib 
+原文链接：http://ggene.cn/html/kuzhan/ziyuan/2017/0223/8522.html
