@@ -1,12 +1,12 @@
-\t (00:00:03) allegro 16.5 P003 (v16-5-13C) i86
-\t (00:00:03)     Journal start - Wed Jan 17 16:10:22 2018
-\t (00:00:03)         Host=HUANGYOUJUN-PC User=huangyoujun Pid=3776 CPUs=4
-\t (00:00:03) 
+\t (00:00:04) allegro 16.5 P003 (v16-5-13C) i86
+\t (00:00:04)     Journal start - Mon Mar 12 09:27:17 2018
+\t (00:00:04)         Host=HUANGYOUJUN-PC User=huangyoujun Pid=13928 CPUs=4
+\t (00:00:04) 
 \t (00:00:05) Starting new design...
 \i (00:00:05) trapsize 2933
 \i (00:00:05) trapsize 2821
-\i (00:00:05) trapsize 2953
-\i (00:00:05) trapsize 3542
-\i (00:00:06) generaledit 
-\i (00:00:07) exit 
-\t (00:00:07)     Journal end - Wed Jan 17 16:10:25 2018
+\i (00:00:06) trapsize 2953
+\i (00:00:06) trapsize 3542
+\i (00:00:07) generaledit 
+\i (00:00:09) exit 
+\t (00:00:09)     Journal end - Mon Mar 12 09:27:22 2018
