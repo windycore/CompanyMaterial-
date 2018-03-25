@@ -1,0 +1,331 @@
+---- default Matches (330 in 99 files) ----
+appPowerMgr.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):    default:
+appPowerMgr.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):    default:
+appPowerMgr.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):    default:
+appPowerMgr.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):    default:
+appPowerMgr.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):    default:
+appPowerMgr.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):    default:
+appPowerMgr.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):        default:
+appPowerMgr.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):        default:    // unsupported data node
+appPowerMgr.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):    default:                      // unsupported event
+appSystemMgr.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):      default:    // unsupported data node
+appSystemMgr.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):   default:                      // unsupported event
+appSystemMgr.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):				default:            break;
+appUserInterface.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):        default:
+appUserInterface.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):// Default event handler if not handled by normal event processing.
+appUserInterface.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):    default:
+appUserInterface.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):                        default:
+appUserInterface.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):        default:
+appUserInterface.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):        default:
+appUserInterface.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):        default :
+appUserInterface.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):    default:
+appUserInterface.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):    default:
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 200
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 3599
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 200
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 3599
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 200
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 3599
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 200
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 3599
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 115200
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 115200
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 115200
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 115200
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 115200
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+Board.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inc)://		<i>Default: 0
+dvCPLD.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):        default:
+dvPC9539.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):        default:
+dvTM1623.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\ledmodule):			        default:	break;
+dvTM1623.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\ledmodule):			        default:	break;
+dvTM1623.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\ledmodule):		default:
+dvTM1623.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\ledmodule):		default:
+dvTM1623.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\ledmodule):            default:
+dvTM1623.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\ledmodule):            default:
+dvTM1623.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\ledmodule):            default:
+dvTM1623.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\ledmodule):            default:
+halPowerCtrl.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\src):    default:
+InputReceiveEvent.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule):        default:
+IRTasks.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\irmodule):  default:
+Keyhandle.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\keymodule):            default:
+KeyTasks.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\keymodule):        default:
+LcdReceiveEvent.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\lcdmodule):        default:
+LedReceiveEvent.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\ledmodule):        default:
+OSAL_Memory.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\mainapp\osal\common): * Profiling the sample apps with default settings shows the following long-lived allocations
+OSAL_Memory.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\mainapp\osal\common): * This default of 16 accomodates the OSAL timers block, osalTimerRec_t, and many others.
+OSAL_PwrMgr.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\mainapp\osal\common):  pwrmgr_attribute.pwrmgr_device = PWRMGR_ALWAYS_ON; // Default to no power conservation.
+OSAL_PwrMgr.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\mainapp\osal\include):   * hold off on the power savings. By default, when a task is created,
+Osal_snv.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\mainapp\osal\mcu\cc2540):// Default byte value when flash is erased
+Otgd_fs_int.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\libraries\stm32_usb-fs-device_driver\src):    default:
+Si_app_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\application_9679\rx_example):        default:
+Si_app_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\application_9679\rx_example):        default:
+Si_app_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\application_9679\rx_example):        default:
+Si_app_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\application_9679\rx_example):        default:
+Si_app_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\application_9679\rx_example):        default:
+Si_app_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\application_9679\rx_example):        default:
+Si_app_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\application_9679\rx_example):        default:
+Si_app_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\application_9679\rx_example):        default:
+Si_app_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\application_9679\rx_example):            adaptCfg.i2cSlaveAddr           = ADAPT_DEFAULT_I2C_DEVICE_ID; // use default I2C address
+Si_app_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\application_9679\rx_example):            adaptCfg.i2cSlaveAddrF0         = 0;  // 0 to use default 0xF0 I2C address, only used at SPI flash update
+Si_app_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\application_9679\rx_example):            adaptCfg.i2cSlaveAddrAA         = 0;  // 0 to use default 0xAA I2C address, only used at SPI flash update
+Si_audio_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\audio_rx):    SiiDrvRxSpdifOutEnable( cInstance ,false); // SPDIF digital outputs are disabled by default
+Si_audio_dac.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\hardware\audio_dac):		default:
+Si_cbus_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cbus):    default:
+Si_cbus_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cbus):		default:
+Si_cbus_rcp_parse.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cbus):        default:
+Si_cdc_component.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):#define CDC_FB_MSG_NONE                 0x0000  //!< default value: no messages
+Si_cdc_heac.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):    static uint32_t mz = 0x3F218942; // default initial values
+Si_cdc_heac.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):    uint8_t hecIdx = 0xFF; // error code by default
+Si_cdc_heac.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):    *pOutPortFlg    = false;    // output port isn't in use by default
+Si_cdc_heac.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):    aInPortIdx[0]   = 0xFF;     // no input port is in use by default
+Si_cdc_heac.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):    outPortFlg      = false;    // output port isn't in use by default
+Si_cdc_heac.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):    aInPortIdx[0]   = 0xFF;     // no input port is in use by default
+Si_cdc_heac.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):#define CDC_CEC_SRCDEST_ADDR_DEFAULT    0xFF    //!< Default (broadcast) CEC logical addresses used in CDC messages
+Si_cdc_internal.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):#define CDC_TASK_MASK_ALL_UNMASKED      0xFFFF  //!< default value of the Task mask allowing any tasks to start
+Si_cdc_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):    pCdc->cdcTaskMask = CDC_TASK_MASK_ALL_UNMASKED; // all tasks are unmasked by default
+Si_cdc_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):        default:
+Si_cdc_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):        default:
+Si_cdc_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):        default:
+Si_cdc_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):        default:
+Si_cdc_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):        default:
+Si_cdc_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):         default:
+Si_cdc_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):        default:
+Si_cdc_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):         default:
+Si_cdc_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):                        tmpCond = false; // not found by default
+Si_cdc_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cdc):                    hecCount = 0; // number of HECs where this device participate (=0 by default)
+Si_cec_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_manager):        default:
+Si_cec_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_manager):            default:
+Si_cec_controller.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_manager):            default:
+Si_cec_controller.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_manager):        default:
+Si_cec_controller.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_manager):        default:
+Si_cec_controller.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_manager):        default:
+Si_cec_controller.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_manager):        default:
+Si_cec_controller.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_manager):        default:
+Si_cec_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_manager):        default:
+Si_cec_sac_config.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component):#define NUMBER_OF_AUDIO_FORMATS     4  //!< number of audio formats supported by this device by default
+Si_cec_switch_api.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_switch):    (pCecSwitch[cInstance])->taskMask  = CEC_SWITCH_TASK_MASK_ALL_UNMASKED; // all tasks are unmasked by default
+Si_cec_switch_api.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_switch):            default:  // the message doesn't belong to CEC/Switch group
+Si_cec_switch_api.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_switch):#define CEC_SWITCH_FB_MSG_NONE              0x0000  //!< default value: no messages
+Si_cec_switch_api.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_switch):#define CEC_SWITCH_TASK_MASK_ALL_UNMASKED   0xFFFF  //!< default value of the Task mask allowing any tasks to start
+Si_cec_tx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_manager):        default:
+Si_cec_tx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_manager):        default:
+Si_cra.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\cra_drv):        default:
+Si_cra.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\cra_drv):        default:
+Si_cra.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\cra_drv):        default:
+Si_cra.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\cra_drv):        default:
+Si_cra.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\cra_drv):    if ((segmentAddr & 0xFF) != 0)  // Default segment #0 index should not be sent explicitly
+Si_cra_cfg.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\sii953x_drv)://        PP_PAGE_3 | 0xFC,       // Example of changing default page 3 device ID (0xFA) to 0xFC
+Si_cra_cfg.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\sii953x_drv):        PP_PAGE_2 | 0xAA,       // Change default 0x66 to 0xAA
+Si_cra_cfg.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\sii953x_drv):        PP_PAGE_A | 0xBB,       // Change default 0x64 to 0xBB
+Si_debugger_hdmigear.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\debugger_hdmigear):                default:
+Si_debugger_hdmigear.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\debugger_hdmigear):            default:
+Si_drv_adapter.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_api):    default:
+Si_drv_adapter.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_api):    // Used default I2C address
+Si_drv_adapter.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_api):    default:
+Si_drv_adapter.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_api):        uint8_t                  i2cSlaveAddr;      //!< I2C slave address or 0 to keep default one
+Si_drv_adapter.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_api):        uint8_t                  i2cSlaveAddrF0;    //!< Desired slave address when in debug mode, or 0 to keep default 0xF0
+Si_drv_adapter.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_api):        uint8_t                  i2cSlaveAddrAA;    //!< Desired slave address when in ISP mode, or 0 to keep default 0xAA
+Si_drv_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_rx):    default:
+Si_drv_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_rx):    default:
+Si_drv_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_rx):    default:
+Si_drv_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_rx):    default:
+Si_drv_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_rx):    default:
+Si_drv_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_rx):    default:
+Si_drv_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_rx):    default:
+Si_drv_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_rx):    default:
+Si_drv_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_rx):    default:
+Si_drv_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_rx):    default:
+Si_drv_adapter_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_rx):    default:
+Si_drv_adapter_tx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_tx):    default:
+Si_drv_adapter_tx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_tx):        default:
+Si_drv_adapter_tx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_tx):    default:
+Si_drv_adapter_tx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_tx):    default:
+Si_drv_adapter_tx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_tx):    default:
+Si_drv_adapter_tx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_tx):        default:
+Si_drv_adapter_tx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_tx):    default:
+Si_drv_adapter_tx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_tx):    default:
+Si_drv_adapter_tx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_tx):* @note HDCP is enabled by default
+Si_drv_adapter_tx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_tx):    default:
+Si_drv_adapter_tx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_tx):    default:
+Si_drv_adapter_tx.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\inputmodule\sii9679\driver\adapter\adapter_tx):    * @note HDCP is enabled by default.
+Si_drv_audio.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\audio_rx_drv)://	    default:
+Si_drv_audio.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\audio_rx_drv):		default:
+Si_drv_audio.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\audio_rx_drv):		default:
+Si_drv_cbus.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\cbus_drv):        default:
+Si_drv_cbus_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\cbus_drv):    // Set default CBUS bit offset
+Si_drv_cbus_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\cbus_drv):    // use 1/3x clock input in MHL mode0: 1x input (default)1:1/3x input clock in MHL
+Si_drv_edid_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\nvram_sram_drv):        default:
+Si_drv_edid_rx.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\nvram_sram_drv):        default:
+Si_drv_ipv.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\ipv_drv):    // Disable SF animation feature by default
+Si_drv_ipv.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\ipv_drv):        default:
+Si_drv_ipv.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\ipv_drv):        default:
+Si_drv_msw.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):        // Clear the hardware Auto-HPD mask to default (All HDMI),
+Si_drv_msw.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):        SiiRegBitsSet(  cInstance ,REG_INT_ENABLE_P4, BIT_RP_NEW_AVI, false ); // RP: disabled by default
+Si_drv_msw.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):        // Enable both Tx0 and Tx1 by default
+Si_drv_msw.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):    if(0)//for melboune we don't have two separtate Tx.so we dont have Matrix mode.By default non matrix has to work.Due to this Pip is not working..
+Si_drv_msw.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):        default:
+Si_drv_msw.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):        default:
+Si_drv_msw_hpd.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):    // Clear the mask bit position in the Auto-HPD mask register (default to HDMI)
+Si_drv_msw_hpd.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):        default:
+Si_drv_msw_hpd.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):		default:
+Si_drv_msw_hpd.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):                default:
+Si_drv_msw_hpd.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):        default:
+Si_drv_msw_hpd.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):        default:
+Si_drv_msw_info.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):        default:
+Si_drv_msw_info.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):    // If all attempts failed, return default values
+Si_drv_msw_info.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):        default:
+Si_drv_nvram_sram.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\nvram_sram_drv):        default:
+Si_drv_nvram_sram.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\nvram_sram_drv):        default:
+Si_drv_nvram_sram.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\nvram_sram_drv):        default:
+Si_drv_nvram_sram.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\nvram_sram_drv):        default:
+Si_drv_nvram_sram.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\nvram_sram_drv):        default:
+Si_drv_nvram_sram.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\nvram_sram_drv):        default:
+Si_drv_osd.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):        default:
+Si_drv_osd.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):        // Unable to determine resolution; use default font and flag the condition
+Si_drv_osd.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):        // OK, got a map resource, get the default font info.
+Si_drv_osd.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):            // Got a resource map, now get the default font stuff.
+Si_drv_osd.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv)://! @brief  Set default font resource ID for specified font size
+Si_drv_osd.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):    OPTW_2_TICK         = 0x0800,       // 2 ticks per character (default is 1 tick)
+Si_drv_osd_internal.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):    int                 defaultFontId;              // Resource ID of default font.
+Si_drv_osd_internal.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):    int                 defaultDisplayHeight;       // Height of display associated with default font.
+Si_drv_osd_internal.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):    int                 defaultDisplayWidth;        // Width of display associated with default font.
+Si_drv_osd_internal.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):    int                 fontResourceId12x16;        // Resource ID of default 12x16 font.
+Si_drv_osd_internal.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):    int                 fontResourceId16x24;        // Resource ID of default 16x24 font.
+Si_drv_osd_internal.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):    int                 fontResourceId24x32;        // Resource ID of default 24x32 font.
+Si_drv_osd_tools.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv)://! @Note       default font.  If the current font is not the default font, the x and y
+Si_drv_osd_tools.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv)://! @Note       locations are scaled relative to the default.  This allows this function to be
+Si_drv_osd_tools.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):    // If no window ID specified, use the default window style.
+Si_drv_osd_window.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv)://! @param[in]  virtX       - Default X position
+Si_drv_osd_window.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv)://! @param[in]  virtY       - Default Y position
+Si_drv_osd_window.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):        default:
+Si_drv_osd_window.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\osd_drv):        default:
+Si_drv_repeater.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\repeater_avr_drv):uint8_t mainPort = 0x00; //as default
+Si_drv_sii953x.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\sii953x_drv):// Description: Initialize registers that need to be set to non-default values
+Si_drv_sii953x.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\sii953x_drv):	    DrvDeviceInitRegisters( cInstance );   // Initialize registers to the Programmers Reference default list.
+Si_drv_sii953x.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\sii953x_drv):        // We do this here because NVRAM contains some register default information
+Si_drv_switch.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):    SiiSwitchAudioSourceDefault    = 0, // Default for the Video Source type (ex.:HDMI for HDMI src, SPDIF/I2S for IV/PV)
+Si_drv_tpi_access.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):        default:
+Si_drv_tpi_ddc_access.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):            default:
+Si_drv_tpi_system.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):        default:
+Si_drv_tpi_system.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):        default:
+Si_drv_tpi_system.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):            default: // no repetition
+Si_drv_tpi_system.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):        default: // RGB
+Si_drv_tpi_system.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):        default:
+Si_drv_tpi_system.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):                default:
+Si_drv_tpi_system.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):    regInpFmt |= VAL_TPI__INP_FMT__TCLK_X1; // default TCLK multiplier 1.0
+Si_drv_tpi_system.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):        default:
+Si_drv_tpi_system.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):        default: // RGB
+Si_drv_tpi_system.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):        default:
+Si_drv_tpi_system.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):        default:
+Si_drv_tpi_system.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):        default:
+Si_drv_tpi_system.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv)://! @param[in]  isEnabled  - audio insertion source is internal (true), or external (false & default)
+Si_edid_tx_analyzer.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):                default:
+Si_edid_tx_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):            DEBUG_PRINT(EDID_TX_MSG_DBG_PLAIN, "DEFAULT EDID USED ");
+Si_edid_tx_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):    // By default one-TX configuration is set
+Si_edid_tx_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):    // Default limits of this device
+Si_edid_tx_composer.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):                //default: // 2D timing compatible: progressive/interlaced
+Si_edid_tx_composer.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):    // Replace certain default values from customer configuration
+Si_edid_tx_composer.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):        // noting found- use default one
+Si_edid_tx_converter.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):                    default:
+Si_edid_tx_decode_h.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx)://!             default.  Decode the result.
+Si_edid_tx_decode_h.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):    // block, or the second block checksum is bad, force use of the default block 0 EDID.
+Si_edid_tx_decode_h.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):        // No extensions, use basic DVI default EDID.
+Si_edid_tx_decode_h.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):    // Replace read EDID with default one if suggested.  We assume the default has none
+Si_edid_tx_decode_l.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):        default:
+Si_edid_tx_decode_l.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):    uint8_t *p_current_position = &pData[8]; // pointer to default HDMI video address
+Si_edid_tx_decode_l.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):            default:
+Si_edid_tx_decode_l.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):        // store the default values
+Si_edid_tx_decode_l.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):    // If the precision is not enough, replace the values with the default ones.
+Si_edid_tx_fmf.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):                // Set to default
+Si_edid_tx_parsing.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):#define EDID_ERROR__DEFAULT_EDID_USED       0x00000008 //!< due to one of the errors, the decision to use a default EDID was made
+Si_edid_tx_scaler.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):    aspectRatio_t best_out_ar = SI_EDID_TX_ASPECT_RATIO_4x3; // default aspect ratio for VGA
+Si_edid_tx_tables.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx)://! @brief  Default downstream EDID tables for substitution in case of invalid DS EDID structures
+Si_edid_tx_tables.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):#  error Default EDID tables mismatch
+Si_edid_tx_tables.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx):#  error Default EDID tables mismatch
+Si_edid_tx_tables.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\edid_tx)://! @brief  Default downstream EDID tables for substitution in case of invalid DS EDID structures
+Si_gpio.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\hardware\board)://! digital input enable is turned off by default.  This function provides the
+Si_gpio.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\hardware\board):        default:
+Si_gpio.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\hardware\board):#define PCA_DEFAULT_OUTPUT      0x00    // All GPIO outputs low by default
+Si_i2c.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\hardware\iic):    default:
+Si_i2c.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\hardware\iic):    default:
+Si_ipv_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\ipv):    pIpv->currentTheme          = SiiIpvLEFT_MIDDLE;    // Set default theme
+Si_ipv_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\ipv):    pIpv->lastTheme             = SiiIpvThemeCount;     // Force default theme to be loaded
+Si_ipv_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\ipv):        default:
+Si_ipv_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\ipv):                        default:
+Si_logger.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\hardware\logger):                default:                                        // Handle all other commands.
+Si_logger.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\hardware\logger):                SiiPlatformUartWrite( "\x1b[39m", 5 );   // Default text color
+Si_logger.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\hardware\logger):    // return text color to default
+Si_logger.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\hardware\logger):        SiiPlatformUartWrite( "\x1b[39m", 5 );   // Default text color
+Si_osd_config.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component):// The following must match the default font in the SPI flash (first font in file)
+Si_osd_config.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component):#define OSD_DEFAULT_FONT_WIDTH      16      // default font is 720p
+Si_osd_config.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component):#define OSD_DEFAULT_FONT_HEIGHT     24      // default font is 720p
+Si_osd_config.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component):#define OSD_DEFAULT_SCREEN_WIDTH    1280    // default screen is 720p
+Si_osd_config.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component):#define OSD_DEFAULT_SCREEN_HEIGHT   720     // default screen is 720p
+Si_osd_handler.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\osd):            default:
+Si_osd_handler.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\osd):                default:
+Si_osd_window.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\osd):    // If not default window type, update here
+Si_osd_win_edit.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\osd):    SiiDrvOsdCursorChar( winRef, CURSOR_BOX, false, PICK_ROW, PICK_COL );           // Box the default pick character
+Si_osd_win_edit.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\osd):                    default:
+Si_osd_win_edit.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\osd):            default:
+Si_osd_win_listbox.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\osd):            default:
+Si_osd_win_menu.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\osd):            default:
+Si_osd_win_msgbox.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\osd):        default:
+Si_osd_win_msgbox.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\osd):            // Assumes that the default selected (highlight) row is 0.
+Si_osd_win_slider.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\osd):            default:
+Si_platform.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\hardware\board):        default:
+Si_regs_pp953x.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):#define BIT_TMDS4_ESD_P4_DF			    0x40 	//Default value.
+Si_regs_pp953x.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):#define REG_HDMI_RX1_MHL_TEST_3X          0x00        // use 1/3x clock input in MHL mode0: 1x input (default)
+Si_regs_pp953x.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\matrix_sw_drv):#define REG_MHL_TEST_SOFT_CTRL_3X         0x20        // use 1/3x clock input in MHL mode0: 1x input (default)
+Si_regs_tpi953x.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):// 0 - data is Left justified (default)
+Si_regs_tpi953x.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):// 0 - Left polarity when Word Select is low (default)
+Si_regs_tpi953x.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\driver\tpi_drv):// 1 - Sample edge is rising (default): SD3-SD0 and WS source should change state on the falling edge of SCK
+Si_repeater_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\repeater_avr):		default:
+Si_rtpi_cbus.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\rtpi):        default:
+Si_rtpi_cec.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\rtpi):        default:
+Si_rtpi_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\rtpi):        default:
+Si_rtpi_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\rtpi):        default:
+Si_rtpi_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\rtpi):    // Set configuration registers to their default state
+Si_rtpi_component.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\rtpi):            default:   val = RtpiRegsDummy(  cInstance, val); break;
+Si_rtpi_register_functions.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\rtpi):        	default:
+Si_rtpi_register_functions.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\rtpi):        default: break;
+Si_sac_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):        default:
+Si_sac_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):    pSac->taskMask  = CEC_SAC_TASK_MASK_ALL_UNMASKED; // all tasks are unmasked by default
+Si_sac_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):        default:break;
+Si_sac_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):                    default:
+Si_sac_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):        default:break;
+Si_sac_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):                    default:
+Si_sac_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):        default:break;
+Si_sac_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):        default:break;
+Si_sac_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):        default:break;
+Si_sac_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):                            default:
+Si_sac_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):                default:  // the message doesn't belong to CEC/SAC group
+Si_sac_main.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):            default:
+Si_sac_main.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):#define CEC_SAC_FB_MSG_NONE                 0x0000  //!< default value: no messages
+Si_sac_main.h (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):#define CEC_SAC_TASK_MASK_ALL_UNMASKED      0xFFFF  //!< default value of the Task mask allowing any tasks to start
+Si_sac_msg.c (hmx_441_4k_kit\rti-vhd-4-stm32\stm32\project\virtual_com_port\_9533\component\cec_system_audio_control):            default:break;

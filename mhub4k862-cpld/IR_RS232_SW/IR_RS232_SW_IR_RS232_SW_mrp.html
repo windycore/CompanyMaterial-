@@ -1,0 +1,1467 @@
+<HTML>
+<HEAD><TITLE>Project Summary</TITLE>
+<STYLE TYPE="text/css">
+<!--
+ body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
+-->
+</STYLE>
+</HEAD>
+<PRE><A name="Mrp"></A>         Lattice Mapping Report File for Design Module 'IR_RS232_SW'
+
+
+<A name="mrp_di"></A><B><U><big>Design Information</big></U></B>
+
+Command line:   map -a MachXO2 -p LCMXO2-1200HC -t TQFP144 -s 4 -oc Industrial
+     IR_RS232_SW_IR_RS232_SW.ngd -o IR_RS232_SW_IR_RS232_SW_map.ncd -pr
+     IR_RS232_SW_IR_RS232_SW.prf -mp IR_RS232_SW_IR_RS232_SW.mrp
+     G:/zjf/mhub4k862-cpld/IR_RS232_SW.lpf -c 0
+Target Vendor:  LATTICE
+Target Device:  LCMXO2-1200HCTQFP144
+Target Performance:   4
+Mapper:  xo2c00,  version:  Diamond Version 2.0.0.154
+Mapped on:  03/09/17  19:53:06
+
+
+<A name="mrp_ds"></A><B><U><big>Design Summary</big></U></B>
+   Number of registers:    600
+      PFU registers:    591
+      PIO registers:    9
+   Number of SLICEs:           526 out of   640 (82%)
+      SLICEs(logic/ROM):       160 out of   160 (100%)
+      SLICEs(logic/ROM/RAM):   366 out of   480 (76%)
+          As RAM:            0 out of   480 (0%)
+          As Logic/ROM:    366 out of   480 (76%)
+   Number of logic LUT4s:     649
+   Number of distributed RAM:   0 (0 LUT4s)
+   Number of ripple logic:    189 (378 LUT4s)
+   Number of shift registers:   0
+   Total number of LUT4s:     1027
+   Number of PIO sites used: 62 out of 108 (57%)
+   Number of block RAMs:  3 out of 7 (43%)
+   Number of GSRs:  1 out of 1 (100%)
+   EFB used :       No
+   JTAG used :      No
+   Readback used :  No
+   Oscillator used :  No
+   Startup used :   No
+   POR :            On
+   Bandgap :        On
+   Number of Power Controller:  0 out of 1 (0%)
+   Number of Dynamic Bank Controller (BCINRD):  0 out of 4 (0%)
+   Number of Dynamic Bank Controller (BCLVDSO):  0 out of 1 (0%)
+   Number of DCCA:  0 out of 8 (0%)
+   Number of DCMA:  0 out of 2 (0%)
+   Number of PLLs:  0 out of 1 (0%)
+   Number of DQSDLLs:  0 out of 2 (0%)
+   Number of CLKDIVC:  0 out of 4 (0%)
+   Number of ECLKSYNCA:  0 out of 4 (0%)
+   Number of ECLKBRIDGECS:  0 out of 2 (0%)
+   Notes:-
+      1. Total number of LUT4s = (Number of logic LUT4s) + 2*(Number of
+     distributed RAMs) + 2*(Number of ripple logic)
+      2. Number of logic LUT4s does not include count of distributed RAM and
+     ripple logic.
+   Number of clocks:  4
+     Net clk_c: 309 loads, 309 rising, 0 falling (Driver: PIO clk )
+     Net clock_count_15: 56 loads, 56 rising, 0 falling (Driver:
+     clock_count_1473__i15 )
+
+     Net rclk_c: 5 loads, 5 rising, 0 falling (Driver: PIO rclk )
+     Net srclk_c: 5 loads, 5 rising, 0 falling (Driver: PIO srclk )
+   Number of Clock Enables:  83
+     Net n2683: 4 loads, 4 LSLICEs
+     Net n2820: 2 loads, 2 LSLICEs
+     Net n2681: 4 loads, 4 LSLICEs
+     Net n2679: 4 loads, 4 LSLICEs
+     Net n4152: 2 loads, 2 LSLICEs
+     Net n4154: 5 loads, 5 LSLICEs
+     Net n4153: 2 loads, 2 LSLICEs
+     Net n30131: 1 loads, 1 LSLICEs
+     Net n30147: 4 loads, 4 LSLICEs
+     Net check_IR_defv7/n4222: 1 loads, 1 LSLICEs
+     Net n2677: 4 loads, 4 LSLICEs
+     Net n2675: 4 loads, 4 LSLICEs
+     Net n2673: 4 loads, 4 LSLICEs
+     Net n2671: 4 loads, 4 LSLICEs
+     Net n4150: 2 loads, 2 LSLICEs
+     Net n4151: 3 loads, 3 LSLICEs
+     Net n1829: 2 loads, 2 LSLICEs
+     Net n2685: 4 loads, 4 LSLICEs
+     Net rden: 2 loads, 0 LSLICEs
+     Net uart_u2/my_uart_tx/tx_int: 4 loads, 4 LSLICEs
+     Net uart_u2/my_uart_tx/n30138: 2 loads, 2 LSLICEs
+     Net uart_u2/my_uart_tx/n3510: 1 loads, 1 LSLICEs
+     Net n29471: 1 loads, 1 LSLICEs
+     Net n29472: 1 loads, 1 LSLICEs
+     Net n4210: 1 loads, 1 LSLICEs
+     Net n121: 1 loads, 1 LSLICEs
+     Net n30328: 1 loads, 1 LSLICEs
+     Net wren_w: 1 loads, 0 LSLICEs
+     Net ir_car_detect1/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net ir_car_detect2/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net check_IR_defv4/n4213: 1 loads, 1 LSLICEs
+     Net ir_def_lv_inst1/n2841: 1 loads, 1 LSLICEs
+     Net check_IR_defv3/n4207: 1 loads, 1 LSLICEs
+     Net ir_car_detect0/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net ir_car_detect4/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net ir_car_detect7/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net check_IR_defv5/n4216: 1 loads, 1 LSLICEs
+     Net ir_car_detect5/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/n31: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/rden: 2 loads, 0 LSLICEs
+     Net pc2mcu_uart_top1/tx_int: 4 loads, 4 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_tx/n7: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_tx/n30123: 2 loads, 2 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_tx/n3577: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/rx_ok: 1 loads, 0 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n16729: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n5: 2 loads, 2 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29541: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n28914: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29465: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n16395: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n75: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29053: 1 loads, 1 LSLICEs
+
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29480: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n17071: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29481: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29537: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29466: 1 loads, 1 LSLICEs
+     Net check_IR_defv6/n4219: 1 loads, 1 LSLICEs
+     Net ir_car_detect3/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net check_IR_defv2/n4204: 1 loads, 1 LSLICEs
+     Net check_IR_defv0/n4198: 1 loads, 1 LSLICEs
+     Net check_IR_defv1/n4201: 1 loads, 1 LSLICEs
+     Net ir_car_detect6/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/rden: 2 loads, 0 LSLICEs
+     Net mcu2pc_uart_top1/tx_int: 4 loads, 4 LSLICEs
+     Net mcu2pc_uart_top1/n31: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_tx/n30126: 2 loads, 2 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_tx/n3519: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_tx/n7: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n5: 2 loads, 2 LSLICEs
+     Net mcu2pc_uart_top1/rx_ok: 1 loads, 0 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n61: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29054: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29527: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29478: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29535: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29469: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n28916: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29468: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29477: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n16765: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n16994: 1 loads, 1 LSLICEs
+   Number of LSRs:  55
+     Net rstn_c: 6 loads, 0 LSLICEs
+     Net rs232tx: 6 loads, 6 LSLICEs
+     Net check_IR_defv7/n1918: 3 loads, 3 LSLICEs
+     Net check_IR_defv7/n4413: 3 loads, 3 LSLICEs
+     Net rxbaud_fifo_tx_db9_0: 2 loads, 2 LSLICEs
+     Net to_db9_baud_0: 2 loads, 2 LSLICEs
+     Net rs232_tcp_rx_c_c: 2 loads, 2 LSLICEs
+     Net uart_u2/speed_tx/n23: 8 loads, 8 LSLICEs
+     Net rdy: 1 loads, 1 LSLICEs
+     Net uart_u2/my_uart_tx/n4418: 2 loads, 2 LSLICEs
+     Net to_db9_baud_2: 4 loads, 4 LSLICEs
+     Net to_db9_baud_1: 1 loads, 1 LSLICEs
+     Net rxbaud_fifo_tx_db9_2: 4 loads, 4 LSLICEs
+     Net rxbaud_fifo_tx_db9_1: 1 loads, 1 LSLICEs
+     Net n4438: 5 loads, 5 LSLICEs
+     Net n13: 1 loads, 1 LSLICEs
+     Net n30121: 1 loads, 1 LSLICEs
+     Net ir_car_detect1/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net ir_car_detect2/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net check_IR_defv4/n1891: 3 loads, 3 LSLICEs
+     Net check_IR_defv4/n4423: 3 loads, 3 LSLICEs
+     Net ir_def_lv_inst1/n1945: 4 loads, 4 LSLICEs
+     Net ir_def_lv_inst1/n4414: 6 loads, 6 LSLICEs
+     Net check_IR_defv3/n1882: 3 loads, 3 LSLICEs
+     Net check_IR_defv3/n4436: 3 loads, 3 LSLICEs
+
+     Net ir_car_detect0/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net ir_car_detect4/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net ir_car_detect7/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net check_IR_defv5/n4434: 3 loads, 3 LSLICEs
+     Net check_IR_defv5/n1900: 3 loads, 3 LSLICEs
+     Net ir_car_detect5/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net pc2mcu_uart_top1/rdy: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/tx_int: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_tx/n34: 8 loads, 8 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_tx/n4432: 2 loads, 2 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n5: 12 loads, 12 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n30124: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n3631: 1 loads, 1 LSLICEs
+     Net check_IR_defv6/n1909: 3 loads, 3 LSLICEs
+     Net check_IR_defv6/n4437: 3 loads, 3 LSLICEs
+     Net ir_car_detect3/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net check_IR_defv2/n4422: 3 loads, 3 LSLICEs
+     Net check_IR_defv2/n1873: 3 loads, 3 LSLICEs
+     Net check_IR_defv0/n4433: 3 loads, 3 LSLICEs
+     Net check_IR_defv0/n1855: 3 loads, 3 LSLICEs
+     Net check_IR_defv1/n4435: 3 loads, 3 LSLICEs
+     Net check_IR_defv1/n1864: 3 loads, 3 LSLICEs
+     Net ir_car_detect6/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net ir_rx_isntx/n3587: 2 loads, 2 LSLICEs
+     Net mcu2pc_uart_top1/tx_int: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/rdy: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_tx/n34: 8 loads, 8 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_tx/n4419: 2 loads, 2 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n5: 12 loads, 12 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n3667: 1 loads, 1 LSLICEs
+   Number of nets driven by tri-state buffers:  0
+   Top 10 highest fanout non-clock nets:
+     Net pc2mcu_uart_top1/pc2mcu_rx/rx_step_1: 25 loads
+     Net mcu2pc_uart_top1/mcu2pc_rx/rx_step_1: 23 loads
+     Net rstn_c: 22 loads
+     Net mcu2pc_uart_top1/mcu2pc_rx/rx_step_2: 21 loads
+     Net mcu2pc_uart_top1/mcu2pc_rx/rx_step_0: 19 loads
+     Net pc2mcu_uart_top1/pc2mcu_rx/rx_step_2: 19 loads
+     Net pc2mcu_uart_top1/pc2mcu_rx/rx_step_3: 19 loads
+     Net pc2mcu_uart_top1/pc2mcu_rx/rx_step_0: 18 loads
+     Net bps_sel_2: 16 loads
+     Net mcu2pc_uart_top1/mcu2pc_rx/n5: 16 loads
+
+
+
+
+   Number of warnings:  0
+   Number of errors:    0
+
+
+
+
+<A name="mrp_dwe"></A><B><U><big>Design Errors/Warnings</big></U></B>
+
+   No errors or warnings present.
+
+
+
+
+
+
+<A name="mrp_ioa"></A><B><U><big>IO (PIO) Attributes</big></U></B>
+
++---------------------+-----------+-----------+------------+
+| IO Name             | Direction | Levelmode | IO         |
+|                     |           |  IO_TYPE  | Register   |
++---------------------+-----------+-----------+------------+
+| rstn                | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| clk                 | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ack2mcu             | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_o_4             | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir2mcu              | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| rs232_mcu_rx        | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_o_5             | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| rs232_tcp_rx        | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| rs232_db9_rx        | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| rs232_402x_rx_0     | OUTPUT    | LVTTL33   | OUT        |
++---------------------+-----------+-----------+------------+
+| rs232_402x_rx_1     | OUTPUT    | LVTTL33   | OUT        |
++---------------------+-----------+-----------+------------+
+| rs232_402x_rx_2     | OUTPUT    | LVTTL33   | OUT        |
++---------------------+-----------+-----------+------------+
+| rs232_402x_rx_3     | OUTPUT    | LVTTL33   | OUT        |
++---------------------+-----------+-----------+------------+
+| rs232_402x_rx_4     | OUTPUT    | LVTTL33   | OUT        |
++---------------------+-----------+-----------+------------+
+| rs232_402x_rx_5     | OUTPUT    | LVTTL33   | OUT        |
++---------------------+-----------+-----------+------------+
+| rs232_402x_rx_6     | OUTPUT    | LVTTL33   | OUT        |
++---------------------+-----------+-----------+------------+
+| rs232_402x_rx_7     | OUTPUT    | LVTTL33   | OUT        |
++---------------------+-----------+-----------+------------+
+| ir_402x_o_0         | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_o_1         | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_o_2         | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_o_3         | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_o_4         | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_o_5         | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_o_6         | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| rclk                | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_o_7         | OUTPUT    | LVTTL33   |            |
+
++---------------------+-----------+-----------+------------+
+| irx_o_0             | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_o_1             | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_o_2             | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_o_3             | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_o_6             | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_o_7             | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_all_out          | OUTPUT    | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| srclk               | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ser                 | INPUT     | LVTTL33   | IN         |
++---------------------+-----------+-----------+------------+
+| ir_eye              | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_front            | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_i_7             | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_i_6             | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_i_5             | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_i_4             | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_i_3             | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_i_2             | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_i_1             | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| irx_i_0             | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_i_7         | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_i_6         | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_i_5         | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_i_4         | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_i_3         | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_i_2         | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_i_1         | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| ir_402x_i_0         | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| rs232_402x_tx_5     | INPUT     | LVTTL33   |            |
+
++---------------------+-----------+-----------+------------+
+| rs232_402x_tx_4     | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| rs232_402x_tx_3     | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| rs232_402x_tx_2     | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| rs232_402x_tx_1     | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| rs232_402x_tx_0     | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| rs232_db9_tx        | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| rs232_tcp_tx        | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+| rs232_mcu_tx        | INPUT     | LVTTL33   |            |
++---------------------+-----------+-----------+------------+
+
+
+
+<A name="mrp_rm"></A><B><U><big>Removed logic</big></U></B>
+
+Block rs232_402x_tx_pad_6 undriven or does not drive anything - clipped.
+Block rs232_402x_tx_pad_7 undriven or does not drive anything - clipped.
+Block ir_all_in_pad undriven or does not drive anything - clipped.
+Signal n4415 was merged into signal rs232_tcp_rx_c_c
+Signal mcu2pc_uart_top1/mcu2pc_rx/n1_adj_1 was merged into signal
+     rxbaud_fifo_tx_db9_1
+Signal mcu2pc_uart_top1/mcu2pc_rx/n2 was merged into signal rxbaud_fifo_tx_db9_2
+Signal mcu2pc_uart_top1/mcu2pc_rx/n30202 was merged into signal
+     mcu2pc_uart_top1/mcu2pc_rx/rx_step_2
+Signal mcu2pc_uart_top1/mcu2pc_tx/n5 was merged into signal to_db9_baud_2
+Signal mcu2pc_uart_top1/mcu2pc_tx/n2_adj_3 was merged into signal to_db9_baud_1
+Signal pc2mcu_uart_top1/pc2mcu_rx/n30208 was merged into signal
+     pc2mcu_uart_top1/pc2mcu_rx/rx_step_1
+Signal n4439 was merged into signal rs232tx
+Signal n30348 was merged into signal rstn_c
+Signal GND_net undriven or does not drive anything - clipped.
+Signal VCC_net undriven or does not drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_8_add_2_15/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_8_add_2_15/CO undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/add_6_1/S0 undriven or does not drive anything
+     - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/add_6_1/CI undriven or does not drive anything
+     - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/add_6_15/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/add_6_15/CO undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/equal_9_0/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/equal_9_0/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/equal_9_0/CI undriven or does not drive
+     anything - clipped.
+
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_1/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_1/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_1/CI undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_3/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_3/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_5/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_5/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_7/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_7/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_9/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_9/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_11/S1 undriven or does not
+     drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_11/S0 undriven or does not
+     drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_13/S1 undriven or does not
+     drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_13/S0 undriven or does not
+     drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_15/S0 undriven or does not
+     drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_15/CO undriven or does not
+     drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/equal_9_10/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/equal_9_10/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_8_add_2_1/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/sub_8_add_2_1/CI undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/equal_9_12/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/equal_9_12/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/equal_9_14_26287/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/equal_9_14_26287/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/equal_9_14/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_rx/equal_9_14/CO undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504_add_4_1/S0 undriven or does
+     not drive anything - clipped.
+
+Signal mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504_add_4_1/CI undriven or does
+     not drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504_add_4_15/S1 undriven or does
+     not drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504_add_4_15/CO undriven or does
+     not drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_1/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_1/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_1/CI undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_3/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_3/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_5/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_5/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_7/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_7/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_9/S1 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_9/S0 undriven or does not drive
+     anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_11/S1 undriven or does not
+     drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_11/S0 undriven or does not
+     drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_13/S1 undriven or does not
+     drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_13/S0 undriven or does not
+     drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_15/S0 undriven or does not
+     drive anything - clipped.
+Signal mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_15/CO undriven or does not
+     drive anything - clipped.
+Signal ir_rx_isntx/add_7_1/S0 undriven or does not drive anything - clipped.
+Signal ir_rx_isntx/add_7_1/CI undriven or does not drive anything - clipped.
+Signal ir_rx_isntx/add_7_13/S1 undriven or does not drive anything - clipped.
+Signal ir_rx_isntx/add_7_13/CO undriven or does not drive anything - clipped.
+Signal ir_car_detect6/add_9_1/S0 undriven or does not drive anything - clipped.
+Signal ir_car_detect6/add_9_1/CI undriven or does not drive anything - clipped.
+Signal ir_car_detect6/add_9_13/S1 undriven or does not drive anything - clipped.
+Signal ir_car_detect6/add_9_13/CO undriven or does not drive anything - clipped.
+Signal ir_car_detect3/add_9_1/S0 undriven or does not drive anything - clipped.
+Signal ir_car_detect3/add_9_1/CI undriven or does not drive anything - clipped.
+Signal ir_car_detect3/add_9_13/S1 undriven or does not drive anything - clipped.
+Signal ir_car_detect3/add_9_13/CO undriven or does not drive anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/equal_9_12/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/equal_9_12/S0 undriven or does not drive
+     anything - clipped.
+
+Signal pc2mcu_uart_top1/pc2mcu_rx/equal_9_14_26288/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/equal_9_14_26288/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/add_6_1/S0 undriven or does not drive anything
+     - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/add_6_1/CI undriven or does not drive anything
+     - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/add_6_15/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/add_6_15/CO undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/equal_9_14/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/equal_9_14/CO undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_1/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_1/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_1/CI undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_3/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_3/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_5/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_5/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_7/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_7/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_9/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_9/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_11/S1 undriven or does not
+     drive anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_11/S0 undriven or does not
+     drive anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_13/S1 undriven or does not
+     drive anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_13/S0 undriven or does not
+     drive anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_15/S0 undriven or does not
+     drive anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_15/CO undriven or does not
+     drive anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_8_add_2_1/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_8_add_2_1/CI undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_8_add_2_15/S1 undriven or does not drive
+     anything - clipped.
+
+Signal pc2mcu_uart_top1/pc2mcu_rx/sub_8_add_2_15/CO undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/equal_9_0/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/equal_9_0/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/equal_9_0/CI undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/equal_9_10/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_rx/equal_9_10/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506_add_4_1/S0 undriven or does
+     not drive anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506_add_4_1/CI undriven or does
+     not drive anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506_add_4_15/S1 undriven or does
+     not drive anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506_add_4_15/CO undriven or does
+     not drive anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_2/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_2/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_2/CI undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_4/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_4/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_6/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_6/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_8/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_8/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_10/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_10/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_12/S1 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_12/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_14/S0 undriven or does not drive
+     anything - clipped.
+Signal pc2mcu_uart_top1/pc2mcu_tx/add_26288_14/CO undriven or does not drive
+     anything - clipped.
+Signal ir_car_detect5/add_9_1/S0 undriven or does not drive anything - clipped.
+Signal ir_car_detect5/add_9_1/CI undriven or does not drive anything - clipped.
+Signal ir_car_detect5/add_9_13/S1 undriven or does not drive anything - clipped.
+Signal ir_car_detect5/add_9_13/CO undriven or does not drive anything - clipped.
+Signal ir_car_detect7/add_9_1/S0 undriven or does not drive anything - clipped.
+Signal ir_car_detect7/add_9_1/CI undriven or does not drive anything - clipped.
+
+Signal ir_car_detect7/add_9_13/S1 undriven or does not drive anything - clipped.
+Signal ir_car_detect7/add_9_13/CO undriven or does not drive anything - clipped.
+Signal ir_car_detect4/add_9_13/S1 undriven or does not drive anything - clipped.
+Signal ir_car_detect4/add_9_13/CO undriven or does not drive anything - clipped.
+Signal ir_car_detect4/add_9_1/S0 undriven or does not drive anything - clipped.
+Signal ir_car_detect4/add_9_1/CI undriven or does not drive anything - clipped.
+Signal ir_car_detect0/add_9_13/S1 undriven or does not drive anything - clipped.
+Signal ir_car_detect0/add_9_13/CO undriven or does not drive anything - clipped.
+Signal ir_car_detect0/add_9_1/S0 undriven or does not drive anything - clipped.
+Signal ir_car_detect0/add_9_1/CI undriven or does not drive anything - clipped.
+Signal ir_car_detect2/add_9_1/S0 undriven or does not drive anything - clipped.
+Signal ir_car_detect2/add_9_1/CI undriven or does not drive anything - clipped.
+Signal ir_car_detect2/add_9_13/S1 undriven or does not drive anything - clipped.
+Signal ir_car_detect2/add_9_13/CO undriven or does not drive anything - clipped.
+Signal ir_car_detect1/add_9_1/S0 undriven or does not drive anything - clipped.
+Signal ir_car_detect1/add_9_1/CI undriven or does not drive anything - clipped.
+Signal ir_car_detect1/add_9_13/S1 undriven or does not drive anything - clipped.
+Signal ir_car_detect1/add_9_13/CO undriven or does not drive anything - clipped.
+Signal car_cnt_1475_add_4_1/S0 undriven or does not drive anything - clipped.
+Signal car_cnt_1475_add_4_1/CI undriven or does not drive anything - clipped.
+Signal car_cnt_1475_add_4_11/S1 undriven or does not drive anything - clipped.
+Signal car_cnt_1475_add_4_11/CO undriven or does not drive anything - clipped.
+Signal clock_count_1473_add_4_1/S0 undriven or does not drive anything -
+     clipped.
+Signal clock_count_1473_add_4_1/CI undriven or does not drive anything -
+     clipped.
+Signal clock_count_1473_add_4_17/S1 undriven or does not drive anything -
+     clipped.
+Signal clock_count_1473_add_4_17/CO undriven or does not drive anything -
+     clipped.
+Signal wd_disable_402_to_mcu_1472_add_4_1/S0 undriven or does not drive anything
+     - clipped.
+Signal wd_disable_402_to_mcu_1472_add_4_1/CI undriven or does not drive anything
+     - clipped.
+Signal wd_disable_402_to_mcu_1472_add_4_11/CO undriven or does not drive
+     anything - clipped.
+Signal rs232_402x_tx_c_6 undriven or does not drive anything - clipped.
+Signal rs232_402x_tx_6 undriven or does not drive anything - clipped.
+Signal rs232_402x_tx_c_7 undriven or does not drive anything - clipped.
+Signal rs232_402x_tx_7 undriven or does not drive anything - clipped.
+Signal ir_all_in_c undriven or does not drive anything - clipped.
+Signal ir_all_in undriven or does not drive anything - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_1/S1 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_1/S0 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_1/CI undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_3/S1 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_3/S0 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_5/S1 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_5/S0 undriven or does not drive anything
+     - clipped.
+
+Signal uart_u2/speed_tx/sub_1294_add_2_7/S1 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_7/S0 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_9/S1 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_9/S0 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_11/S1 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_11/S0 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_13/S1 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_13/S0 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_15/S0 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/sub_1294_add_2_15/CO undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/cnt_1508_add_4_1/S0 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/cnt_1508_add_4_1/CI undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/cnt_1508_add_4_15/S1 undriven or does not drive anything
+     - clipped.
+Signal uart_u2/speed_tx/cnt_1508_add_4_15/CO undriven or does not drive anything
+     - clipped.
+Block i2833 was optimized away.
+Block mcu2pc_uart_top1/mcu2pc_rx/i3 was optimized away.
+Block mcu2pc_uart_top1/mcu2pc_rx/i2 was optimized away.
+Block mcu2pc_uart_top1/mcu2pc_rx/i29_else_4_lut was optimized away.
+Block mcu2pc_uart_top1/mcu2pc_tx/i2 was optimized away.
+Block mcu2pc_uart_top1/mcu2pc_tx/i1_adj_5 was optimized away.
+Block pc2mcu_uart_top1/pc2mcu_rx/mux_718_i2_else_4_lut was optimized away.
+Block uart_u2/my_uart_tx/i2857 was optimized away.
+Block uart_u2/speed_tx/i26 was optimized away.
+Block i1 was optimized away.
+Block i2 was optimized away.
+
+
+
+<A name="mrp_mem"></A><B><U><big>Memory Usage</big></U></B>
+
+/fifo_u1:
+    EBRs: 1
+    RAM SLICEs: 0
+    Logic SLICEs: 0
+    PFU Registers: 0
+    -Contains EBR fifo64x8_0_0:  TYPE= FIFO8KB,  Width= 8,  REGMODE= NOREG,
+         RESETMODE= ASYNC,  ASYNC_RESET_RELEASE= SYNC,  GSR= DISABLED
+/mcu2pc_uart_top1/mcu2pc_fifo:
+    EBRs: 1
+    RAM SLICEs: 0
+    Logic SLICEs: 0
+    PFU Registers: 0
+    -Contains EBR fifo64x8_0_0:  TYPE= FIFO8KB,  Width= 8,  REGMODE= NOREG,
+
+         RESETMODE= ASYNC,  ASYNC_RESET_RELEASE= SYNC,  GSR= DISABLED
+/pc2mcu_uart_top1/pc2mcu_fifo:
+    EBRs: 1
+    RAM SLICEs: 0
+    Logic SLICEs: 0
+    PFU Registers: 0
+    -Contains EBR fifo64x8_0_0:  TYPE= FIFO8KB,  Width= 8,  REGMODE= NOREG,
+         RESETMODE= ASYNC,  ASYNC_RESET_RELEASE= SYNC,  GSR= DISABLED
+
+
+
+<A name="mrp_asic"></A><B><U><big>ASIC Components</big></U></B>
+---------------
+
+Instance Name: fifo_u1/fifo64x8_0_0
+         Type: FIFO8KB
+Instance Name: pc2mcu_uart_top1/pc2mcu_fifo/fifo64x8_0_0
+         Type: FIFO8KB
+Instance Name: mcu2pc_uart_top1/mcu2pc_fifo/fifo64x8_0_0
+         Type: FIFO8KB
+
+
+
+<A name="mrp_gsr"></A><B><U><big>GSR Usage</big></U></B>
+---------
+
+GSR Component:
+   The Global Set Reset (GSR) resource has been used to implement a global reset
+        of the design. The reset signal used for GSR control is 'rstn_c'.
+
+GSR Property:
+   The design components with GSR property set to ENABLED will respond to global
+        set reset while the components with GSR property set to DISABLED will
+        not.
+
+Components with disabled GSR Property
+-------------------------------------
+
+These components have the GSR property set to DISABLED. The components will not
+     respond to the reset signal 'rstn_c' via the GSR component.
+
+Type and number of components of the type:
+   Register = 314
+   FIFO8KB = 3
+
+Type and instance name of component:
+   Register : rclk_r2_476
+   Register : rclk_r_478
+   Register : sw6_f2n_i0_i0
+   Register : db9_402_en_515
+   Register : sw5_f2n_i0_i0
+   Register : sw4_f2n_i0_i0
+   Register : sp_com_data_i0_i6
+   Register : rclk_r1_475
+   Register : sp_com_data_i0_i7
+   Register : rs232_402_all_back_i0
+   Register : clock_count15_reg0_511
+   Register : clock_count15_reg1_512
+   Register : rclk_r0_474
+   Register : qa_32
+   Register : qb_33
+   Register : qc_34
+   Register : qd_35
+   Register : qe_36
+
+   Register : send_to_402_i7
+   Register : check_IR_defv7/defv_23
+   Register : sw3_f2n_i0_i0
+   Register : sw2_f2n_i0_i0
+   Register : sw1_f2n_i0_i0
+   Register : sw0_f2n_i0_i0
+   Register : bps_sel_i0_i0
+   Register : chnum_i0_i0
+   Register : sp_com_data_i0_i0
+   Register : rxbaud_fifo_tx_db9_i0_i0
+   Register : sw5_f2n_i0_i7
+   Register : sw5_f2n_i0_i6
+   Register : wd_disable_402_to_mcu_1472__i0
+   Register : sw7_f2n_i0_i0
+   Register : sw5_f2n_i0_i5
+   Register : sw5_f2n_i0_i4
+   Register : sw5_f2n_i0_i3
+   Register : sw5_f2n_i0_i2
+   Register : sw5_f2n_i0_i1
+   Register : uart_u2/my_uart_tx/tx_int_485
+   Register : sw6_f2n_i0_i7
+   Register : sw6_f2n_i0_i6
+   Register : sw6_f2n_i0_i5
+   Register : sw6_f2n_i0_i4
+   Register : sw6_f2n_i0_i3
+   Register : sw6_f2n_i0_i2
+   Register : getting_com_487
+   Register : wren_496
+   Register : sw6_f2n_i0_i1
+   Register : ir_402_com_i__i1
+   Register : chnum_i0_i1
+   Register : chnum_i0_i2
+   Register : chnum_i0_i3
+   Register : sw7_f2n_i0_i7
+   Register : sw7_f2n_i0_i6
+   Register : sw7_f2n_i0_i5
+   Register : sw7_f2n_i0_i4
+   Register : sw7_f2n_i0_i3
+   Register : sw7_f2n_i0_i2
+   Register : sw7_f2n_i0_i1
+   Register : rxbaud_fifo_tx_db9_i0_i2
+   Register : rxbaud_fifo_tx_db9_i0_i1
+   Register : bps_sel_i0_i2
+   Register : bps_sel_i0_i1
+   Register : sw0_f2n_i0_i7
+   Register : sw0_f2n_i0_i6
+   Register : sw0_f2n_i0_i5
+   Register : sw0_f2n_i0_i4
+   Register : sw0_f2n_i0_i3
+   Register : sw0_f2n_i0_i2
+   Register : sw0_f2n_i0_i1
+   Register : sw1_f2n_i0_i7
+   Register : sw1_f2n_i0_i6
+   Register : sw1_f2n_i0_i5
+   Register : sw1_f2n_i0_i4
+   Register : sw1_f2n_i0_i3
+
+   Register : sw1_f2n_i0_i2
+   Register : sw1_f2n_i0_i1
+   Register : sw2_f2n_i0_i7
+   Register : sw2_f2n_i0_i6
+   Register : sw2_f2n_i0_i5
+   Register : sw2_f2n_i0_i4
+   Register : sw2_f2n_i0_i3
+   Register : sw2_f2n_i0_i2
+   Register : sw2_f2n_i0_i1
+   Register : sw3_f2n_i0_i7
+   Register : sw3_f2n_i0_i6
+   Register : sw3_f2n_i0_i5
+   Register : sw3_f2n_i0_i4
+   Register : sw3_f2n_i0_i3
+   Register : sw3_f2n_i0_i2
+   Register : sw3_f2n_i0_i1
+   Register : ir_com_o__i2
+   Register : ir_com_o__i1
+   Register : rs232_402_all_back_i2
+   Register : rs232_402_all_back_i1
+   Register : send_to_402_i6
+   Register : send_to_402_i5
+   Register : send_to_402_i4
+   Register : send_to_402_i3
+   Register : send_to_402_i2
+   Register : send_to_402_i1
+   Register : send_to_402_i0
+   Register : sw4_f2n_i0_i7
+   Register : sw4_f2n_i0_i6
+   Register : sw4_f2n_i0_i5
+   Register : sw4_f2n_i0_i4
+   Register : sw4_f2n_i0_i3
+   Register : sw4_f2n_i0_i2
+   Register : sw4_f2n_i0_i1
+   Register : ir_com_o__i3
+   Register : ir_com_o__i4
+   Register : ir_402_com_i__i2
+   Register : wd_disable_402_to_mcu_1472__i1
+   Register : wd_disable_402_to_mcu_1472__i2
+   Register : wd_disable_402_to_mcu_1472__i3
+   Register : wd_disable_402_to_mcu_1472__i4
+   Register : wd_disable_402_to_mcu_1472__i5
+   Register : wd_disable_402_to_mcu_1472__i6
+   Register : wd_disable_402_to_mcu_1472__i7
+   Register : wd_disable_402_to_mcu_1472__i8
+   Register : wd_disable_402_to_mcu_1472__i9
+   Register : wd_disable_402_to_mcu_1472__i10
+   Register : ir_402_com_i__i3
+   Register : ir_402_com_i__i4
+   Register : sp_com_data_i0_i1
+   Register : sp_com_data_i0_i2
+   Register : rclk_r3_477
+   Register : sp_com_data_i0_i3
+   Register : sp_com_data_i0_i4
+   Register : sp_com_data_i0_i5
+   Register : ack_480
+
+   Register : ir_car_detect1/ir_sd_reg1_20
+   Register : ir_car_detect1/ir_sd_reg0_19
+   Register : ir_car_detect1/ir_car_null_22
+   Register : ir_car_detect2/ir_sd_reg1_20
+   Register : ir_car_detect2/ir_sd_reg0_19
+   Register : ir_car_detect2/ir_car_null_22
+   Register : check_IR_defv4/defv_23
+   Register : check_IR_defv3/defv_23
+   Register : ir_car_detect0/ir_sd_reg1_20
+   Register : ir_car_detect0/ir_sd_reg0_19
+   Register : ir_car_detect0/ir_car_null_22
+   Register : ir_car_detect4/ir_sd_reg1_20
+   Register : ir_car_detect4/ir_sd_reg0_19
+   Register : ir_car_detect4/ir_car_null_22
+   Register : ir_car_detect7/ir_sd_reg1_20
+   Register : ir_car_detect7/ir_sd_reg0_19
+   Register : ir_car_detect7/ir_car_null_22
+   Register : check_IR_defv5/defv_23
+   Register : ir_car_detect5/ir_sd_reg1_20
+   Register : ir_car_detect5/ir_sd_reg0_19
+   Register : ir_car_detect5/ir_car_null_22
+   Register : pc2mcu_uart_top1/tx_int_23
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_data_i0_i0
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i13
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i12
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i11
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i10
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i9
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i8
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i7
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i6
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i5
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i4
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i3
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i2
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i1
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_step_1507__i0
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_en_32
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_samp_clk_30
+   Register : pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506__i0
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_buf_34
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_step_1507__i3
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_step_1507__i2
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_step_1507__i1
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_data_i0_i7
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_data_i0_i6
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_data_i0_i5
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_data_i0_i4
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_data_i0_i3
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_data_i0_i2
+   Register : pc2mcu_uart_top1/pc2mcu_tx/tx_data_i0_i1
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_dat_buf_i0_i0
+   Register : pc2mcu_uart_top1/pc2mcu_rx/baud_back_i0_i0
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_step_i3
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_step_i2
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_step_i1
+
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i0
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_samp_clk_54
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_ok_buf_55
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i13
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i12
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i11
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i10
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i9
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i8
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i7
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i6
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i5
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i4
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i3
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i2
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_clk_count_i1
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_step_i0
+   Register : pc2mcu_uart_top1/pc2mcu_rx/baud_back_i0_i2
+   Register : pc2mcu_uart_top1/pc2mcu_rx/baud_back_i0_i1
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_dat_buf_i0_i7
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_dat_buf_i0_i6
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_dat_buf_i0_i5
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_dat_buf_i0_i4
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_dat_buf_i0_i3
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_dat_buf_i0_i2
+   Register : pc2mcu_uart_top1/pc2mcu_rx/rx_dat_buf_i0_i1
+   Register : check_IR_defv6/defv_23
+   Register : ir_car_detect3/ir_sd_reg1_20
+   Register : ir_car_detect3/ir_sd_reg0_19
+   Register : ir_car_detect3/ir_car_null_22
+   Register : check_IR_defv2/defv_23
+   Register : check_IR_defv0/defv_23
+   Register : hc595_u/qf_37
+   Register : hc595_u/qg_38
+   Register : hc595_u/qh_39
+   Register : check_IR_defv1/defv_23
+   Register : ir_car_detect6/ir_sd_reg1_20
+   Register : ir_car_detect6/ir_sd_reg0_19
+   Register : ir_car_detect6/ir_car_null_22
+   Register : mcu2pc_uart_top1/tx_int_23
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_data_i0_i0
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i0
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_step_1505__i2
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_samp_clk_30
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i0
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_step_1505__i3
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_step_1505__i0
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i13
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i12
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i11
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i10
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i9
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i8
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i7
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i6
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i5
+
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i4
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i3
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i2
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_baud_count_i1
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_buf_34
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i13
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i12
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i11
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i10
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i9
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i8
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i7
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i6
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i5
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i4
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i3
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i2
+   Register : mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504__i1
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_step_1505__i1
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_data_i0_i7
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_data_i0_i6
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_data_i0_i5
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_data_i0_i4
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_data_i0_i3
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_data_i0_i2
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_data_i0_i1
+   Register : mcu2pc_uart_top1/mcu2pc_tx/tx_en_32
+   Register : mcu2pc_uart_top1/mcu2pc_rx/baud_back_i0_i0
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i0
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_samp_clk_54
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_ok_buf_55
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i0
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i13
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i12
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i11
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i10
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i9
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i8
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i7
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i6
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i5
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i4
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i3
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i2
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_baud_count_i1
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_step_i3
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_step_i2
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_step_i1
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i13
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i12
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i11
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i10
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i9
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i8
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i7
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i6
+
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i5
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i4
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i3
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i2
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_clk_count_i1
+   Register : mcu2pc_uart_top1/mcu2pc_rx/baud_back_i0_i2
+   Register : mcu2pc_uart_top1/mcu2pc_rx/baud_back_i0_i1
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_dat_buf_i0_i6
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_dat_buf_i0_i5
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_dat_buf_i0_i4
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_dat_buf_i0_i3
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_dat_buf_i0_i2
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_dat_buf_i0_i1
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_dat_buf_i0_i7
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_dat_buf_i0_i0
+   Register : mcu2pc_uart_top1/mcu2pc_rx/rx_step_i0
+   FIFO8KB : fifo_u1/fifo64x8_0_0
+   FIFO8KB : pc2mcu_uart_top1/pc2mcu_fifo/fifo64x8_0_0
+   FIFO8KB : mcu2pc_uart_top1/mcu2pc_fifo/fifo64x8_0_0
+
+Components with synchronous local reset also reset by asynchronous GSR
+----------------------------------------------------------------------
+
+These components have the GSR property set to ENABLED and the local reset is
+     synchronous. The components will respond to the synchronous local reset and
+     to the unrelated asynchronous reset signal 'rstn_c' via the GSR component.
+
+Type and number of components of the type:
+   Register = 220
+
+Type and instance name of component:
+   Register : check_IR_defv7/L_count_1499__i0
+   Register : check_IR_defv7/H_count_1498__i4
+   Register : check_IR_defv7/H_count_1498__i3
+   Register : check_IR_defv7/H_count_1498__i2
+   Register : check_IR_defv7/H_count_1498__i1
+   Register : check_IR_defv7/L_count_1499__i4
+   Register : check_IR_defv7/L_count_1499__i3
+   Register : check_IR_defv7/L_count_1499__i2
+   Register : check_IR_defv7/L_count_1499__i1
+   Register : check_IR_defv7/H_count_1498__i0
+   Register : uart_u2/speed_tx/cnt_1508__i0
+   Register : uart_u2/speed_tx/cnt_1508__i1
+   Register : uart_u2/speed_tx/cnt_1508__i2
+   Register : uart_u2/speed_tx/cnt_1508__i3
+   Register : uart_u2/speed_tx/cnt_1508__i4
+   Register : uart_u2/speed_tx/cnt_1508__i5
+   Register : uart_u2/speed_tx/cnt_1508__i6
+   Register : uart_u2/speed_tx/cnt_1508__i7
+   Register : uart_u2/speed_tx/cnt_1508__i8
+   Register : uart_u2/speed_tx/cnt_1508__i9
+   Register : uart_u2/speed_tx/cnt_1508__i10
+   Register : uart_u2/speed_tx/cnt_1508__i11
+   Register : uart_u2/speed_tx/cnt_1508__i12
+   Register : uart_u2/speed_tx/cnt_1508__i13
+   Register : uart_u2/my_uart_tx/num_1503__i1
+   Register : uart_u2/my_uart_tx/num_1503__i2
+   Register : uart_u2/my_uart_tx/num_1503__i3
+   Register : uart_u2/my_uart_tx/num_1503__i0
+   Register : car_cnt_1475__i1
+
+   Register : car_cnt_1475__i2
+   Register : car_cnt_1475__i3
+   Register : car_cnt_1475__i4
+   Register : car_cnt_1475__i5
+   Register : car_cnt_1475__i6
+   Register : car_cnt_1475__i7
+   Register : car_cnt_1475__i8
+   Register : car_cnt_1475__i9
+   Register : txen_482
+   Register : ir_car_detect1/ir_cnt_i0
+   Register : ir_car_detect1/ir_cnt_i11
+   Register : ir_car_detect1/ir_cnt_i10
+   Register : ir_car_detect1/ir_cnt_i9
+   Register : ir_car_detect1/ir_cnt_i8
+   Register : ir_car_detect1/ir_cnt_i7
+   Register : ir_car_detect1/ir_cnt_i6
+   Register : ir_car_detect1/ir_cnt_i5
+   Register : ir_car_detect1/ir_cnt_i4
+   Register : ir_car_detect1/ir_cnt_i3
+   Register : ir_car_detect1/ir_cnt_i2
+   Register : ir_car_detect1/ir_cnt_i1
+   Register : ir_car_detect2/ir_cnt_i0
+   Register : ir_car_detect2/ir_cnt_i11
+   Register : ir_car_detect2/ir_cnt_i10
+   Register : ir_car_detect2/ir_cnt_i9
+   Register : ir_car_detect2/ir_cnt_i8
+   Register : ir_car_detect2/ir_cnt_i7
+   Register : ir_car_detect2/ir_cnt_i6
+   Register : ir_car_detect2/ir_cnt_i5
+   Register : ir_car_detect2/ir_cnt_i4
+   Register : ir_car_detect2/ir_cnt_i3
+   Register : ir_car_detect2/ir_cnt_i2
+   Register : ir_car_detect2/ir_cnt_i1
+   Register : check_IR_defv4/L_count_1490__i4
+   Register : check_IR_defv4/L_count_1490__i3
+   Register : check_IR_defv4/L_count_1490__i2
+   Register : check_IR_defv4/L_count_1490__i1
+   Register : check_IR_defv4/L_count_1490__i0
+   Register : check_IR_defv4/H_count_1489__i0
+   Register : check_IR_defv4/H_count_1489__i4
+   Register : check_IR_defv4/H_count_1489__i3
+   Register : check_IR_defv4/H_count_1489__i2
+   Register : check_IR_defv4/H_count_1489__i1
+   Register : ir_def_lv_inst1/L_count_1502__i0
+   Register : ir_def_lv_inst1/H_count_1501__i0
+   Register : ir_def_lv_inst1/L_count_1502__i5
+   Register : ir_def_lv_inst1/L_count_1502__i4
+   Register : ir_def_lv_inst1/L_count_1502__i3
+   Register : ir_def_lv_inst1/L_count_1502__i2
+   Register : ir_def_lv_inst1/L_count_1502__i1
+   Register : ir_def_lv_inst1/H_count_1501__i5
+   Register : ir_def_lv_inst1/H_count_1501__i4
+   Register : ir_def_lv_inst1/H_count_1501__i3
+   Register : ir_def_lv_inst1/H_count_1501__i2
+   Register : ir_def_lv_inst1/H_count_1501__i1
+   Register : check_IR_defv3/L_count_1487__i0
+
+   Register : check_IR_defv3/H_count_1486__i0
+   Register : check_IR_defv3/L_count_1487__i4
+   Register : check_IR_defv3/L_count_1487__i3
+   Register : check_IR_defv3/L_count_1487__i2
+   Register : check_IR_defv3/L_count_1487__i1
+   Register : check_IR_defv3/H_count_1486__i1
+   Register : check_IR_defv3/H_count_1486__i2
+   Register : check_IR_defv3/H_count_1486__i3
+   Register : check_IR_defv3/H_count_1486__i4
+   Register : ir_car_detect0/ir_cnt_i0
+   Register : ir_car_detect0/ir_cnt_i11
+   Register : ir_car_detect0/ir_cnt_i10
+   Register : ir_car_detect0/ir_cnt_i9
+   Register : ir_car_detect0/ir_cnt_i8
+   Register : ir_car_detect0/ir_cnt_i7
+   Register : ir_car_detect0/ir_cnt_i6
+   Register : ir_car_detect0/ir_cnt_i5
+   Register : ir_car_detect0/ir_cnt_i4
+   Register : ir_car_detect0/ir_cnt_i3
+   Register : ir_car_detect0/ir_cnt_i2
+   Register : ir_car_detect0/ir_cnt_i1
+   Register : ir_car_detect4/ir_cnt_i0
+   Register : ir_car_detect4/ir_cnt_i11
+   Register : ir_car_detect4/ir_cnt_i10
+   Register : ir_car_detect4/ir_cnt_i9
+   Register : ir_car_detect4/ir_cnt_i8
+   Register : ir_car_detect4/ir_cnt_i7
+   Register : ir_car_detect4/ir_cnt_i6
+   Register : ir_car_detect4/ir_cnt_i5
+   Register : ir_car_detect4/ir_cnt_i4
+   Register : ir_car_detect4/ir_cnt_i3
+   Register : ir_car_detect4/ir_cnt_i2
+   Register : ir_car_detect4/ir_cnt_i1
+   Register : ir_car_detect7/ir_cnt_i0
+   Register : ir_car_detect7/ir_cnt_i11
+   Register : ir_car_detect7/ir_cnt_i10
+   Register : ir_car_detect7/ir_cnt_i9
+   Register : ir_car_detect7/ir_cnt_i8
+   Register : ir_car_detect7/ir_cnt_i7
+   Register : ir_car_detect7/ir_cnt_i6
+   Register : ir_car_detect7/ir_cnt_i5
+   Register : ir_car_detect7/ir_cnt_i4
+   Register : ir_car_detect7/ir_cnt_i3
+   Register : ir_car_detect7/ir_cnt_i2
+   Register : ir_car_detect7/ir_cnt_i1
+   Register : check_IR_defv5/H_count_1492__i0
+   Register : check_IR_defv5/L_count_1493__i0
+   Register : check_IR_defv5/H_count_1492__i1
+   Register : check_IR_defv5/H_count_1492__i2
+   Register : check_IR_defv5/H_count_1492__i3
+   Register : check_IR_defv5/H_count_1492__i4
+   Register : check_IR_defv5/L_count_1493__i1
+   Register : check_IR_defv5/L_count_1493__i2
+   Register : check_IR_defv5/L_count_1493__i3
+   Register : check_IR_defv5/L_count_1493__i4
+   Register : ir_car_detect5/ir_cnt_i0
+
+   Register : ir_car_detect5/ir_cnt_i11
+   Register : ir_car_detect5/ir_cnt_i10
+   Register : ir_car_detect5/ir_cnt_i9
+   Register : ir_car_detect5/ir_cnt_i8
+   Register : ir_car_detect5/ir_cnt_i7
+   Register : ir_car_detect5/ir_cnt_i6
+   Register : ir_car_detect5/ir_cnt_i5
+   Register : ir_car_detect5/ir_cnt_i4
+   Register : ir_car_detect5/ir_cnt_i3
+   Register : ir_car_detect5/ir_cnt_i2
+   Register : ir_car_detect5/ir_cnt_i1
+   Register : pc2mcu_uart_top1/txen_20
+   Register : check_IR_defv6/L_count_1496__i0
+   Register : check_IR_defv6/H_count_1495__i0
+   Register : check_IR_defv6/L_count_1496__i4
+   Register : check_IR_defv6/L_count_1496__i3
+   Register : check_IR_defv6/L_count_1496__i2
+   Register : check_IR_defv6/L_count_1496__i1
+   Register : check_IR_defv6/H_count_1495__i1
+   Register : check_IR_defv6/H_count_1495__i2
+   Register : check_IR_defv6/H_count_1495__i3
+   Register : check_IR_defv6/H_count_1495__i4
+   Register : ir_car_detect3/ir_cnt_i0
+   Register : ir_car_detect3/ir_cnt_i11
+   Register : ir_car_detect3/ir_cnt_i10
+   Register : ir_car_detect3/ir_cnt_i9
+   Register : ir_car_detect3/ir_cnt_i8
+   Register : ir_car_detect3/ir_cnt_i7
+   Register : ir_car_detect3/ir_cnt_i6
+   Register : ir_car_detect3/ir_cnt_i5
+   Register : ir_car_detect3/ir_cnt_i4
+   Register : ir_car_detect3/ir_cnt_i3
+   Register : ir_car_detect3/ir_cnt_i2
+   Register : ir_car_detect3/ir_cnt_i1
+   Register : check_IR_defv2/L_count_1484__i0
+   Register : check_IR_defv2/H_count_1483__i0
+   Register : check_IR_defv2/H_count_1483__i4
+   Register : check_IR_defv2/H_count_1483__i3
+   Register : check_IR_defv2/H_count_1483__i2
+   Register : check_IR_defv2/H_count_1483__i1
+   Register : check_IR_defv2/L_count_1484__i1
+   Register : check_IR_defv2/L_count_1484__i2
+   Register : check_IR_defv2/L_count_1484__i3
+   Register : check_IR_defv2/L_count_1484__i4
+   Register : check_IR_defv0/H_count_1477__i0
+   Register : check_IR_defv0/L_count_1478__i0
+   Register : check_IR_defv0/L_count_1478__i1
+   Register : check_IR_defv0/L_count_1478__i2
+   Register : check_IR_defv0/L_count_1478__i3
+   Register : check_IR_defv0/L_count_1478__i4
+   Register : check_IR_defv0/H_count_1477__i1
+   Register : check_IR_defv0/H_count_1477__i2
+   Register : check_IR_defv0/H_count_1477__i3
+   Register : check_IR_defv0/H_count_1477__i4
+   Register : check_IR_defv1/H_count_1480__i0
+   Register : check_IR_defv1/L_count_1481__i0
+
+   Register : check_IR_defv1/L_count_1481__i1
+   Register : check_IR_defv1/L_count_1481__i2
+   Register : check_IR_defv1/L_count_1481__i3
+   Register : check_IR_defv1/L_count_1481__i4
+   Register : check_IR_defv1/H_count_1480__i1
+   Register : check_IR_defv1/H_count_1480__i2
+   Register : check_IR_defv1/H_count_1480__i3
+   Register : check_IR_defv1/H_count_1480__i4
+   Register : ir_car_detect6/ir_cnt_i0
+   Register : ir_car_detect6/ir_cnt_i11
+   Register : ir_car_detect6/ir_cnt_i10
+   Register : ir_car_detect6/ir_cnt_i9
+   Register : ir_car_detect6/ir_cnt_i8
+   Register : ir_car_detect6/ir_cnt_i7
+   Register : ir_car_detect6/ir_cnt_i6
+   Register : ir_car_detect6/ir_cnt_i5
+   Register : ir_car_detect6/ir_cnt_i4
+   Register : ir_car_detect6/ir_cnt_i3
+   Register : ir_car_detect6/ir_cnt_i2
+   Register : ir_car_detect6/ir_cnt_i1
+   Register : ir_rx_isntx/hig_cnt_i0
+   Register : ir_rx_isntx/hig_cnt_i2
+   Register : mcu2pc_uart_top1/txen_20
+
+
+
+<A name="mrp_runtime"></A><B><U><big>Run Time and Memory Usage</big></U></B>
+-------------------------
+
+   Total CPU Time: 1 secs
+   Total REAL Time: 0 secs
+   Peak Memory Usage: 49 MB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995
+     AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent
+     Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems
+     All rights reserved.
+Copyright (c) 2002-2012 Lattice Semiconductor
+     Corporation,  All rights reserved.
+
+
+
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+</PRE></FONT>
+</BODY>
+</HTML>

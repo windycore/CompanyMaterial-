@@ -1,0 +1,106 @@
+历史记录：
+
+
+
+
+
+C000   48k
+cstack 0x400   1K
+heap:  0x200
+
+46k （47104）
+      46593
+
+栈区（stack）— 由编译器自动分配释放 ，存放函数的参数值，局部变量的值等
+堆区（heap） — 一般由程序员分配释放， 若程序员不释放, 全局变量
+
+
+
+
+
+
+
+
+
+1. CUP 使用的是 ARM stm32f103 R BT6   medium-density devices  R = 64 pins,8 = 64 (0x20000) Kbytes of Flash memory, 20 KB RAM
+                                                                          B = 128 Kbytes of Flash memory
+母版使用的是 STM32F103        R CT6   high-density devices    R = 64 pins,C = 256 (0x40000)262144 Kbytes of Flash memory, 48 KB RAM(0xC000)49152
+                                                                          D = 384 Kbytes of Flash memory
+                                                                          E = 512 Kbytes of Flash memory
+
+术语：
+     TPI: Transmitter Programming interface
+     IPV: InstaPrevue
+     cra:
+     cpi:  CEC Programming interface
+     RTPI: 使用siIMon 的RTPI 功能
+           mcu 作为I2C 的从设备来控制
+      RPI: Receiver Programming Interface
+      RTPI:Repeater Programming Interface
+
+生成文件：Project/Virtual_COM_Port/EWARMv5/STM3210B-EVAL/Exe/
+
+DEBUG 模式定义：USE_FULL_ASSERT
+
+STM3210E-EVAL:配置    device：STM3210B-EVAL:
+  USE_STDPERIPH_DRIVER
+  STM32F10X_HD
+  USE_STM3210E_EVAL
+STM3210B-EVAL:  配置  device： ST STM32F10xxB  (发布软件使用这个模式编译）
+   USE_STDPERIPH_DRIVER
+   STM32F10X_MD
+   USE_STM3210B_EVAL
+
+IAR 编译器 include 路径
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\inc
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\Application
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\Application\app_cec
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\Application\app_msw
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\Application\app_thx
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\audio_rx
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\cbus
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\cdc
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\cec_manager
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\cec_switch
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\cec_system_audio_control
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\debugger_hdmigear
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\edid_tx
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\ipv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\osd
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\repeater_avr
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\rtpi
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\thx
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\tx
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\component\video_tables
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\arc_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\audio_mix_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\audio_rx_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\cbus_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\cpi_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\cra_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\gpio_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\ipv_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\matrix_sw_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\nvram_sram_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\osd_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\repeater_avr_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\sii953x_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\spi_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\tpg_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\driver\tpi_drv
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\HARDWARE\audio_dac
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\HARDWARE\board
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\HARDWARE\eeprom
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\HARDWARE\idt5v9885t
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\HARDWARE\IIC
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\HARDWARE\timer
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\_9533\HARDWARE\logger
+$PROJ_DIR$\..\..\..\Project\Virtual_COM_Port\src
+
+
+
+
+
+一上电m_eNextState=uiSPLASH    m_eState=uiIDLE   

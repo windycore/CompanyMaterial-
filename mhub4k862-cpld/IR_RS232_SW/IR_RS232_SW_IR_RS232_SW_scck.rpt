@@ -1,0 +1,32 @@
+# Synospys Constraint Checker(syntax only), version maplat, Build 401R, built May 25 2012
+# Copyright (C) 1994-2012, Synopsys Inc. This software the associated documentation are confidential and proprietary to Synopsys, Inc. Your use or disclosure of this software subject to the terms and conditions of a written license agreement between you, or your company, and Synopsys, Inc.
+
+# Written on Tue Aug 23 14:38:53 2016
+
+
+##### DESIGN INFO #######################################################
+
+Top View:                "IR_RS232_SW"
+Constraint File(s):      (none)
+
+#Run constraint checker to find more issues with constraints.
+#########################################################################
+
+
+
+No issues found in constraint syntax.
+
+
+
+Clock Summary
+**************
+
+Start                                         Requested     Requested     Clock                              Clock              
+Clock                                         Frequency     Period        Type                               Group              
+--------------------------------------------------------------------------------------------------------------------------------
+System                                        1.0 MHz       1000.000      system                             system_clkgroup    
+IR_RS232_SW|clk                               1.0 MHz       1000.000      inferred                           Inferred_clkgroup_0
+IR_RS232_SW|rclk                              1.0 MHz       1000.000      inferred                           Inferred_clkgroup_1
+IR_RS232_SW|srclk                             1.0 MHz       1000.000      inferred                           Inferred_clkgroup_2
+IR_RS232_SW|clock_count_derived_clock[15]     1.0 MHz       1000.000      derived (from IR_RS232_SW|clk)     Inferred_clkgroup_0
+================================================================================================================================

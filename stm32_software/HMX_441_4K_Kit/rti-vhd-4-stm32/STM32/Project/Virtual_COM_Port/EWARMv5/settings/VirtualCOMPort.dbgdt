@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Project>
+  <Desktop>
+    <Static>
+      <Debug-Log>
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1541</ColumnWidth1></Debug-Log>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1155</ColumnWidth1><ColumnWidth2>308</ColumnWidth2><ColumnWidth3>77</ColumnWidth3></Build>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>183</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Disassembly>
+        
+        
+        
+      <MixedMode>1</MixedMode><CodeCovShow>1</CodeCovShow><InstrProfShow>1</InstrProfShow><PreferedWindows><Position>2</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Watch</Factory></Window><Window><Factory>QuickWatch</Factory></Window></Windows></PreferedWindows></Disassembly>
+    <Watch><Format><struct_types/><watch_formats/></Format><PreferedWindows><Position>2</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Disassembly</Factory></Window><Window><Factory>QuickWatch</Factory></Window></Windows></PreferedWindows><Column0>175</Column0><Column1>160</Column1><Column2>88</Column2><Column3>100</Column3></Watch><QuickWatch><PreferedWindows><Position>2</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows><Window><Factory>Watch</Factory></Window><Window><Factory>Disassembly</Factory></Window></Windows></PreferedWindows><Column0>100</Column0><Column1>100</Column1><Column2>100</Column2><Column3>100</Column3></QuickWatch></Static>
+    <Windows>
+      
+      
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-21301-20566</Identity>
+            <TabName>Debug Log</TabName>
+            <Factory>Debug-Log</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-20778-20576</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd2>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-32049-20569</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>VirtualCOMPort</ExpandedNode><ExpandedNode>VirtualCOMPort/9533_Driver</ExpandedNode><ExpandedNode>VirtualCOMPort/UserRs323Module</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd2><Wnd3><Tabs><Tab><Identity>TabID-11645-3677</Identity><TabName>Watch</TabName><Factory>Watch</Factory><Session><Expressions><Expression><Expression>m_abSwitchOutPortSelect</Expression></Expression><Expression><Expression>m_eState</Expression></Expression><Expression><Expression>m_eNextState</Expression></Expression><Expression><Expression>sKeyEvent.eKey</Expression></Expression></Expressions><TabId>0</TabId><Column0>175</Column0><Column1>160</Column1><Column2>88</Column2><Column3>100</Column3></Session></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd3></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\appUserInterface.c</Filename><XPos>0</XPos><YPos>315</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\LcdModule\LcdHandle.c</Filename><XPos>0</XPos><YPos>33</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\SwitchVideoModule\SwitchVideoHandle.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\KeyModule\KeyEvent.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\main.h</Filename><XPos>0</XPos><YPos>6</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\NVRAMModule\dvNVRAM.c</Filename><XPos>0</XPos><YPos>336</YPos><SelStart>15240</SelStart><SelEnd>15240</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\mainAPP\mainapp.c</Filename><XPos>0</XPos><YPos>24</YPos><SelStart>1097</SelStart><SelEnd>1097</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\_9533\driver\cra_drv\si_cra.c</Filename><XPos>0</XPos><YPos>195</YPos><SelStart>5780</SelStart><SelEnd>5780</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\NVRAMModule\utilDataMgr.c</Filename><XPos>0</XPos><YPos>345</YPos><SelStart>10055</SelStart><SelEnd>10055</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\BSP_I2c.c</Filename><XPos>0</XPos><YPos>105</YPos><SelStart>3663</SelStart><SelEnd>3663</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\_9533\Application\sk_avr_repeater.c</Filename><XPos>0</XPos><YPos>250</YPos><SelStart>9515</SelStart><SelEnd>9515</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\InputModule\sii9679\driver\adapter\adapter_internal\si_drv_adapter_internal.c</Filename><XPos>0</XPos><YPos>23</YPos><SelStart>1304</SelStart><SelEnd>1304</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\_9533\HARDWARE\IIC\si_i2c.c</Filename><XPos>0</XPos><YPos>9</YPos><SelStart>512</SelStart><SelEnd>512</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\SwitchVideoModule\dvADN4604.c</Filename><XPos>0</XPos><YPos>24</YPos><SelStart>646</SelStart><SelEnd>646</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\si_datatypes.h</Filename><XPos>0</XPos><YPos>73</YPos><SelStart>2666</SelStart><SelEnd>2666</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\main.c</Filename><XPos>0</XPos><YPos>245</YPos><SelStart>7249</SelStart><SelEnd>7249</SelEnd></Tab><ActiveTab>15</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\UserRs232Module\uart.c</Filename><XPos>0</XPos><YPos>150</YPos><SelStart>3275</SelStart><SelEnd>3275</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\Util.c</Filename><XPos>0</XPos><YPos>54</YPos><SelStart>947</SelStart><SelEnd>947</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\UserRs232Module\UartRs232Tasks.c</Filename><XPos>0</XPos><YPos>34</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\_9533\Application\sk_app_ediddata.c</Filename><XPos>0</XPos><YPos>144</YPos><SelStart>2092</SelStart><SelEnd>2092</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\src\appSystemMgr.c</Filename><XPos>0</XPos><YPos>457</YPos><SelStart>15997</SelStart><SelEnd>15997</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-03c50110><key>iaridepm.enu1</key></Toolbar-03c50110></Sizes></Row0><Row1><Sizes><Toolbar-1b187128><key>debuggergui.enu1</key></Toolbar-1b187128><Toolbar-1b186d40><key>armjlink.enu1</key></Toolbar-1b186d40></Sizes></Row1></Top><Left><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>427</Bottom><Right>273</Right><x>-2</x><y>-2</y><xscreen>1700</xscreen><yscreen>2967</yscreen><sizeHorzCX>1244510</sizeHorzCX><sizeHorzCY>4325073</sizeHorzCY><sizeVertCX>201318</sizeVertCX><sizeVertCY>625364</sizeVertCY></Rect></Wnd2></Sizes></Row0></Left><Right><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>427</Bottom><Right>264</Right><x>-2</x><y>-2</y><xscreen>178</xscreen><yscreen>186</yscreen><sizeHorzCX>130307</sizeHorzCX><sizeHorzCY>271137</sizeHorzCY><sizeVertCX>194729</sizeVertCX><sizeVertCY>625364</sizeVertCY></Rect></Wnd3></Sizes></Row0></Right><Bottom><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>190</Bottom><Right>1368</Right><x>-2</x><y>-2</y><xscreen>1370</xscreen><yscreen>192</yscreen><sizeHorzCX>1002928</sizeHorzCX><sizeHorzCY>279883</sizeHorzCY><sizeVertCX>1244510</sizeVertCX><sizeVertCY>4325073</sizeVertCY></Rect></Wnd0></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Project>
+
+

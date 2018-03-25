@@ -1,0 +1,5 @@
+-rem
+-distrce
+-log "IR_RS232_SW_IR_RS232_SW.log"
+-o "IR_RS232_SW_IR_RS232_SW.csv"
+-pr "IR_RS232_SW_IR_RS232_SW.prf"

@@ -1,0 +1,50 @@
+[Device]
+Family=machxo2
+PartType=LCMXO2-1200HC
+PartName=LCMXO2-1200HC-4TG144I
+SpeedGrade=4
+Package=TQFP144
+OperatingCondition=IND
+Status=S
+
+[IP]
+VendorName=Lattice Semiconductor Corporation
+CoreType=LPM
+CoreStatus=Demo
+CoreName=FIFO_DC
+CoreRevision=5.4
+ModuleName=fifo64x8
+SourceFormat=Verilog HDL
+ParameterFileVersion=1.0
+Date=08/23/2016
+Time=16:30:45
+
+[Parameters]
+Verilog=1
+VHDL=0
+EDIF=1
+Destination=Synplicity
+Expression=BusA(0 to 7)
+Order=Big Endian [MSB:LSB]
+IO=0
+FIFOImp=EBR Only
+RDepth=512
+RWidth=8
+WDepth=512
+WWidth=8
+regout=0
+CtrlByRdEn=0
+ClockEn=0
+EmpFlg=1
+PeMode=Static - Single Threshold
+PeAssert=5
+PeDeassert=12
+FullFlg=1
+PfMode=Static - Single Threshold
+PfAssert=60
+PfDeassert=506
+Reset=Async
+Reset1=Sync
+RDataCount=0
+WDataCount=0
+EnECC=0

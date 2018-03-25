@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BaliProject version="2.0" title="IR_RS232_SW" device="LCMXO2-1200HC-4TG144I" synthesis="lse" default_implementation="IR_RS232_SW">
+    <Options/>
+    <Implementation title="IR_RS232_SW" dir="IR_RS232_SW" description="IR_RS232_SW" default_strategy="Strategy1">
+        <Options def_top="IR_RS232_SW" top="IR_RS232_SW"/>
+        <Source name="ir_rx.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="my_uart_top.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="my_uart_tx.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="speed_select.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="HC74595.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="IR_RS232_SW.v" type="Verilog" type_short="Verilog">
+            <Options top_module="IR_RS232_SW"/>
+        </Source>
+        <Source name="ir_car_detect.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="check_IR_defv.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="fifo64x8.ipx" type="IPX_Module" type_short="IPX">
+            <Options/>
+        </Source>
+        <Source name="new_uart/uart_rx.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="new_uart/uart_tx.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="new_uart/pc2mcu_uart_top.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="new_uart/mcu2pc_uart_top.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="ir_def_lv.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="IR_RS232_SW.lpf" type="Logic Preference" type_short="LPF">
+            <Options/>
+        </Source>
+        <Source name="IR_RS232_SW/IR_RS232_SW.xcf" type="ispVM Download Project" type_short="ispVM">
+            <Options/>
+        </Source>
+    </Implementation>
+    <Strategy name="Strategy1" file="Strategy1.sty"/>
+</BaliProject>

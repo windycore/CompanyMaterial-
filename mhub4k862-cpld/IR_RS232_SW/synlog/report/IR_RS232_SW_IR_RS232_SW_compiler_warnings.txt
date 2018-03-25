@@ -1,0 +1,16 @@
+@W: CG532 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\uart_rx.v":159:0:159:6|Initial statement will only initialize memories through the usage of $readmemh and $readmemb. Everything else is ignored
+@W: CG133 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\uart_rx.v":108:4:108:8|No assignment to rx_en
+@W: CG360 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\mcu2pc_uart_top.v":28:11:28:17|No assignment to wire rs232tx
+@W: CG360 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\pc2mcu_uart_top.v":29:11:29:17|No assignment to wire rs232tx
+@W: CG532 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":464:0:464:6|Initial statement will only initialize memories through the usage of $readmemh and $readmemb. Everything else is ignored
+@W: CG133 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":58:4:58:12|No assignment to debugreg1
+@W: CL169 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Pruning register debugreg0 
+@W: CL169 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Pruning register irn_rs 
+@W: CL169 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Pruning register pcto402_ack 
+@W: CL169 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":99:0:99:5|Pruning register con_reg[7:0] 
+@W: CL271 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Pruning bits 7 to 4 of ir_402_com_i[7:0] -- not in use ...
+@W: CL271 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Pruning bits 7 to 4 of ir_com_o[7:0] -- not in use ...
+@W: CL159 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":20:14:20:22|Input ir_all_in is unused
+@W: CL159 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\pc2mcu_uart_top.v":9:14:9:20|Input tx_baud is unused
+@W: CL159 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\mcu2pc_uart_top.v":7:14:7:20|Input rx_baud is unused
+

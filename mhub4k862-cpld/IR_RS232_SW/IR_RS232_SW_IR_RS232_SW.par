@@ -1,0 +1,255 @@
+PAR: Place And Route Diamond Version 2.0.0.154.
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2012 Lattice Semiconductor Corporation,  All rights reserved.
+Thu Mar 09 19:53:10 2017
+
+D:/lscc/diamond/2.0/ispfpga\bin\nt\par -f IR_RS232_SW_IR_RS232_SW.p2t
+IR_RS232_SW_IR_RS232_SW_map.ncd IR_RS232_SW_IR_RS232_SW.dir
+IR_RS232_SW_IR_RS232_SW.prf
+
+Preference file: IR_RS232_SW_IR_RS232_SW.prf.
+
+Level/      Number      Timing      Run         NCD
+Cost [ncd]  Unrouted    Score       Time        Status
+----------  --------    --------    -----       ------------
+5_1   *     0           289303036   18          Complete        
+
+
+* : Design saved.
+
+par done!
+
+Lattice Place and Route Report for Design "IR_RS232_SW_IR_RS232_SW_map.ncd"
+Thu Mar 09 19:53:10 2017
+
+PAR: Place And Route Diamond Version 2.0.0.154.
+Command Line: D:/lscc/diamond/2.0/ispfpga\bin\nt\par -f IR_RS232_SW_IR_RS232_SW.p2t
+IR_RS232_SW_IR_RS232_SW_map.ncd IR_RS232_SW_IR_RS232_SW.dir
+IR_RS232_SW_IR_RS232_SW.prf
+Preference file: IR_RS232_SW_IR_RS232_SW.prf.
+Placement level-cost: 5-1.
+Routing Iterations: 6
+
+Loading design for application par from file IR_RS232_SW_IR_RS232_SW_map.ncd.
+Design name: IR_RS232_SW
+NCD version: 3.2
+Vendor:      LATTICE
+Device:      LCMXO2-1200HC
+Package:     TQFP144
+Performance: 4
+Loading device for application par from file 'xo2c1200.nph' in environment: D:/lscc/diamond/2.0/ispfpga.
+Package Status:                     Final          Version 1.33
+Performance Hardware Data Status:   Final          Version 22.4
+License checked out.
+
+
+Ignore Preference Error(s):  True
+Device utilization summary:
+
+   PIO (prelim)      62/108          57% used
+                     62/108          57% bonded
+   IOLOGIC            9/108           8% used
+
+   SLICE            526/640          82% used
+
+   GSR                1/1           100% used
+   EBR                3/7            42% used
+
+
+Number of Signals: 1713
+Number of Connections: 3907
+WARNING - par: Placement timing preferences are hard to meet.  However, placement will continue.  Use static timing analysis to identify errors.  For more information, see online help subjects "Place & Route TRACE Report"  or the "TRACE" application.
+
+Pin Constraint Summary:
+   58 out of 58 pins locked (100% locked).
+
+The following 2 signals are selected to use the primary clock routing resources:
+    clk_c (driver: clk, clk load #: 309)
+    clock_count_15 (driver: SLICE_22, clk load #: 56)
+
+
+The following 4 signals are selected to use the secondary clock routing resources:
+    pc2mcu_uart_top1/pc2mcu_rx/n5 (driver: pc2mcu_uart_top1/pc2mcu_rx/SLICE_561, clk load #: 0, sr load #: 12, ce load #: 2)
+    mcu2pc_uart_top1/mcu2pc_rx/n5 (driver: mcu2pc_uart_top1/mcu2pc_rx/SLICE_571, clk load #: 0, sr load #: 12, ce load #: 2)
+    rclk_c (driver: rclk, clk load #: 5, sr load #: 0, ce load #: 0)
+    srclk_c (driver: srclk, clk load #: 5, sr load #: 0, ce load #: 0)
+
+WARNING - par: Signal "rclk_c" is selected to use Secondary clock resources; however its driver comp "rclk" is located at "111", which is not a dedicated pin for connecting to Secondary clock resources.  General routing has to be used to route this signal, and it may suffer from excessive delay or skew.
+WARNING - par: Signal "srclk_c" is selected to use Secondary clock resources; however its driver comp "srclk" is located at "112", which is not a dedicated pin for connecting to Secondary clock resources.  General routing has to be used to route this signal, and it may suffer from excessive delay or skew.
+Signal rstn_c is selected as Global Set/Reset.
+.
+Starting Placer Phase 0.
+...........
+Finished Placer Phase 0.  REAL time: 0 secs 
+
+Starting Placer Phase 1.
+....................
+Placer score = 2380657.
+Finished Placer Phase 1.  REAL time: 12 secs 
+
+Starting Placer Phase 2.
+.
+Placer score =  2411262
+Finished Placer Phase 2.  REAL time: 12 secs 
+
+
+------------------ Clock Report ------------------
+
+Global Clock Resources:
+  CLK_PIN    : 1 out of 8 (12%)
+  General PIO: 2 out of 108 (1%)
+  PLL        : 0 out of 1 (0%)
+  DCM        : 0 out of 2 (0%)
+  DCC        : 0 out of 8 (0%)
+
+Quadrants All (TL, TR, BL, BR) - Global Clocks:
+  PRIMARY "clk_c" from comp "clk" on CLK_PIN site "128 (PT12A)", clk load = 309
+  PRIMARY "clock_count_15" from Q0 on comp "SLICE_22" on site "R2C12A", clk load = 56
+  SECONDARY "rclk_c" from comp "rclk" on PIO site "111 (PT17B)", clk load = 5, ce load = 0, sr load = 0
+  SECONDARY "srclk_c" from comp "srclk" on PIO site "112 (PT17A)", clk load = 5, ce load = 0, sr load = 0
+  SECONDARY "pc2mcu_uart_top1/pc2mcu_rx/n5" from F1 on comp "pc2mcu_uart_top1/pc2mcu_rx/SLICE_561" on site "R8C21D", clk load = 0, ce load = 2, sr load = 12
+  SECONDARY "mcu2pc_uart_top1/mcu2pc_rx/n5" from F1 on comp "mcu2pc_uart_top1/mcu2pc_rx/SLICE_571" on site "R7C12A", clk load = 0, ce load = 2, sr load = 12
+
+  PRIMARY  : 2 out of 8 (25%)
+  SECONDARY: 4 out of 8 (50%)
+
+Edge Clocks:
+  No edge clock selected.
+
+--------------- End of Clock Report ---------------
+
+
+I/O Usage Summary (final):
+   62 out of 108 (57.4%) PIO sites used.
+   62 out of 108 (57.4%) bonded PIO sites used.
+   Number of PIO comps: 62; differential: 0
+   Number of Vref pins used: 0
+
+I/O Bank Usage Summary:
++----------+----------------+------------+-----------+
+| I/O Bank | Usage          | Bank Vccio | Bank Vref |
++----------+----------------+------------+-----------+
+| 0        | 10 / 28 ( 35%) | 3.3V       | -         |
+| 1        | 17 / 26 ( 65%) | 3.3V       | -         |
+| 2        | 17 / 28 ( 60%) | 3.3V       | -         |
+| 3        | 18 / 26 ( 69%) | 3.3V       | -         |
++----------+----------------+------------+-----------+
+
+Total placer CPU time: 12 secs 
+
+Dumping design to file IR_RS232_SW_IR_RS232_SW.dir/5_1.ncd.
+
+0 connections routed; 3907 unrouted.
+Starting router resource preassignment
+
+Completed router resource preassignment. Real time: 13 secs 
+
+Start NBR router at 19:53:24 03/09/17
+
+*****************************************************************
+Info: NBR allows conflicts(one node used by more than one signal)
+      in the earlier iterations. In each iteration, it tries to  
+      solve the conflicts while keeping the critical connections 
+      routed as shorter as possible. The routing process is said 
+      to be completed when no conflicts exist and all connections
+      are routed.                                                
+Note: NBR uses a different method to calculate timing slacks. The
+      worst slack and total negative slack may not be the same as
+      that in TRCE report. You should always run TRCE to verify  
+      your design. Thanks.                                       
+*****************************************************************
+
+Start NBR special constraint process at 19:53:24 03/09/17
+
+Start NBR section for initial routing
+Level 1, iteration 1
+0(0.00%) conflict; 2857(73.13%) untouched conns; 345715371 (nbr) score; 
+Estimated worst slack/total negative slack: -2141.505ns/-345715.371ns; real time: 14 secs 
+Level 2, iteration 1
+1(0.00%) conflict; 2837(72.61%) untouched conns; 341543106 (nbr) score; 
+Estimated worst slack/total negative slack: -2088.973ns/-341543.107ns; real time: 14 secs 
+Level 3, iteration 1
+0(0.00%) conflict; 2837(72.61%) untouched conns; 342732336 (nbr) score; 
+Estimated worst slack/total negative slack: -2116.126ns/-342732.337ns; real time: 14 secs 
+Level 4, iteration 1
+40(0.05%) conflicts; 0(0.00%) untouched conn; 351157257 (nbr) score; 
+Estimated worst slack/total negative slack: -2137.423ns/-351157.257ns; real time: 15 secs 
+
+Info: Initial congestion level at 75% usage is 0
+Info: Initial congestion area  at 75% usage is 0 (0.00%)
+
+Start NBR section for normal routing
+Level 4, iteration 1
+16(0.02%) conflicts; 0(0.00%) untouched conn; 348019008 (nbr) score; 
+Estimated worst slack/total negative slack: -2136.004ns/-348019.009ns; real time: 15 secs 
+Level 4, iteration 2
+4(0.00%) conflicts; 0(0.00%) untouched conn; 350299165 (nbr) score; 
+Estimated worst slack/total negative slack: -2143.990ns/-350299.166ns; real time: 16 secs 
+Level 4, iteration 3
+3(0.00%) conflicts; 0(0.00%) untouched conn; 349759295 (nbr) score; 
+Estimated worst slack/total negative slack: -2127.662ns/-349759.296ns; real time: 16 secs 
+Level 4, iteration 4
+1(0.00%) conflict; 0(0.00%) untouched conn; 349759295 (nbr) score; 
+Estimated worst slack/total negative slack: -2127.662ns/-349759.296ns; real time: 16 secs 
+Level 4, iteration 5
+0(0.00%) conflict; 0(0.00%) untouched conn; 363701510 (nbr) score; 
+Estimated worst slack/total negative slack: -2356.958ns/-363701.511ns; real time: 16 secs 
+Level 4, iteration 6
+1(0.00%) conflict; 0(0.00%) untouched conn; 363701510 (nbr) score; 
+Estimated worst slack/total negative slack: -2356.958ns/-363701.511ns; real time: 16 secs 
+Level 4, iteration 7
+0(0.00%) conflict; 0(0.00%) untouched conn; 351782616 (nbr) score; 
+Estimated worst slack/total negative slack: -2136.358ns/-351782.616ns; real time: 16 secs 
+
+Start NBR section for performance tunning (iteration 1)
+Level 4, iteration 1
+3(0.00%) conflicts; 0(0.00%) untouched conn; 349759295 (nbr) score; 
+Estimated worst slack/total negative slack: -2127.662ns/-349759.296ns; real time: 16 secs 
+Level 4, iteration 2
+0(0.00%) conflict; 0(0.00%) untouched conn; 354439338 (nbr) score; 
+Estimated worst slack/total negative slack: -2206.106ns/-354439.339ns; real time: 16 secs 
+
+Start NBR section for post-routing
+0(0.00%) conflict; 0(0.00%) untouched conn; 351782616 (nbr) score; 
+Estimated worst slack/total negative slack: -2136.358ns/-351782.616ns; real time: 17 secs 
+
+Dumping design to file IR_RS232_SW_IR_RS232_SW.dir/5_1.ncd.
+End NBR router with 0 unrouted connection
+
+NBR Summary
+-----------
+  Number of unrouted connections : 0 (0.00%)
+  Number of connections with timing violations : 749 (19.17%)
+  Estimated worst slack : -2136.358ns
+  Timing score : 289274627
+-----------
+Notes: The timing info is calculated for SETUP only and all PAR_ADJs are ignored.
+
+
+Total CPU time 16 secs 
+Total REAL time: 17 secs 
+Completely routed.
+End of route.  3907 routed (100.00%); 0 unrouted.
+Checking DRC ... 
+No errors found.
+
+Timing score: 289303036 
+
+Total REAL time to completion: 18 secs 
+
+Dumping design to file IR_RS232_SW_IR_RS232_SW.dir/5_1.ncd.
+
+
+All signals are completely routed.
+
+
+par done!
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2012 Lattice Semiconductor Corporation,  All rights reserved.

@@ -1,0 +1,1086 @@
+#Build: Synplify Pro F-2012.03L , Build 063R, May 17 2012
+#install: d:\programs\lscc\diamond\2.0\synpbase
+#OS: Windows XP 5.1
+#Hostname: PC-20120188744
+
+#Implementation: IR_RS232_SW
+
+$ Start of Compile
+#Mon Jul 29 14:31:04 2013
+
+Synopsys Verilog Compiler, version comp201203rcp1, Build 061R, built May 17 2012
+@N|Running in 32-bit mode
+Copyright (C) 1994-2012 Synopsys, Inc. This software the associated documentation are confidential and proprietary to Synopsys, Inc. Your use or disclosure of this software subject to the terms and conditions of a written license agreement between you, or your company, and Synopsys, Inc.
+
+@N:: Running Verilog Compiler in System Verilog mode
+@N:: Running Verilog Compiler in Multiple File Compilation Unit mode
+@I::"d:\programs\lscc\diamond\2.0\synpbase\lib\lucent\machxo2.v"
+@I::"d:\programs\lscc\diamond\2.0\synpbase\lib\lucent\pmi_def.v"
+@I::"d:\programs\lscc\diamond\2.0\synpbase\lib\vlog\umr_capim.v"
+@I::"d:\programs\lscc\diamond\2.0\synpbase\lib\vlog\scemi_objects.v"
+@I::"d:\programs\lscc\diamond\2.0\synpbase\lib\vlog\scemi_pipes.svh"
+@I::"d:\programs\lscc\diamond\2.0\synpbase\lib\vlog\hypermods.v"
+@I::"d:\programs\lscc\diamond\2.0\cae_library\synthesis\verilog\machxo2.v"
+@I::"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v"
+@I::"E:\pjk\MHD44TP_IR_RS232_SW_130701\HC74595.v"
+@I::"E:\pjk\MHD44TP_IR_RS232_SW_130701\ir_rx.v"
+@I::"E:\pjk\MHD44TP_IR_RS232_SW_130701\my_uart_top.v"
+@I::"E:\pjk\MHD44TP_IR_RS232_SW_130701\my_uart_tx.v"
+@I::"E:\pjk\MHD44TP_IR_RS232_SW_130701\speed_select.v"
+@I::"E:\pjk\MHD44TP_IR_RS232_SW_130701\fifo64x8.v"
+@I::"E:\pjk\MHD44TP_IR_RS232_SW_130701\ir_car_detect.v"
+Verilog syntax check successful!
+
+Compiler output is up to date.  No re-compile necessary
+
+Selecting top level module IR_RS232_SW
+@N: CG364 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\HC74595.v":1:7:1:13|Synthesizing module hc74595
+
+@N: CG364 :"d:\programs\lscc\diamond\2.0\cae_library\synthesis\verilog\machxo2.v":1120:7:1120:9|Synthesizing module VHI
+
+@N: CG364 :"d:\programs\lscc\diamond\2.0\cae_library\synthesis\verilog\machxo2.v":1124:7:1124:9|Synthesizing module VLO
+
+@N: CG364 :"d:\programs\lscc\diamond\2.0\cae_library\synthesis\verilog\machxo2.v":1482:7:1482:13|Synthesizing module FIFO8KB
+
+@N: CG364 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\fifo64x8.v":8:7:8:14|Synthesizing module fifo64x8
+
+@N: CG364 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\speed_select.v":21:7:21:18|Synthesizing module speed_select
+
+@N: CG364 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\my_uart_tx.v":21:7:21:16|Synthesizing module my_uart_tx
+
+@N: CG364 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\my_uart_top.v":21:7:21:17|Synthesizing module my_uart_top
+
+@N: CG364 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\ir_car_detect.v":1:7:1:19|Synthesizing module ir_car_detect
+
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\ir_car_detect.v":45:15:45:25|Removing redundant assignment
+@N: CG364 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\ir_rx.v":1:7:1:11|Synthesizing module ir_rx
+
+@N: CG364 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":1:7:1:17|Synthesizing module IR_RS232_SW
+
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":99:14:99:20|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":114:10:114:12|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":123:14:123:20|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":295:15:295:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":296:15:296:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":297:15:297:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":298:15:298:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":300:15:300:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":301:15:301:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":302:15:302:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":303:15:303:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":305:15:305:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":306:15:306:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":307:15:307:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":308:15:308:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":310:15:310:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":311:15:311:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":312:15:312:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":313:15:313:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":316:15:316:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":317:15:317:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":318:15:318:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":319:15:319:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":321:15:321:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":322:15:322:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":323:15:323:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":324:15:324:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":326:15:326:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":327:15:327:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":328:15:328:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":329:15:329:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":331:15:331:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":332:15:332:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":333:15:333:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":334:15:334:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":336:15:336:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":337:15:337:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":338:15:338:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":339:15:339:21|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":405:14:405:18|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":406:14:406:19|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":407:14:407:18|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":408:14:408:20|Removing redundant assignment
+@N: CG179 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":458:12:458:15|Removing redundant assignment
+@N: CL201 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW.v":351:1:351:6|Trying to extract state machine for register state
+Extracted state machine for register state
+State machine has 4 reachable states with original encodings of:
+   000
+   001
+   010
+   011
+@W: CL159 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\ir_car_detect.v":10:7:10:11|Input rst_n is unused
+@END
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Mon Jul 29 14:31:05 2013
+
+###########################################################]
+Premap Report
+
+Synopsys Lattice Technology Pre-mapping, Version maplat, Build 401R, Built May 25 2012 10:34:30
+Copyright (C) 1994-2012, Synopsys Inc. This software the associated documentation are confidential and proprietary to Synopsys, Inc. Your use or disclosure of this software subject to the terms and conditions of a written license agreement between you, or your company, and Synopsys, Inc.
+Product Version F-2012.03L 
+
+Mapper Startup Complete (Time elapsed 0h:00m:00s; Memory used current: 48MB peak: 49MB)
+
+@L: E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW\IR_RS232_SW_scck.rpt 
+Printing clock  summary report in "E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW\IR_RS232_SW_scck.rpt" file 
+@N: MF249 |Running in 32-bit mode.
+@N: MF257 |Gated clock conversion enabled 
+@N: MF546 |Generated clock conversion enabled 
+
+Design Input Complete (Time elapsed 0h:00m:00s; Memory used current: 49MB peak: 50MB)
+
+
+Mapper Initialization Complete (Time elapsed 0h:00m:00s; Memory used current: 49MB peak: 50MB)
+
+
+Start loading timing files (Time elapsed 0h:00m:00s; Memory used current: 58MB peak: 59MB)
+
+
+Finished loading timing files (Time elapsed 0h:00m:00s; Memory used current: 58MB peak: 61MB)
+
+@W: FX474 |User-specified initial value found in some of the sequential elements. Applying an initial value to a register may not produce optimum synthesis results. For example, registers with initial values may become preserved which would prevent retiming/pipelining from being performed. To improve synthesis results, remove register initialization from the RTL code. 
+
+
+Clock Summary
+**************
+
+Start                 Requested     Requested     Clock        Clock                
+Clock                 Frequency     Period        Type         Group                
+------------------------------------------------------------------------------------
+System                1.0 MHz       1000.000      system       system_clkgroup      
+IR_RS232_SW|clk       1.0 MHz       1000.000      inferred     Autoconstr_clkgroup_0
+IR_RS232_SW|rclk      1.0 MHz       1000.000      inferred     Autoconstr_clkgroup_1
+IR_RS232_SW|srclk     1.0 MHz       1000.000      inferred     Autoconstr_clkgroup_2
+====================================================================================
+
+@W: MT529 :"e:\pjk\mhd44tp_ir_rs232_sw_130701\speed_select.v":76:0:76:5|Found inferred clock IR_RS232_SW|clk which controls 377 sequential elements including uart_u2/speed_tx/cnt[13:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+@W: MT529 :"e:\pjk\mhd44tp_ir_rs232_sw_130701\hc74595.v":65:1:65:6|Found inferred clock IR_RS232_SW|rclk which controls 9 sequential elements including hc595_u/qh. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+@W: MT529 :"e:\pjk\mhd44tp_ir_rs232_sw_130701\hc74595.v":41:0:41:5|Found inferred clock IR_RS232_SW|srclk which controls 9 sequential elements including hc595_u/qhn0. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+
+syn_allowed_resources : blockrams=2  set on top level netlist IR_RS232_SW
+
+Finished Pre Mapping Phase. (Time elapsed 0h:00m:00s; Memory used current: 75MB peak: 77MB)
+
+Pre-mapping successful!
+
+At Mapper Exit (Time elapsed 0h:00m:00s; Memory used current: 43MB peak: 77MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Mon Jul 29 14:31:05 2013
+
+###########################################################]
+Map & Optimize Report
+
+Synopsys Lattice Technology Mapper, Version maplat, Build 401R, Built May 25 2012 10:34:30
+Copyright (C) 1994-2012, Synopsys Inc. This software the associated documentation are confidential and proprietary to Synopsys, Inc. Your use or disclosure of this software subject to the terms and conditions of a written license agreement between you, or your company, and Synopsys, Inc.
+Product Version F-2012.03L 
+
+Mapper Startup Complete (Time elapsed 0h:00m:00s; Memory used current: 48MB peak: 49MB)
+
+@N: MF249 |Running in 32-bit mode.
+@N: MF257 |Gated clock conversion enabled 
+@N: MF546 |Generated clock conversion enabled 
+
+Design Input Complete (Time elapsed 0h:00m:00s; Memory used current: 48MB peak: 49MB)
+
+
+Mapper Initialization Complete (Time elapsed 0h:00m:00s; Memory used current: 48MB peak: 49MB)
+
+
+Start loading timing files (Time elapsed 0h:00m:00s; Memory used current: 58MB peak: 58MB)
+
+
+Finished loading timing files (Time elapsed 0h:00m:00s; Memory used current: 58MB peak: 60MB)
+
+
+
+Starting Optimization and Mapping (Time elapsed 0h:00m:00s; Memory used current: 75MB peak: 77MB)
+
+@N: BN362 :"e:\pjk\mhd44tp_ir_rs232_sw_130701\hc74595.v":41:0:41:5|Removing sequential instance hc595_u.qhn0 of view:PrimLib.dffr(prim) in hierarchy view:work.IR_RS232_SW(verilog) because there are no references to its outputs 
+
+Available hyper_sources - for debug and ip models
+	None Found
+
+@N: MT206 |Auto Constrain mode is enabled
+
+Finished RTL optimizations (Time elapsed 0h:00m:00s; Memory used current: 75MB peak: 77MB)
+
+Encoding state machine state[3:0] (netlist:statemachine)
+original code -> new code
+   000 -> 00
+   001 -> 01
+   010 -> 10
+   011 -> 11
+@N:"e:\pjk\mhd44tp_ir_rs232_sw_130701\ir_rs232_sw.v":851:1:851:6|Found counter in view:work.IR_RS232_SW(verilog) inst zone4_cntclrack[23:0]
+@N:"e:\pjk\mhd44tp_ir_rs232_sw_130701\ir_rs232_sw.v":826:1:826:6|Found counter in view:work.IR_RS232_SW(verilog) inst zone3_cntclrack[23:0]
+@N:"e:\pjk\mhd44tp_ir_rs232_sw_130701\ir_rs232_sw.v":801:1:801:6|Found counter in view:work.IR_RS232_SW(verilog) inst zone2_cntclrack[23:0]
+@N:"e:\pjk\mhd44tp_ir_rs232_sw_130701\ir_rs232_sw.v":776:1:776:6|Found counter in view:work.IR_RS232_SW(verilog) inst zone1_cntclrack[23:0]
+@N:"e:\pjk\mhd44tp_ir_rs232_sw_130701\ir_rs232_sw.v":751:1:751:6|Found counter in view:work.IR_RS232_SW(verilog) inst tcpcntclrack[23:0]
+@N:"e:\pjk\mhd44tp_ir_rs232_sw_130701\ir_rs232_sw.v":725:1:725:6|Found counter in view:work.IR_RS232_SW(verilog) inst db9cntclrack[23:0]
+@N:"e:\pjk\mhd44tp_ir_rs232_sw_130701\speed_select.v":76:0:76:5|Found counter in view:work.speed_select(verilog) inst cnt[13:0]
+@N:"e:\pjk\mhd44tp_ir_rs232_sw_130701\ir_car_detect.v":27:0:27:5|Found counter in view:work.ir_car_detect(verilog) inst ir_cnt[11:0]
+@N:"e:\pjk\mhd44tp_ir_rs232_sw_130701\ir_car_detect.v":27:0:27:5|Found counter in view:work.ir_car_detect_ir_car_detect_i1_inst(verilog) inst ir_cnt[11:0]
+
+Finished factoring (Time elapsed 0h:00m:00s; Memory used current: 77MB peak: 77MB)
+
+
+
+#################### START OF GENERATED CLOCK OPTIMIZATION REPORT ####################[
+
+======================================================================================
+                                Instance:Pin        Generated Clock Optimization Status
+======================================================================================
+
+
+##################### END OF GENERATED CLOCK OPTIMIZATION REPORT #####################]
+
+
+Finished gated-clock and generated-clock conversion (Time elapsed 0h:00m:00s; Memory used current: 76MB peak: 78MB)
+
+
+
+Finished generic timing optimizations - Pass 1 (Time elapsed 0h:00m:00s; Memory used current: 77MB peak: 78MB)
+
+
+Starting Early Timing Optimization (Time elapsed 0h:00m:00s; Memory used current: 77MB peak: 78MB)
+
+
+Finished Early Timing Optimization (Time elapsed 0h:00m:00s; Memory used current: 77MB peak: 78MB)
+
+
+Finished generic timing optimizations - Pass 2 (Time elapsed 0h:00m:00s; Memory used current: 77MB peak: 78MB)
+
+
+Finished preparing to map (Time elapsed 0h:00m:00s; Memory used current: 77MB peak: 78MB)
+
+
+Finished technology mapping (Time elapsed 0h:00m:00s; Memory used current: 78MB peak: 80MB)
+
+Pass		 CPU time		Worst Slack		Luts / Registers
+------------------------------------------------------------
+Pass		 CPU time		Worst Slack		Luts / Registers
+------------------------------------------------------------
+   1		0h:00m:00s		    -2.42ns		 442 /       391
+   2		0h:00m:00s		    -2.42ns		 442 /       391
+------------------------------------------------------------
+
+@N: FX271 :"e:\pjk\mhd44tp_ir_rs232_sw_130701\ir_rs232_sw.v":351:1:351:6|Instance "bps_sel[2]" with 11 loads replicated 1 times to improve timing 
+@N: FX271 :"e:\pjk\mhd44tp_ir_rs232_sw_130701\ir_rs232_sw.v":351:1:351:6|Instance "bps_sel[1]" with 7 loads replicated 1 times to improve timing 
+@N: FX271 :"e:\pjk\mhd44tp_ir_rs232_sw_130701\ir_rs232_sw.v":351:1:351:6|Instance "bps_sel[0]" with 19 loads replicated 2 times to improve timing 
+Timing driven replication report
+Added 4 Registers via timing driven replication
+Added 0 LUTs via timing driven replication
+
+
+
+
+
+Pass		 CPU time		Worst Slack		Luts / Registers
+------------------------------------------------------------
+   1		0h:00m:01s		    -1.99ns		 442 /       395
+
+   2		0h:00m:01s		    -1.99ns		 442 /       395
+   3		0h:00m:01s		    -1.99ns		 442 /       395
+   4		0h:00m:01s		    -1.99ns		 442 /       395
+------------------------------------------------------------
+
+
+
+Pass		 CPU time		Worst Slack		Luts / Registers
+------------------------------------------------------------
+   1		0h:00m:01s		    -1.99ns		 442 /       395
+
+   2		0h:00m:01s		    -1.99ns		 442 /       395
+   3		0h:00m:01s		    -1.99ns		 442 /       395
+   4		0h:00m:01s		    -1.99ns		 442 /       395
+------------------------------------------------------------
+
+
+Finished technology timing optimizations and critical path resynthesis (Time elapsed 0h:00m:01s; Memory used current: 78MB peak: 80MB)
+
+@N: FX164 |The option to pack flops in the IOB has not been specified 
+@W: MT453 |clock period is too long for clock IR_RS232_SW|srclk, changing period from 10000000.0 to 20000.0 ns, rise from 0.0 ns to 0.0 ns, and fall from 5000000.0 ns to 10000.0 ns. 
+
+Finished restoring hierarchy (Time elapsed 0h:00m:02s; Memory used current: 78MB peak: 80MB)
+
+Writing Analyst data base E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW\IR_RS232_SW.srm
+
+Finished Writing Netlist Databases (Time elapsed 0h:00m:02s; Memory used current: 79MB peak: 80MB)
+
+Writing EDIF Netlist and constraint files
+F-2012.03L 
+@N: BW106 |Synplicity Constraint File capacitance units using default value of 1pF 
+
+Finished Writing EDIF Netlist and constraint files (Time elapsed 0h:00m:02s; Memory used current: 83MB peak: 84MB)
+
+
+Starting Writing Gated Clock Conversion Report (Time elapsed 0h:00m:02s; Memory used current: 82MB peak: 84MB)
+
+@N: MF276 |Gated clock conversion enabled, but no gated clocks found in design 
+
+Finished Writing Gated Clock Conversion Report (Time elapsed 0h:00m:02s; Memory used current: 82MB peak: 84MB)
+
+
+Starting Writing Generated Clock Conversion Report (Time elapsed 0h:00m:02s; Memory used current: 82MB peak: 84MB)
+
+@N: MF333 |Generated clock conversion enabled, but no generated clocks found in design 
+
+Finished Writing Generated Clock Conversion Report (Time elapsed 0h:00m:02s; Memory used current: 82MB peak: 84MB)
+
+@W: MT246 :"e:\pjk\mhd44tp_ir_rs232_sw_130701\fifo64x8.v":46:12:46:23|Blackbox FIFO8KB is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results) 
+@W: MT420 |Found inferred clock IR_RS232_SW|clk with period 5.95ns. Please declare a user-defined clock on object "p:clk"
+
+@W: MT420 |Found inferred clock IR_RS232_SW|rclk with period 1000.00ns. Please declare a user-defined clock on object "p:rclk"
+
+@W: MT420 |Found inferred clock IR_RS232_SW|srclk with period 1.00ns. Please declare a user-defined clock on object "p:srclk"
+
+
+
+##### START OF TIMING REPORT #####[
+# Timing Report written on Mon Jul 29 14:31:08 2013
+#
+
+
+Top view:               IR_RS232_SW
+Requested Frequency:    1.0 MHz
+Wire load mode:         top
+Paths requested:        5
+Constraint File(s):    
+@N: MT320 |Timing report estimates place and route data. Please look at the place and route timing report for final timing.
+
+@N: MT322 |Clock constraints cover only FF-to-FF paths associated with the clock.
+
+
+
+Performance Summary 
+*******************
+
+
+Worst slack in design: -1.051
+
+                      Requested      Estimated      Requested     Estimated                 Clock        Clock                
+Starting Clock        Frequency      Frequency      Period        Period        Slack       Type         Group                
+------------------------------------------------------------------------------------------------------------------------------
+IR_RS232_SW|clk       168.0 MHz      142.8 MHz      5.954         7.004         -1.051      inferred     Autoconstr_clkgroup_0
+IR_RS232_SW|rclk      1.0 MHz        809.2 MHz      1000.000      1.236         998.764     inferred     Autoconstr_clkgroup_1
+IR_RS232_SW|srclk     1000.0 MHz     870.0 MHz      1.000         1.149         -0.149      inferred     Autoconstr_clkgroup_2
+System                1157.0 MHz     2228.2 MHz     0.864         0.449         0.415       system       system_clkgroup      
+==============================================================================================================================
+
+
+
+
+
+Clock Relationships
+*******************
+
+Clocks                                |    rise  to  rise     |    fall  to  fall   |    rise  to  fall   |    fall  to  rise 
+------------------------------------------------------------------------------------------------------------------------------
+Starting           Ending             |  constraint  slack    |  constraint  slack  |  constraint  slack  |  constraint  slack
+------------------------------------------------------------------------------------------------------------------------------
+System             System             |  0.864       0.416    |  No paths    -      |  No paths    -      |  No paths    -    
+System             IR_RS232_SW|clk    |  5.954       4.865    |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|clk    System             |  5.954       4.397    |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|clk    IR_RS232_SW|clk    |  5.954       -1.051   |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|rclk   System             |  1000.000    998.764  |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|rclk   IR_RS232_SW|clk    |  Diff grp    -        |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|srclk  IR_RS232_SW|rclk   |  Diff grp    -        |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|srclk  IR_RS232_SW|srclk  |  1.000       -0.149   |  No paths    -      |  No paths    -      |  No paths    -    
+==============================================================================================================================
+ Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
+       'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
+
+
+
+Interface Information 
+*********************
+
+No IO constraint found
+
+
+
+====================================
+Detailed Report for Clock: IR_RS232_SW|clk
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+                            Starting                                                    Arrival           
+Instance                    Reference           Type        Pin     Net                 Time        Slack 
+                            Clock                                                                         
+----------------------------------------------------------------------------------------------------------
+bps_sel_fast[2]             IR_RS232_SW|clk     FD1P3DX     Q       bps_sel_fast[2]     1.148       -1.051
+uart_u2.speed_tx.cnt[0]     IR_RS232_SW|clk     FD1S3DX     Q       cnt[0]              1.108       -1.005
+bps_sel_fast[1]             IR_RS232_SW|clk     FD1P3DX     Q       bps_sel_fast[1]     1.044       -0.947
+uart_u2.speed_tx.cnt[1]     IR_RS232_SW|clk     FD1S3DX     Q       cnt[1]              1.108       -0.863
+uart_u2.speed_tx.cnt[2]     IR_RS232_SW|clk     FD1S3DX     Q       cnt[2]              1.108       -0.863
+bps_sel[1]                  IR_RS232_SW|clk     FD1P3DX     Q       bps_sel[1]          1.180       -0.796
+bps_sel_fast[0]             IR_RS232_SW|clk     FD1P3DX     Q       bps_sel_fast[0]     1.108       -0.795
+uart_u2.speed_tx.cnt[3]     IR_RS232_SW|clk     FD1S3DX     Q       cnt[3]              1.108       -0.720
+uart_u2.speed_tx.cnt[4]     IR_RS232_SW|clk     FD1S3DX     Q       cnt[4]              1.108       -0.720
+bps_sel[2]                  IR_RS232_SW|clk     FD1P3DX     Q       bps_sel[2]          1.204       -0.677
+==========================================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+                               Starting                                              Required           
+Instance                       Reference           Type        Pin     Net           Time         Slack 
+                               Clock                                                                    
+--------------------------------------------------------------------------------------------------------
+uart_u2.speed_tx.clk_bps_r     IR_RS232_SW|clk     FD1S3DX     D       N_29_i        6.042        -1.051
+uart_u2.speed_tx.cnt[0]        IR_RS232_SW|clk     FD1S3DX     D       cnt_lm[0]     6.042        -1.051
+uart_u2.speed_tx.cnt[1]        IR_RS232_SW|clk     FD1S3DX     D       cnt_lm[1]     6.042        -1.051
+uart_u2.speed_tx.cnt[2]        IR_RS232_SW|clk     FD1S3DX     D       cnt_lm[2]     6.042        -1.051
+uart_u2.speed_tx.cnt[3]        IR_RS232_SW|clk     FD1S3DX     D       cnt_lm[3]     6.042        -1.051
+uart_u2.speed_tx.cnt[4]        IR_RS232_SW|clk     FD1S3DX     D       cnt_lm[4]     6.042        -1.051
+uart_u2.speed_tx.cnt[5]        IR_RS232_SW|clk     FD1S3DX     D       cnt_lm[5]     6.042        -1.051
+uart_u2.speed_tx.cnt[6]        IR_RS232_SW|clk     FD1S3DX     D       cnt_lm[6]     6.042        -1.051
+uart_u2.speed_tx.cnt[7]        IR_RS232_SW|clk     FD1S3DX     D       cnt_lm[7]     6.042        -1.051
+uart_u2.speed_tx.cnt[8]        IR_RS232_SW|clk     FD1S3DX     D       cnt_lm[8]     6.042        -1.051
+========================================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      5.954
+    - Setup time:                            -0.089
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         6.042
+
+    - Propagation time:                      7.093
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -1.051
+
+    Number of logic level(s):                9
+    Starting point:                          bps_sel_fast[2] / Q
+    Ending point:                            uart_u2.speed_tx.clk_bps_r / D
+    The start point is clocked by            IR_RS232_SW|clk [rising] on pin CK
+    The end   point is clocked by            IR_RS232_SW|clk [rising] on pin CK
+
+Instance / Net                                         Pin      Pin               Arrival     No. of    
+Name                                      Type         Name     Dir     Delay     Time        Fan Out(s)
+--------------------------------------------------------------------------------------------------------
+bps_sel_fast[2]                           FD1P3DX      Q        Out     1.148     1.148       -         
+bps_sel_fast[2]                           Net          -        -       -         -           4         
+uart_u2.speed_tx.bpcnt_2_0_.m5_0_o2_0     ORCALUT4     B        In      0.000     1.148       -         
+uart_u2.speed_tx.bpcnt_2_0_.m5_0_o2_0     ORCALUT4     Z        Out     1.233     2.381       -         
+N_31                                      Net          -        -       -         -           6         
+uart_u2.speed_tx.un1_cnt_0_cry_1_0        CCU2D        A0       In      0.000     2.381       -         
+uart_u2.speed_tx.un1_cnt_0_cry_1_0        CCU2D        COUT     Out     1.545     3.925       -         
+un1_cnt_0_cry_2                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_3_0        CCU2D        CIN      In      0.000     3.925       -         
+uart_u2.speed_tx.un1_cnt_0_cry_3_0        CCU2D        COUT     Out     0.143     4.068       -         
+un1_cnt_0_cry_4                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_5_0        CCU2D        CIN      In      0.000     4.068       -         
+uart_u2.speed_tx.un1_cnt_0_cry_5_0        CCU2D        COUT     Out     0.143     4.211       -         
+un1_cnt_0_cry_6                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_7_0        CCU2D        CIN      In      0.000     4.211       -         
+uart_u2.speed_tx.un1_cnt_0_cry_7_0        CCU2D        COUT     Out     0.143     4.354       -         
+un1_cnt_0_cry_8                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_9_0        CCU2D        CIN      In      0.000     4.354       -         
+uart_u2.speed_tx.un1_cnt_0_cry_9_0        CCU2D        COUT     Out     0.143     4.496       -         
+un1_cnt_0_cry_10                          Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_11_0       CCU2D        CIN      In      0.000     4.496       -         
+uart_u2.speed_tx.un1_cnt_0_cry_11_0       CCU2D        COUT     Out     0.143     4.639       -         
+un1_cnt_0_cry_12                          Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_13_0       CCU2D        CIN      In      0.000     4.639       -         
+uart_u2.speed_tx.un1_cnt_0_cry_13_0       CCU2D        S1       Out     1.837     6.476       -         
+un1_cnt0                                  Net          -        -       -         -           15        
+uart_u2.speed_tx.clk_bps_r_RNO            ORCALUT4     C        In      0.000     6.476       -         
+uart_u2.speed_tx.clk_bps_r_RNO            ORCALUT4     Z        Out     0.617     7.093       -         
+N_29_i                                    Net          -        -       -         -           1         
+uart_u2.speed_tx.clk_bps_r                FD1S3DX      D        In      0.000     7.093       -         
+========================================================================================================
+
+
+Path information for path number 2: 
+      Requested Period:                      5.954
+    - Setup time:                            -0.089
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         6.042
+
+    - Propagation time:                      7.093
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -1.051
+
+    Number of logic level(s):                9
+    Starting point:                          bps_sel_fast[2] / Q
+    Ending point:                            uart_u2.speed_tx.clk_bps_r / D
+    The start point is clocked by            IR_RS232_SW|clk [rising] on pin CK
+    The end   point is clocked by            IR_RS232_SW|clk [rising] on pin CK
+
+Instance / Net                                         Pin      Pin               Arrival     No. of    
+Name                                      Type         Name     Dir     Delay     Time        Fan Out(s)
+--------------------------------------------------------------------------------------------------------
+bps_sel_fast[2]                           FD1P3DX      Q        Out     1.148     1.148       -         
+bps_sel_fast[2]                           Net          -        -       -         -           4         
+uart_u2.speed_tx.bpcnt_2_0_.m5_0_o2_0     ORCALUT4     B        In      0.000     1.148       -         
+uart_u2.speed_tx.bpcnt_2_0_.m5_0_o2_0     ORCALUT4     Z        Out     1.233     2.381       -         
+N_31                                      Net          -        -       -         -           6         
+uart_u2.speed_tx.un1_cnt_0_cry_1_0        CCU2D        A1       In      0.000     2.381       -         
+uart_u2.speed_tx.un1_cnt_0_cry_1_0        CCU2D        COUT     Out     1.545     3.925       -         
+un1_cnt_0_cry_2                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_3_0        CCU2D        CIN      In      0.000     3.925       -         
+uart_u2.speed_tx.un1_cnt_0_cry_3_0        CCU2D        COUT     Out     0.143     4.068       -         
+un1_cnt_0_cry_4                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_5_0        CCU2D        CIN      In      0.000     4.068       -         
+uart_u2.speed_tx.un1_cnt_0_cry_5_0        CCU2D        COUT     Out     0.143     4.211       -         
+un1_cnt_0_cry_6                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_7_0        CCU2D        CIN      In      0.000     4.211       -         
+uart_u2.speed_tx.un1_cnt_0_cry_7_0        CCU2D        COUT     Out     0.143     4.354       -         
+un1_cnt_0_cry_8                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_9_0        CCU2D        CIN      In      0.000     4.354       -         
+uart_u2.speed_tx.un1_cnt_0_cry_9_0        CCU2D        COUT     Out     0.143     4.496       -         
+un1_cnt_0_cry_10                          Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_11_0       CCU2D        CIN      In      0.000     4.496       -         
+uart_u2.speed_tx.un1_cnt_0_cry_11_0       CCU2D        COUT     Out     0.143     4.639       -         
+un1_cnt_0_cry_12                          Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_13_0       CCU2D        CIN      In      0.000     4.639       -         
+uart_u2.speed_tx.un1_cnt_0_cry_13_0       CCU2D        S1       Out     1.837     6.476       -         
+un1_cnt0                                  Net          -        -       -         -           15        
+uart_u2.speed_tx.clk_bps_r_RNO            ORCALUT4     C        In      0.000     6.476       -         
+uart_u2.speed_tx.clk_bps_r_RNO            ORCALUT4     Z        Out     0.617     7.093       -         
+N_29_i                                    Net          -        -       -         -           1         
+uart_u2.speed_tx.clk_bps_r                FD1S3DX      D        In      0.000     7.093       -         
+========================================================================================================
+
+
+Path information for path number 3: 
+      Requested Period:                      5.954
+    - Setup time:                            -0.089
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         6.042
+
+    - Propagation time:                      7.093
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -1.051
+
+    Number of logic level(s):                9
+    Starting point:                          bps_sel_fast[2] / Q
+    Ending point:                            uart_u2.speed_tx.cnt[13] / D
+    The start point is clocked by            IR_RS232_SW|clk [rising] on pin CK
+    The end   point is clocked by            IR_RS232_SW|clk [rising] on pin CK
+
+Instance / Net                                         Pin      Pin               Arrival     No. of    
+Name                                      Type         Name     Dir     Delay     Time        Fan Out(s)
+--------------------------------------------------------------------------------------------------------
+bps_sel_fast[2]                           FD1P3DX      Q        Out     1.148     1.148       -         
+bps_sel_fast[2]                           Net          -        -       -         -           4         
+uart_u2.speed_tx.bpcnt_2_0_.m5_0_o2_0     ORCALUT4     B        In      0.000     1.148       -         
+uart_u2.speed_tx.bpcnt_2_0_.m5_0_o2_0     ORCALUT4     Z        Out     1.233     2.381       -         
+N_31                                      Net          -        -       -         -           6         
+uart_u2.speed_tx.un1_cnt_0_cry_1_0        CCU2D        A0       In      0.000     2.381       -         
+uart_u2.speed_tx.un1_cnt_0_cry_1_0        CCU2D        COUT     Out     1.545     3.925       -         
+un1_cnt_0_cry_2                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_3_0        CCU2D        CIN      In      0.000     3.925       -         
+uart_u2.speed_tx.un1_cnt_0_cry_3_0        CCU2D        COUT     Out     0.143     4.068       -         
+un1_cnt_0_cry_4                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_5_0        CCU2D        CIN      In      0.000     4.068       -         
+uart_u2.speed_tx.un1_cnt_0_cry_5_0        CCU2D        COUT     Out     0.143     4.211       -         
+un1_cnt_0_cry_6                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_7_0        CCU2D        CIN      In      0.000     4.211       -         
+uart_u2.speed_tx.un1_cnt_0_cry_7_0        CCU2D        COUT     Out     0.143     4.354       -         
+un1_cnt_0_cry_8                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_9_0        CCU2D        CIN      In      0.000     4.354       -         
+uart_u2.speed_tx.un1_cnt_0_cry_9_0        CCU2D        COUT     Out     0.143     4.496       -         
+un1_cnt_0_cry_10                          Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_11_0       CCU2D        CIN      In      0.000     4.496       -         
+uart_u2.speed_tx.un1_cnt_0_cry_11_0       CCU2D        COUT     Out     0.143     4.639       -         
+un1_cnt_0_cry_12                          Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_13_0       CCU2D        CIN      In      0.000     4.639       -         
+uart_u2.speed_tx.un1_cnt_0_cry_13_0       CCU2D        S1       Out     1.837     6.476       -         
+un1_cnt0                                  Net          -        -       -         -           15        
+uart_u2.speed_tx.cnt_lm_0[13]             ORCALUT4     D        In      0.000     6.476       -         
+uart_u2.speed_tx.cnt_lm_0[13]             ORCALUT4     Z        Out     0.617     7.093       -         
+cnt_lm[13]                                Net          -        -       -         -           1         
+uart_u2.speed_tx.cnt[13]                  FD1S3DX      D        In      0.000     7.093       -         
+========================================================================================================
+
+
+Path information for path number 4: 
+      Requested Period:                      5.954
+    - Setup time:                            -0.089
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         6.042
+
+    - Propagation time:                      7.093
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -1.051
+
+    Number of logic level(s):                9
+    Starting point:                          bps_sel_fast[2] / Q
+    Ending point:                            uart_u2.speed_tx.cnt[12] / D
+    The start point is clocked by            IR_RS232_SW|clk [rising] on pin CK
+    The end   point is clocked by            IR_RS232_SW|clk [rising] on pin CK
+
+Instance / Net                                         Pin      Pin               Arrival     No. of    
+Name                                      Type         Name     Dir     Delay     Time        Fan Out(s)
+--------------------------------------------------------------------------------------------------------
+bps_sel_fast[2]                           FD1P3DX      Q        Out     1.148     1.148       -         
+bps_sel_fast[2]                           Net          -        -       -         -           4         
+uart_u2.speed_tx.bpcnt_2_0_.m5_0_o2_0     ORCALUT4     B        In      0.000     1.148       -         
+uart_u2.speed_tx.bpcnt_2_0_.m5_0_o2_0     ORCALUT4     Z        Out     1.233     2.381       -         
+N_31                                      Net          -        -       -         -           6         
+uart_u2.speed_tx.un1_cnt_0_cry_1_0        CCU2D        A0       In      0.000     2.381       -         
+uart_u2.speed_tx.un1_cnt_0_cry_1_0        CCU2D        COUT     Out     1.545     3.925       -         
+un1_cnt_0_cry_2                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_3_0        CCU2D        CIN      In      0.000     3.925       -         
+uart_u2.speed_tx.un1_cnt_0_cry_3_0        CCU2D        COUT     Out     0.143     4.068       -         
+un1_cnt_0_cry_4                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_5_0        CCU2D        CIN      In      0.000     4.068       -         
+uart_u2.speed_tx.un1_cnt_0_cry_5_0        CCU2D        COUT     Out     0.143     4.211       -         
+un1_cnt_0_cry_6                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_7_0        CCU2D        CIN      In      0.000     4.211       -         
+uart_u2.speed_tx.un1_cnt_0_cry_7_0        CCU2D        COUT     Out     0.143     4.354       -         
+un1_cnt_0_cry_8                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_9_0        CCU2D        CIN      In      0.000     4.354       -         
+uart_u2.speed_tx.un1_cnt_0_cry_9_0        CCU2D        COUT     Out     0.143     4.496       -         
+un1_cnt_0_cry_10                          Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_11_0       CCU2D        CIN      In      0.000     4.496       -         
+uart_u2.speed_tx.un1_cnt_0_cry_11_0       CCU2D        COUT     Out     0.143     4.639       -         
+un1_cnt_0_cry_12                          Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_13_0       CCU2D        CIN      In      0.000     4.639       -         
+uart_u2.speed_tx.un1_cnt_0_cry_13_0       CCU2D        S1       Out     1.837     6.476       -         
+un1_cnt0                                  Net          -        -       -         -           15        
+uart_u2.speed_tx.cnt_lm_0[12]             ORCALUT4     D        In      0.000     6.476       -         
+uart_u2.speed_tx.cnt_lm_0[12]             ORCALUT4     Z        Out     0.617     7.093       -         
+cnt_lm[12]                                Net          -        -       -         -           1         
+uart_u2.speed_tx.cnt[12]                  FD1S3DX      D        In      0.000     7.093       -         
+========================================================================================================
+
+
+Path information for path number 5: 
+      Requested Period:                      5.954
+    - Setup time:                            -0.089
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         6.042
+
+    - Propagation time:                      7.093
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -1.051
+
+    Number of logic level(s):                9
+    Starting point:                          bps_sel_fast[2] / Q
+    Ending point:                            uart_u2.speed_tx.cnt[11] / D
+    The start point is clocked by            IR_RS232_SW|clk [rising] on pin CK
+    The end   point is clocked by            IR_RS232_SW|clk [rising] on pin CK
+
+Instance / Net                                         Pin      Pin               Arrival     No. of    
+Name                                      Type         Name     Dir     Delay     Time        Fan Out(s)
+--------------------------------------------------------------------------------------------------------
+bps_sel_fast[2]                           FD1P3DX      Q        Out     1.148     1.148       -         
+bps_sel_fast[2]                           Net          -        -       -         -           4         
+uart_u2.speed_tx.bpcnt_2_0_.m5_0_o2_0     ORCALUT4     B        In      0.000     1.148       -         
+uart_u2.speed_tx.bpcnt_2_0_.m5_0_o2_0     ORCALUT4     Z        Out     1.233     2.381       -         
+N_31                                      Net          -        -       -         -           6         
+uart_u2.speed_tx.un1_cnt_0_cry_1_0        CCU2D        A0       In      0.000     2.381       -         
+uart_u2.speed_tx.un1_cnt_0_cry_1_0        CCU2D        COUT     Out     1.545     3.925       -         
+un1_cnt_0_cry_2                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_3_0        CCU2D        CIN      In      0.000     3.925       -         
+uart_u2.speed_tx.un1_cnt_0_cry_3_0        CCU2D        COUT     Out     0.143     4.068       -         
+un1_cnt_0_cry_4                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_5_0        CCU2D        CIN      In      0.000     4.068       -         
+uart_u2.speed_tx.un1_cnt_0_cry_5_0        CCU2D        COUT     Out     0.143     4.211       -         
+un1_cnt_0_cry_6                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_7_0        CCU2D        CIN      In      0.000     4.211       -         
+uart_u2.speed_tx.un1_cnt_0_cry_7_0        CCU2D        COUT     Out     0.143     4.354       -         
+un1_cnt_0_cry_8                           Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_9_0        CCU2D        CIN      In      0.000     4.354       -         
+uart_u2.speed_tx.un1_cnt_0_cry_9_0        CCU2D        COUT     Out     0.143     4.496       -         
+un1_cnt_0_cry_10                          Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_11_0       CCU2D        CIN      In      0.000     4.496       -         
+uart_u2.speed_tx.un1_cnt_0_cry_11_0       CCU2D        COUT     Out     0.143     4.639       -         
+un1_cnt_0_cry_12                          Net          -        -       -         -           1         
+uart_u2.speed_tx.un1_cnt_0_cry_13_0       CCU2D        CIN      In      0.000     4.639       -         
+uart_u2.speed_tx.un1_cnt_0_cry_13_0       CCU2D        S1       Out     1.837     6.476       -         
+un1_cnt0                                  Net          -        -       -         -           15        
+uart_u2.speed_tx.cnt_lm_0[11]             ORCALUT4     D        In      0.000     6.476       -         
+uart_u2.speed_tx.cnt_lm_0[11]             ORCALUT4     Z        Out     0.617     7.093       -         
+cnt_lm[11]                                Net          -        -       -         -           1         
+uart_u2.speed_tx.cnt[11]                  FD1S3DX      D        In      0.000     7.093       -         
+========================================================================================================
+
+
+
+
+====================================
+Detailed Report for Clock: IR_RS232_SW|rclk
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+               Starting                                            Arrival            
+Instance       Reference            Type        Pin     Net        Time        Slack  
+               Clock                                                                  
+--------------------------------------------------------------------------------------
+hc595_u.qa     IR_RS232_SW|rclk     FD1S3AX     Q       con[0]     1.236       998.764
+hc595_u.qb     IR_RS232_SW|rclk     FD1S3AX     Q       con[1]     1.188       998.812
+hc595_u.qc     IR_RS232_SW|rclk     FD1S3AX     Q       con[2]     1.188       998.812
+hc595_u.qe     IR_RS232_SW|rclk     FD1S3AX     Q       con[4]     1.188       998.812
+hc595_u.qf     IR_RS232_SW|rclk     FD1S3AX     Q       con[5]     1.188       998.812
+hc595_u.qd     IR_RS232_SW|rclk     FD1S3AX     Q       con[3]     1.108       998.892
+hc595_u.qg     IR_RS232_SW|rclk     FD1S3AX     Q       con[6]     1.108       998.892
+hc595_u.qh     IR_RS232_SW|rclk     FD1S3AX     Q       con[7]     1.108       998.892
+======================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+                         Starting                                            Required            
+Instance                 Reference            Type        Pin     Net        Time         Slack  
+                         Clock                                                                   
+-------------------------------------------------------------------------------------------------
+fifo_u1.fifo64x8_0_0     IR_RS232_SW|rclk     FIFO8KB     DI0     con[0]     1000.000     998.764
+fifo_u1.fifo64x8_0_0     IR_RS232_SW|rclk     FIFO8KB     DI1     con[1]     1000.000     998.812
+fifo_u1.fifo64x8_0_0     IR_RS232_SW|rclk     FIFO8KB     DI2     con[2]     1000.000     998.812
+fifo_u1.fifo64x8_0_0     IR_RS232_SW|rclk     FIFO8KB     DI4     con[4]     1000.000     998.812
+fifo_u1.fifo64x8_0_0     IR_RS232_SW|rclk     FIFO8KB     DI5     con[5]     1000.000     998.812
+fifo_u1.fifo64x8_0_0     IR_RS232_SW|rclk     FIFO8KB     DI3     con[3]     1000.000     998.892
+fifo_u1.fifo64x8_0_0     IR_RS232_SW|rclk     FIFO8KB     DI6     con[6]     1000.000     998.892
+fifo_u1.fifo64x8_0_0     IR_RS232_SW|rclk     FIFO8KB     DI7     con[7]     1000.000     998.892
+=================================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      1000.000
+    - Setup time:                            0.000
+    + Clock delay at ending point:           0.000 (ideal)
+    + Estimated clock delay at ending point: 0.000
+    = Required time:                         1000.000
+
+    - Propagation time:                      1.236
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 998.764
+
+    Number of logic level(s):                0
+    Starting point:                          hc595_u.qa / Q
+    Ending point:                            fifo_u1.fifo64x8_0_0 / DI0
+    The start point is clocked by            IR_RS232_SW|rclk [rising] on pin CK
+    The end   point is clocked by            System [rising]
+
+Instance / Net                       Pin      Pin               Arrival     No. of    
+Name                     Type        Name     Dir     Delay     Time        Fan Out(s)
+--------------------------------------------------------------------------------------
+hc595_u.qa               FD1S3AX     Q        Out     1.236     1.236       -         
+con[0]                   Net         -        -       -         -           11        
+fifo_u1.fifo64x8_0_0     FIFO8KB     DI0      In      0.000     1.236       -         
+======================================================================================
+
+
+
+
+====================================
+Detailed Report for Clock: IR_RS232_SW|srclk
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+                  Starting                                                   Arrival           
+Instance          Reference             Type         Pin     Net             Time        Slack 
+                  Clock                                                                        
+-----------------------------------------------------------------------------------------------
+hc595_u_qa0io     IR_RS232_SW|srclk     IFS1P3DX     Q       hc595_u.qa0     1.044       -0.149
+hc595_u.qb0       IR_RS232_SW|srclk     FD1S3DX      Q       qb0             1.044       -0.149
+hc595_u.qc0       IR_RS232_SW|srclk     FD1S3DX      Q       qc0             1.044       -0.149
+hc595_u.qd0       IR_RS232_SW|srclk     FD1S3DX      Q       qd0             1.044       -0.149
+hc595_u.qe0       IR_RS232_SW|srclk     FD1S3DX      Q       qe0             1.044       -0.149
+hc595_u.qf0       IR_RS232_SW|srclk     FD1S3DX      Q       qf0             1.044       -0.149
+hc595_u.qg0       IR_RS232_SW|srclk     FD1S3DX      Q       qg0             1.044       -0.149
+===============================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+                Starting                                          Required           
+Instance        Reference             Type        Pin     Net     Time         Slack 
+                Clock                                                                
+-------------------------------------------------------------------------------------
+hc595_u.qb0     IR_RS232_SW|srclk     FD1S3DX     D       qa0     0.894        -0.149
+hc595_u.qc0     IR_RS232_SW|srclk     FD1S3DX     D       qb0     0.894        -0.149
+hc595_u.qd0     IR_RS232_SW|srclk     FD1S3DX     D       qc0     0.894        -0.149
+hc595_u.qe0     IR_RS232_SW|srclk     FD1S3DX     D       qd0     0.894        -0.149
+hc595_u.qf0     IR_RS232_SW|srclk     FD1S3DX     D       qe0     0.894        -0.149
+hc595_u.qg0     IR_RS232_SW|srclk     FD1S3DX     D       qf0     0.894        -0.149
+hc595_u.qh0     IR_RS232_SW|srclk     FD1S3DX     D       qg0     0.894        -0.149
+=====================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      1.000
+    - Setup time:                            0.106
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         0.894
+
+    - Propagation time:                      1.044
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -0.149
+
+    Number of logic level(s):                0
+    Starting point:                          hc595_u_qa0io / Q
+    Ending point:                            hc595_u.qb0 / D
+    The start point is clocked by            IR_RS232_SW|srclk [rising] on pin SCLK
+    The end   point is clocked by            IR_RS232_SW|srclk [rising] on pin CK
+
+Instance / Net                  Pin      Pin               Arrival     No. of    
+Name               Type         Name     Dir     Delay     Time        Fan Out(s)
+---------------------------------------------------------------------------------
+hc595_u_qa0io      IFS1P3DX     Q        Out     1.044     1.044       -         
+hc595_u.qa0        Net          -        -       -         -           2         
+hc595_u.qb0        FD1S3DX      D        In      0.000     1.044       -         
+=================================================================================
+
+
+Path information for path number 2: 
+      Requested Period:                      1.000
+    - Setup time:                            0.106
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         0.894
+
+    - Propagation time:                      1.044
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -0.149
+
+    Number of logic level(s):                0
+    Starting point:                          hc595_u.qb0 / Q
+    Ending point:                            hc595_u.qc0 / D
+    The start point is clocked by            IR_RS232_SW|srclk [rising] on pin CK
+    The end   point is clocked by            IR_RS232_SW|srclk [rising] on pin CK
+
+Instance / Net                 Pin      Pin               Arrival     No. of    
+Name               Type        Name     Dir     Delay     Time        Fan Out(s)
+--------------------------------------------------------------------------------
+hc595_u.qb0        FD1S3DX     Q        Out     1.044     1.044       -         
+qb0                Net         -        -       -         -           2         
+hc595_u.qc0        FD1S3DX     D        In      0.000     1.044       -         
+================================================================================
+
+
+Path information for path number 3: 
+      Requested Period:                      1.000
+    - Setup time:                            0.106
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         0.894
+
+    - Propagation time:                      1.044
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -0.149
+
+    Number of logic level(s):                0
+    Starting point:                          hc595_u.qc0 / Q
+    Ending point:                            hc595_u.qd0 / D
+    The start point is clocked by            IR_RS232_SW|srclk [rising] on pin CK
+    The end   point is clocked by            IR_RS232_SW|srclk [rising] on pin CK
+
+Instance / Net                 Pin      Pin               Arrival     No. of    
+Name               Type        Name     Dir     Delay     Time        Fan Out(s)
+--------------------------------------------------------------------------------
+hc595_u.qc0        FD1S3DX     Q        Out     1.044     1.044       -         
+qc0                Net         -        -       -         -           2         
+hc595_u.qd0        FD1S3DX     D        In      0.000     1.044       -         
+================================================================================
+
+
+Path information for path number 4: 
+      Requested Period:                      1.000
+    - Setup time:                            0.106
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         0.894
+
+    - Propagation time:                      1.044
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -0.149
+
+    Number of logic level(s):                0
+    Starting point:                          hc595_u.qd0 / Q
+    Ending point:                            hc595_u.qe0 / D
+    The start point is clocked by            IR_RS232_SW|srclk [rising] on pin CK
+    The end   point is clocked by            IR_RS232_SW|srclk [rising] on pin CK
+
+Instance / Net                 Pin      Pin               Arrival     No. of    
+Name               Type        Name     Dir     Delay     Time        Fan Out(s)
+--------------------------------------------------------------------------------
+hc595_u.qd0        FD1S3DX     Q        Out     1.044     1.044       -         
+qd0                Net         -        -       -         -           2         
+hc595_u.qe0        FD1S3DX     D        In      0.000     1.044       -         
+================================================================================
+
+
+Path information for path number 5: 
+      Requested Period:                      1.000
+    - Setup time:                            0.106
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         0.894
+
+    - Propagation time:                      1.044
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -0.149
+
+    Number of logic level(s):                0
+    Starting point:                          hc595_u.qe0 / Q
+    Ending point:                            hc595_u.qf0 / D
+    The start point is clocked by            IR_RS232_SW|srclk [rising] on pin CK
+    The end   point is clocked by            IR_RS232_SW|srclk [rising] on pin CK
+
+Instance / Net                 Pin      Pin               Arrival     No. of    
+Name               Type        Name     Dir     Delay     Time        Fan Out(s)
+--------------------------------------------------------------------------------
+hc595_u.qe0        FD1S3DX     Q        Out     1.044     1.044       -         
+qe0                Net         -        -       -         -           2         
+hc595_u.qf0        FD1S3DX     D        In      0.000     1.044       -         
+================================================================================
+
+
+
+
+====================================
+Detailed Report for Clock: System
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+                         Starting                                         Arrival          
+Instance                 Reference     Type        Pin      Net           Time        Slack
+                         Clock                                                             
+-------------------------------------------------------------------------------------------
+fifo_u1.fifo64x8_0_0     System        FIFO8KB     FF       full          0.000       0.415
+fifo_u1.fifo64x8_0_0     System        FIFO8KB     EF       empty         0.000       0.864
+fifo_u1.fifo64x8_0_0     System        FIFO8KB     DO9      txdata[0]     0.000       5.848
+fifo_u1.fifo64x8_0_0     System        FIFO8KB     DO10     txdata[1]     0.000       5.848
+fifo_u1.fifo64x8_0_0     System        FIFO8KB     DO11     txdata[2]     0.000       5.848
+fifo_u1.fifo64x8_0_0     System        FIFO8KB     DO12     txdata[3]     0.000       5.848
+fifo_u1.fifo64x8_0_0     System        FIFO8KB     DO13     txdata[4]     0.000       5.848
+fifo_u1.fifo64x8_0_0     System        FIFO8KB     DO14     txdata[5]     0.000       5.848
+fifo_u1.fifo64x8_0_0     System        FIFO8KB     DO15     txdata[6]     0.000       5.848
+fifo_u1.fifo64x8_0_0     System        FIFO8KB     DO16     txdata[7]     0.000       5.848
+===========================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+                                  Starting                                           Required          
+Instance                          Reference     Type        Pin        Net           Time         Slack
+                                  Clock                                                                
+-------------------------------------------------------------------------------------------------------
+fifo_u1.fifo64x8_0_0              System        FIFO8KB     WE         wren_w        0.864        0.415
+fifo_u1.fifo64x8_0_0              System        FIFO8KB     EMPTYI     empty         0.864        0.864
+fifo_u1.fifo64x8_0_0              System        FIFO8KB     FULLI      full          0.864        0.864
+txen                              System        FD1P3DX     SP         N_43_i        5.482        4.865
+uart_u2.my_uart_tx.tx_data[0]     System        FD1P3DX     D          txdata[0]     5.848        5.848
+uart_u2.my_uart_tx.tx_data[1]     System        FD1P3DX     D          txdata[1]     5.848        5.848
+uart_u2.my_uart_tx.tx_data[2]     System        FD1P3DX     D          txdata[2]     5.848        5.848
+uart_u2.my_uart_tx.tx_data[3]     System        FD1P3DX     D          txdata[3]     5.848        5.848
+uart_u2.my_uart_tx.tx_data[4]     System        FD1P3DX     D          txdata[4]     5.848        5.848
+uart_u2.my_uart_tx.tx_data[5]     System        FD1P3DX     D          txdata[5]     5.848        5.848
+=======================================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      0.864
+    - Setup time:                            0.000
+    + Clock delay at ending point:           0.000 (ideal)
+    + Estimated clock delay at ending point: 0.000
+    = Required time:                         0.864
+
+    - Propagation time:                      0.449
+    - Clock delay at starting point:         0.000 (ideal)
+    - Estimated clock delay at start point:  -0.000
+    = Slack (non-critical) :                 0.415
+
+    Number of logic level(s):                1
+    Starting point:                          fifo_u1.fifo64x8_0_0 / FF
+    Ending point:                            fifo_u1.fifo64x8_0_0 / WE
+    The start point is clocked by            System [rising]
+    The end   point is clocked by            System [rising]
+
+Instance / Net                        Pin      Pin               Arrival     No. of    
+Name                     Type         Name     Dir     Delay     Time        Fan Out(s)
+---------------------------------------------------------------------------------------
+fifo_u1.fifo64x8_0_0     FIFO8KB      FF       Out     0.000     0.000       -         
+full                     Net          -        -       -         -           2         
+wren_w                   ORCALUT4     A        In      0.000     0.000       -         
+wren_w                   ORCALUT4     Z        Out     0.449     0.449       -         
+wren_w                   Net          -        -       -         -           1         
+fifo_u1.fifo64x8_0_0     FIFO8KB      WE       In      0.000     0.449       -         
+=======================================================================================
+
+
+
+##### END OF TIMING REPORT #####]
+
+---------------------------------------
+Resource Usage Report
+Part: lcmxo2_640hc-4
+
+Register bits: 395 of 640 (62%)
+PIC Latch:       0
+I/O cells:       48
+
+
+Details:
+CCU2D:          173
+FD1P3AX:        33
+FD1P3BX:        1
+FD1P3DX:        168
+FD1S3AX:        80
+FD1S3BX:        46
+FD1S3DX:        55
+FD1S3IX:        1
+FD1S3JX:        2
+GSR:            1
+IB:             27
+IFS1P3BX:       6
+IFS1P3DX:       3
+INV:            4
+OB:             21
+ORCALUT4:       436
+PFUMX:          2
+PUR:            1
+VHI:            1
+VLO:            1
+false:          16
+true:           16
+Mapper successful!
+
+At Mapper Exit (Time elapsed 0h:00m:02s; Memory used current: 27MB peak: 84MB)
+
+Process took 0h:00m:02s realtime, 0h:00m:02s cputime
+# Mon Jul 29 14:31:08 2013
+
+###########################################################]

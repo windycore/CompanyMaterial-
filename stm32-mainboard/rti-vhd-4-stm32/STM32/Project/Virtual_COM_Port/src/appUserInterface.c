@@ -1,0 +1,3615 @@
+// ---------------------------------------------------------------------------
+// >>>>>>>>>>>>>>>>>>>>>>>>> COPYRIGHT NOTICE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+// ---------------------------------------------------------------------------
+//
+//
+//
+// This is an unpublished work.
+// ---------------------------------------------------------------------------
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>> WARRANTEE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+// ---------------------------------------------------------------------------
+/* ---------------------------- END CUSTOM AREA --------------------------- */
+#include "appUserInterface.h"
+#include "Util.h"
+#include "utilDataMgrAPI.h"
+#include "dvPC9539.h"
+#include "si_logger.h"
+#include "appSystemMgrAPI.h"
+#include "mcu.h"
+#include "main.h"
+#include "dvLcd.h"
+#include "Uart.h"
+#include "appPowerMgrAPI.h"
+#include "KeyTasks.h"
+#include "halPowerCtrlAPI.h"
+#include "LedReceiveEvent.h"
+#include "SwitchVideoReceiveEvent.h"
+#include "OSAL.h"
+#include "IRTasks.h"
+#include "LcdHandle.h"
+#include "si_timer.h"
+#include "InputHandle.h"
+#include "sii_api.h"
+// ***************************************************************************
+// *************** START OF PRIVATE TYPE AND SYMBOL DEFINITIONS **************
+// ***************************************************************************
+// This file does not contain any non-configurable definitions.
+// ***************************************************************************
+// ****************** START OF PRIVATE CONFIGURATION SECTION *****************
+// ***************************************************************************
+#define PRD_TYPE_TXT   "HDBaseT Matrix"
+#define PRD_NAME_TXT   "HMX 442LP4K"
+// define the time to exit if no key or mesage input
+#define DEFAULT_UI_CLEAR mS_TO_TICKS(6000L)
+#define DEFAULT_UI_ENTER mS_TO_TICKS(1500L)
+char LCD1_IDLE_TEXT[17] = PRD_TYPE;
+char LCD2_IDLE_TEXT[17] = PRD_NAME;
+char m_acProduct_Type[17]= PRD_TYPE;
+char m_acProduct_Name[17]= PRD_NAME;
+/* -------------- BEGIN CUSTOM AREA [010] appUserInterface.c -----------------
+ * CONFIGURATION: This custom area contains configurable includes and defines.
+ * Add custom includes, defines and types here */
+static KEY_EVENT sLastKeEvent;
+typedef enum
+{
+    /* ---------------- BEGIN CUSTOM AREA [010] utilUITypes.h --------------------
+     * CONFIGURATION: Add user input events here */
+    seNONE,
+    seSAVE,
+    seLOAD,
+    seINVLAID,
+} eSENSESTATUS;
+/* ---------------------------- END CUSTOM AREA --------------------------- */
+// ***************************************************************************
+// ******************* END OF PRIVATE CONFIGURATION SECTION ******************
+// ***************************************************************************
+// current and next selected states of user interface
+// ---------------------------------------------------------------------------
+static eUI_STATE        m_eState;
+static eUI_STATE        m_eNextState;
+static eUartLed_STATE        m_eUartLedState;
+// ---------------------------------------------------------------------------
+// flag indicating that OSD graphics need to be updated (redrawn)
+// ---------------------------------------------------------------------------
+static BOOL             m_bUpdateUI;
+static BOOL             m_bUIEnabled = TRUE;
+// ***************************************************************************
+// **************** START OF PRIVATE PROCEDURE IMPLEMENTATIONS ***************
+// ***************************************************************************
+static DWORD           m_wLedToFlashing;   // 用于记录那些灯要闪烁
+//
+//  -True: 正在闪烁, 计时器里判断如果TRUE 在闪烁,时间到了更新,不退出
+//                                                                     如果FASLE,  CLEAR 时间到了就退出到IDEAL
+//             一般在RENDER 中显示完后根据情况把他设立起来
+//                        在RENDER 中闪烁中达到次数清楚
+//
+// etUI_CLEAR 时间到闪烁退出, 闪烁频率 etUI_FLASHING
+// 总共闪烁时间由 etUI_CLEAR 决定
+static BOOL            m_bLedFlashingEN = FALSE;  // 1: 开始闪烁
+//
+//
+//  闪烁次数
+static BYTE             m_cLedFlashCNT = 0;  // 闪烁次数, //一般在RENDER 中++
+//--------------------------------------------------------------------
+// etUI_CLEAR 时间到字符闪烁退出, 闪烁频率 etUI_FLASHING
+// 总共闪烁时间由 etUI_CLEAR 决定
+static BOOL            m_bUIFlashingEN = FALSE;  // 字符闪烁计时器使能
+static BOOL            m_bCharFlashing = FALSE;  // 0: 正常显示1:  显示空
+//--------------------------------------------
+// uiSWITCH_VIDEO
+static BYTE   m_cSwitchInputPort = 0;            // 切换下 那个输入口被选中
+static BOOL   m_abSwitchOutPortSelect[MAX_OUT];  // 切换 下那些输出口被选中
+static BOOL   m_bSwitchEnter = FALSE;            // 有效条件下enter 按键按下
+//---------------------------------------------
+// uiSWITCH_INFO
+static BYTE   m_cSwitcherInfoPort = 0;
+//---------------------------------------------
+//uiEDID_EXTERN_MANAGE
+static BYTE   m_cEdidManageInPort = 0;
+static BYTE   m_cEdidManageOutPort = 0;
+static BYTE   m_cUpDownKeyCount = 0;
+//----------------------------------------------
+//uiUART_MESSAGE
+static BYTE m_bUartMessageSend = FALSE; // 是否需要发送数据
+static BYTE m_cUartMessage1[LCD_MAX_CHAR];
+static BYTE m_cUartMessage2[LCD_MAX_CHAR];
+//-----------------------------------------------
+//uiSYSTEM_SWITCHPORT_INFO
+static BYTE m_bOutPortSwitcherInf;
+// ---------------------------------------------------------------------------
+// Process state changes on timeouts. If we are in a UI state that has a
+// timeout and the timeout occurs, then transition to the idle state.
+//
+// Params: none
+//
+// Return: none
+// ---------------------------------------------------------------------------
+static void ProcessStateChangeOnTimeout(void)
+{
+    if (SiiPlatformTimerExpired(etUI_CLEAR))
+    {
+        m_bUIFlashingEN = FALSE;
+        m_bLedFlashingEN  = FALSE;
+        m_cLedFlashCNT = 0;
+        switch (m_eState)
+        {
+        case uiIDLE:
+            break;
+        case uiSWITCH_VIDEO:
+        case uiEDID_EXTERN_MANAGE:
+            /*
+                        if (m_bLedFlashing)
+                        {
+                            m_bUpdateUI = TRUE;
+                        }
+                        else
+            */
+        {
+            m_eNextState = uiSPLASH;
+            m_bUpdateUI = TRUE;
+        }
+        break;
+        case uiSWITCH_INFO:
+            m_eNextState = uiSPLASH;
+            m_bUpdateUI = TRUE;
+            break;
+        case uiSYSTEM_LOCK_INFO:
+        case uiSYSTEM_NAME:
+        case uiSYSTEM_VERSION:
+        case uiSYSTEM_MESSAGE_ONOFF_INFO:
+	 case uiUART_EDID_STATUS:
+            m_eNextState = uiIDLE;
+            m_bUpdateUI = TRUE;
+            break;
+        case uiSPLASH:
+        default:
+            m_eNextState = uiIDLE;
+            m_bUpdateUI = TRUE;
+            break;
+        }
+    }
+    // 字符闪烁
+    //
+    //   |---------------------3.5s-------------------------------------->
+    //   on ---------->  off -------->  on  ----> off-------->on ---> off
+    //   |    nex loop    |    1s       |    1s   |       1s    |
+    //   0             1             2          3           4          5
+    //
+    if ( m_bLedFlashingEN)
+    {
+        if (SiiPlatformTimerExpired(etUI_FLASHING))
+        {
+            SiiPlatformTimerSet(etUI_FLASHING, mS_TO_TICKS(600L),0xFF);
+            m_bUpdateUI = TRUE;
+            m_cLedFlashCNT++;
+            if (m_cLedFlashCNT>4)
+            {
+                m_bLedFlashingEN = FALSE;
+                //  如果闪烁完后, 不退出本状态, 任然进入本状态的render,
+                //  本状态根据是否 m_bLedFlashingEN 来判断是否需要闪烁,会进入死循环,一直闪烁下去。
+                m_eNextState = uiSPLASH;
+            }
+        }
+    }
+    else    if(m_bUIFlashingEN)
+    {
+        if (SiiPlatformTimerExpired(etUI_FLASHING))
+        {
+            SiiPlatformTimerSet(etUI_FLASHING, mS_TO_TICKS(600L),0xFF);
+            m_bUpdateUI = TRUE;
+        }
+    }
+    /*
+    // Led 闪烁, 去掉公用一个计时器
+    if (m_bUIFlashingEN)
+    {
+        if (SiiPlatformTimerExpired(etLED_FLASHING))
+        {
+            SiiPlatformTimerSet(etLED_FLASHING, mS_TO_TICKS(1000L),0xFF);
+            m_bUpdateUI = TRUE;
+        }
+    }
+    */
+}
+// ---------------------------------------------------------------------------
+// Determine if event should be filter out and not handled by normal event
+// processing.
+//
+// Params:
+//  eKey : Event key input
+//
+// Return:
+//  TRUE= Event should be ignored, FALSE= Event should be handled by normal
+//  event processing.
+// ---------------------------------------------------------------------------
+//#pragma argsused
+static BOOL EventFilter(eKEY eKey)
+{
+    BOOL        bFiltered = FALSE;
+    return bFiltered;
+}
+// ---------------------------------------------------------------------------
+// Default event handler if not handled by normal event processing.
+//
+// Params:
+//  eState : New user interface state
+//
+// Return: none
+// ---------------------------------------------------------------------------
+static void EventDefault(eUI_STATE eState)
+{
+}
+// ---------------------------------------------------------------------------
+// Handles the keEXIT event.
+//
+// Params:
+//  eState : New user interface state
+//
+// Return:
+//  Update new user interface state
+// ---------------------------------------------------------------------------
+static eUI_STATE EventExit(eUI_STATE eState)
+{
+    return uiIDLE; // TODO
+}
+// ---------------------------------------------------------------------------
+// Handles the keProgramTable event.
+//
+// Params:
+//  eState : New user interface state
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// Handles the keAUTO event.
+//
+// Params: none
+//
+// Return: none
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// Handles the keTIMER event.
+//
+// Params: none
+//
+// Return: none
+// ---------------------------------------------------------------------------
+static void EventKeyTimer(void)
+{
+}
+// ---------------------------------------------------------------------------
+// Perform processing for entering a new UI state
+//
+// Params:
+//  eState : Current state of the UI
+//
+// Return: none
+// ---------------------------------------------------------------------------
+//  it is not good ideal add KEY_EVENT param for this function
+// 新进入一个状态才调用
+static void UIStateEnter(eUI_STATE eState,
+                         KEY_EVENT sKeyEvent)
+{
+    LED_EVENT sLedEvent;
+    Event_t bEvent;
+    /* -------------- BEGIN CUSTOM AREA [020] appUserInterface.c -------------- */
+    dvLCD_On(TRUE);
+    switch (eState)
+    {
+    case uiSPLASH:
+        dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+        dvLCDLineDraw(1, 0, LCD2_IDLE_TEXT);
+        dvLedAllOffSet(0xFFFFFFFF); // all led off, except power led
+        if (sKeyEvent.eKey == keCLEAR)
+        {
+            dvLedOnSet(1 << elnCLEAR);
+        }
+        if (sKeyEvent.eKey == keENTER)
+        {
+          	//Event_t   bEvent;
+		bEvent.Head.opcode=sLEDx_ON;
+		bEvent.Head.DestAddr=mqLED;
+		bEvent.Head.argCount=1;
+		bEvent.args[0]=elnENTER;
+	       utilExecOlnyMsgSend(mqLED,
+                            bEvent);
+               /****************/	
+            dvLedOnSet(1 << elnENTER);
+        }
+        SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+        break;
+    case uiSWITCH_VIDEO:
+    case uiUART_SWITCH_VIDEO2:
+    case uiUART_SWITCH_IR:
+        if (m_cSwitchInputPort<MAX_OUT)
+        {
+            //dvLedAllOnSet(1 << (elnIN1 + m_cSwitchInputPort));
+            /*   test  massege
+                    sLedEvent.opcode=sLEDx_ON;
+                 sLedEvent.args[0]=elnIN1+m_cSwitchInputPort;
+                 sLedEvent.argCount=1;
+                  //  utilExecMsgSend(mqLED,
+                    //                    (BYTE *)&sLedEvent);
+
+                //  osal_msg_send(mqLED, (BYTE *)&sLedEvent);
+            */
+            dvLCDLineTXTDraw(1, 0, "%2x", m_cSwitchInputPort+1);
+        }
+        dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+        SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+        break;
+    case uiSWITCH_INFO:
+        dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+        break;
+    case uiEDID_EXTERN_MANAGE:
+        dvLCDLineDraw(0, 0,  "EDID Manage");
+        dvLCDLineDraw(1, 0,  "EDIDM");
+        dvLedAllOnSet(1 << (elnEDID));
+        m_wLedToFlashing |= (1 << (elnEDID));
+        break;
+    case uiEDID_INTERN_MANAGE:
+        dvLCDLineDraw(0, 0, "Select IntEDID");
+        dvLCDLineDraw(1, 0, "EDID/");
+        dvLedAllOnSet(1 << (elnEDID));
+        break;
+    case uiSYSTEM_INCONNECT_INFO:
+    case uiUART_INCONNECT_INFO:
+        //dvLCDLineDraw(0, 0, "In   01 02 03 04");
+        //dvLCDLineDraw(1, 0, "Connect  N N N N");
+	 m_cUpDownKeyCount=0;
+        //dvLedAllOnSet(1 << (elnEDID));
+        break;
+    case uiSYSTEM_OUTCONNECT_INFO:
+    case uiUART_OUTCONNECT_INFO:
+        //dvLCDLineDraw(0, 0, "Out  01 02 03 04");
+        //dvLCDLineDraw(1, 0, "Connect  N N N N");
+	 m_cUpDownKeyCount=0;
+        //dvLedAllOnSet(1 << (elnEDID));
+        break;
+    case uiSYSTEM_SWITCH_INFO:
+    case uiUART_SWITCH_INFO:
+    case uiUART_SWITCH_ALL_PORT_INFO:
+        //dvLCDLineDraw(0, 0, "Out  01 02 03 04");
+        //dvLCDLineDraw(1, 0, "In   01 01 01 01");
+	 m_cUpDownKeyCount=0;
+        //dvLedAllOnSet(1 << (elnEDID));
+        break;
+    case uiSYSTEM_IN_HDCP_INFO:
+    case uiUART_IN_HDCP_INFO:
+        //dvLCDLineDraw(0, 0, "In   01 02 03 04");
+        //dvLCDLineDraw(1, 0, "HDCP  N  N  N  N");
+	 m_cUpDownKeyCount=0;
+        //dvLedAllOnSet(1 << (elnEDID));
+        break;
+    case uiUART_IN_HDCPENABLE_INFO:
+        dvLCDLineDraw(0, 0, "In   01 02 03 04");
+        dvLCDLineDraw(1, 0, "HDCPEN  Y Y Y Y ");
+        //dvLedAllOnSet(1 << (elnEDID));
+        break;
+    case uiUART_OUT_HDMIAUDIO_INFO:
+        dvLCDLineDraw(0, 0, "Out  01 02 03 04");
+        dvLCDLineDraw(1, 0, "Audio    Y Y Y Y");
+        //dvLedAllOnSet(1 << (elnEDID));
+        break;
+    case uiSYSTEM_OUT_HDCP_INFO:
+    case uiUART_OUT_HDCP_INFO:
+        //dvLCDLineDraw(0, 0, "Out  01 02 03 04");
+        //dvLCDLineDraw(1, 0, "HDCP  N  N  N  N");
+	 m_cUpDownKeyCount=0;
+        //dvLedAllOnSet(1 << (elnEDID));
+        break;
+    case uiSYSTEM_OUT_RESOLUTION_INFO:
+    case uiUART_OUT_RESOLUTION_INFO:
+        dvLCDLineDraw(0, 0, "Resolution");
+        dvLCDLineDraw(1, 0, "Out 1  0000x0000");
+        m_cEdidManageOutPort = 0;
+        m_bUIFlashingEN = TRUE;
+        m_bCharFlashing = TRUE;
+        //dvLedAllOnSet(1 << (elnEDID));
+        break;
+    case uiSYSTEM_LOCK_INFO:
+        //dvLCDLineDraw(1, 0, "System Locked!");
+        break;
+    case uiUART_EDID_STATUS:
+	 dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+        dvLCDLineDraw(1, 0, LCD2_IDLE_TEXT);	
+	 break;
+    case uiSYSTEM_NAME:
+        //dvLCDLineDraw(1, 0, sys_name);
+        break;
+    case uiSYSTEM_VERSION:
+        // dvLCDLineDraw(1, 0, Version);
+        break;
+    case uiSYSTEM_MESSAGE_ONOFF_INFO:
+        //dvLCDLineDraw(1, 0, "/:MessageOff;");
+        //dvLCDLineDraw(1, 0, "/:MessageOn;");
+        break;
+    case uiUART_MESSAGE:
+        // to render draw
+        break;
+    case uiIDLE:
+        dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+        dvLCDLineDraw(1, 0, LCD2_IDLE_TEXT);
+//        dvLCDLineDraw(0, 0, " ");
+//       dvLCDLineDraw(1, 0, " ");
+        dvLedAllOffSet(0xffffffff); // all led off, except power led
+        m_bLedFlashingEN = FALSE;
+        m_bUIFlashingEN = FALSE;
+        dvLCD_On(FALSE);
+        break;
+    case uiUART_SYSTEM_TYPE:
+        dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+        //dvLCDLineDraw(1, 0, LCD2_IDLE_TEXT);
+        break;
+    default:
+        break;
+    }
+    /* ---------------------------- END CUSTOM AREA --------------------------- */
+}
+// ---------------------------------------------------------------------------
+// Perform event handling processing for current UI state
+//
+// Params:
+//  eState    : current UI state
+//  sKeyEvent : event information structure
+//
+// Return: none
+// ---------------------------------------------------------------------------
+// 只有动作, 记录值
+static void UIStateEvent(eUI_STATE eState,
+                         KEY_EVENT sKeyEvent)
+{
+    BYTE i;
+	PSYSTEM_SETTING_DATA   psSystemSettingData;
+    //BYTE acTest[]="To Remote Message";
+    switch (sKeyEvent.eKey)
+    {
+        // 不在某个状态下按键事件需要进入下一个状态,并且需要保存一些下一状态需要得变量
+    case keStandBy:
+        if(get_standby_flag()==1)
+        {
+            set_clear_standby_flag(0);
+        }
+        else
+        {
+            appPowerMgrPowerStateSet(pwrSTANDBY);
+        }
+        break;
+    case keIN1:
+    case keIN2:
+    case keIN3:
+    case keIN4:
+    #if (MACHINETYPE!=MUH44A_H2)
+    case keIN5:
+    case keIN6:
+    case keIN7:
+    case keIN8:
+    #endif
+        if (uiEDID_INTERN_MANAGE != eState &&
+                uiEDID_EXTERN_MANAGE != eState &&
+                uiSYSTEM_OUT_RESOLUTION_INFO != eState&&
+                uiSYSTEM_OUT_HDCP_INFO != eState &&
+                uiSYSTEM_IN_HDCP_INFO != eState &&
+                uiSYSTEM_INCONNECT_INFO != eState &&
+                uiSYSTEM_OUTCONNECT_INFO != eState &&
+                uiSYSTEM_SWITCH_INFO != eState
+           )
+        {
+            m_eNextState = uiSWITCH_VIDEO;
+            m_cSwitchInputPort = sKeyEvent.eKey - keIN1;
+            m_bUpdateUI = TRUE;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            for (i = 0; i < MAX_OUT; i++)
+            {
+                m_abSwitchOutPortSelect[i] = FALSE;
+            }
+	      Event_t   bEvent;
+		bEvent.Head.opcode=sLEDx_ON;
+		bEvent.Head.DestAddr=mqLED;
+		bEvent.args[0]=m_cSwitchInputPort;
+		bEvent.Head.argCount=1;
+	       utilExecOlnyMsgSend(mqLED,
+                            bEvent);
+               /****************/	
+            m_bLedFlashingEN = FALSE; // 在闪烁中(还没有退出状态)有新按键退出闪烁
+            m_bSwitchEnter = FALSE;
+            //m_cLedFlashCNT = 0;
+        }
+        break;
+    case keOUT1:
+    case keOUT2:
+    case keOUT3:
+    case keOUT4:
+    #if (MACHINETYPE!=MUH44A_H2)
+    case keOUT5:
+    case keOUT6:
+    case keOUT7:
+    case keOUT8:
+    #endif
+        if (uiEDID_INTERN_MANAGE != eState &&
+                uiEDID_EXTERN_MANAGE != eState &&
+                uiSWITCH_VIDEO != eState&&
+                uiUART_SWITCH_VIDEO2 != eState&&
+                uiUART_SWITCH_IR != eState)
+        {
+            //AV:01->01
+            //IR:01->01
+           
+               /****************/	
+            m_cSwitcherInfoPort = sKeyEvent.eKey - keOUT1;
+            m_eNextState = uiSWITCH_INFO;
+            m_bUpdateUI = TRUE;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+        }
+        break;
+    case keEDID:
+        if (uiEDID_EXTERN_MANAGE != eState )
+        {
+	     if(eEDID_RS232_GUI_CONTROL !=appGetDialSwitchEdidStatus())
+	     {
+			sprintf(USART1_tx_buff, "Set RS232 or GUI control first.\r\n");
+	        	UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+	     }
+	     else
+	     {
+			m_eNextState = uiEDID_EXTERN_MANAGE;
+            		m_bUpdateUI = TRUE;
+            		m_cEdidManageOutPort = 0xff;
+            		m_cEdidManageInPort = 0xff;
+	     }
+	     SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+        }
+        break;
+    case keEDID_LONG:
+        m_eNextState = uiEDID_INTERN_MANAGE;
+        m_bUpdateUI = TRUE;
+        m_cEdidManageInPort = 0xff;
+        m_cEdidManageOutPort = 0xff;
+        SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+        break;
+    case keENTER_LONG:
+    {
+        m_eNextState = uiSYSTEM_INCONNECT_INFO;
+        m_bUpdateUI = TRUE;
+	 m_cUpDownKeyCount=0;
+        SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+    }
+    break;
+    case keCLEAR:
+        m_eNextState = uiSPLASH;
+        m_bUpdateUI = TRUE;
+        break;
+    case ke1TO1:
+    case ke1TO2:
+    case ke1TO3:
+    case ke1TO4:
+    #if (MACHINETYPE!=MUH44A_H2)
+    case ke1TO5:
+    case ke1TO6:
+    case ke1TO7:
+    case ke1TO8:
+    #endif
+    {
+		  	PSYSTEM_SETTING_DATA   psSystemSettingData;  
+			psSystemSettingData = (PSYSTEM_SETTING_DATA)utilDataMgrWriteLockData(nnSYSTEM_SETTING_DATA);
+       		 BYTE cOuputPort = sKeyEvent.eKey - ke1TO1;
+			if(psSystemSettingData->acIChannellock[0]&BIT(cOuputPort))
+			{
+				sprintf(USART1_tx_buff,"This input is locked!\r\n");
+            	             UART1_SendBytes((uint8_t *)USART1_tx_buff,strlen(USART1_tx_buff));
+			 
+			}
+			else
+		  	{
+			  appUartSwitchInfoSet(0, 1, &cOuputPort,TRUE);
+	          	  appSystemSwitcherPortSet(0, 1, &cOuputPort);
+		
+		  	}
+			utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,false);
+        }
+    break;
+    case ke2TO1:
+    case ke2TO2:
+    case ke2TO3:
+    case ke2TO4:
+    #if (MACHINETYPE!=MUH44A_H2)
+    case ke2TO5:
+    case ke2TO6:
+    case ke2TO7:
+    case ke2TO8:
+    #endif
+    {
+		  	PSYSTEM_SETTING_DATA   psSystemSettingData;  
+			psSystemSettingData = (PSYSTEM_SETTING_DATA)utilDataMgrWriteLockData(nnSYSTEM_SETTING_DATA);
+       		 BYTE cOuputPort = sKeyEvent.eKey - ke2TO1;
+			if(psSystemSettingData->acIChannellock[1]&BIT(cOuputPort))
+			{
+				sprintf(USART1_tx_buff,"This input is locked!\r\n");
+            	             UART1_SendBytes((uint8_t *)USART1_tx_buff,strlen(USART1_tx_buff));
+			 	
+			}
+			else
+		  	{
+			  appUartSwitchInfoSet(1, 1, &cOuputPort,TRUE);
+	          	  appSystemSwitcherPortSet(1, 1, &cOuputPort);
+		
+		  	}
+			utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,false);
+        }
+    break;
+    case ke3TO1:
+    case ke3TO2:
+    case ke3TO3:
+    case ke3TO4:
+    #if (MACHINETYPE!=MUH44A_H2)
+    case ke3TO5:
+    case ke3TO6:
+    case ke3TO7:
+    case ke3TO8:
+    #endif
+    {
+		  	PSYSTEM_SETTING_DATA   psSystemSettingData;  
+			psSystemSettingData = (PSYSTEM_SETTING_DATA)utilDataMgrWriteLockData(nnSYSTEM_SETTING_DATA);
+       		 BYTE cOuputPort = sKeyEvent.eKey - ke3TO1;
+			if(psSystemSettingData->acIChannellock[2]&BIT(cOuputPort))
+			{
+				sprintf(USART1_tx_buff,"This input is locked!\r\n");
+            	             UART1_SendBytes((uint8_t *)USART1_tx_buff,strlen(USART1_tx_buff));
+			 	
+			}
+			else
+		  	{
+			  appUartSwitchInfoSet(2, 1, &cOuputPort,TRUE);
+	          	  appSystemSwitcherPortSet(2, 1, &cOuputPort);
+		
+		  	}
+			utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,false);
+        }
+    break;
+    case ke4TO1:
+    case ke4TO2:
+    case ke4TO3:
+    case ke4TO4:
+    #if (MACHINETYPE!=MUH44A_H2)
+    case ke4TO5:
+    case ke4TO6:
+    case ke4TO7:
+    case ke4TO8:
+    #endif
+    {
+		  	PSYSTEM_SETTING_DATA   psSystemSettingData;  
+			psSystemSettingData = (PSYSTEM_SETTING_DATA)utilDataMgrWriteLockData(nnSYSTEM_SETTING_DATA);
+       		 BYTE cOuputPort = sKeyEvent.eKey - ke4TO1;
+			if(psSystemSettingData->acIChannellock[3]&BIT(cOuputPort))
+			{
+				sprintf(USART1_tx_buff,"This input is locked!\r\n");
+            	             UART1_SendBytes((uint8_t *)USART1_tx_buff,strlen(USART1_tx_buff));
+			
+			}
+			else
+		  	{
+			  appUartSwitchInfoSet(3, 1, &cOuputPort,TRUE);
+	          	  appSystemSwitcherPortSet(3, 1, &cOuputPort);
+		
+		  	}
+			 	utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,false);
+        }
+    break;
+#if (MACHINETYPE!=MUH44A_H2)
+    case ke5TO1:
+    case ke5TO2:
+    case ke5TO3:
+    case ke5TO4:
+    case ke5TO5:
+    case ke5TO6:
+    case ke5TO7:
+    case ke5TO8:
+    {
+		  	PSYSTEM_SETTING_DATA   psSystemSettingData;  
+			psSystemSettingData = (PSYSTEM_SETTING_DATA)utilDataMgrWriteLockData(nnSYSTEM_SETTING_DATA);
+       		 BYTE cOuputPort = sKeyEvent.eKey - ke5TO1;
+			if(psSystemSettingData->acIChannellock[4]&BIT(cOuputPort))
+			{
+				sprintf(USART1_tx_buff,"This input is locked!\r\n");
+            	             UART1_SendBytes((uint8_t *)USART1_tx_buff,strlen(USART1_tx_buff));
+			
+			}
+			else
+		  	{
+			  appUartSwitchInfoSet(4, 1, &cOuputPort,TRUE);
+	          	  appSystemSwitcherPortSet(4, 1, &cOuputPort);
+		
+		  	}
+			 	utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,false);
+        }
+    break;
+	    case ke6TO1:
+    case ke6TO2:
+    case ke6TO3:
+    case ke6TO4:
+    case ke6TO5:
+    case ke6TO6:
+    case ke6TO7:
+    case ke6TO8:
+    {
+		  	PSYSTEM_SETTING_DATA   psSystemSettingData;  
+			psSystemSettingData = (PSYSTEM_SETTING_DATA)utilDataMgrWriteLockData(nnSYSTEM_SETTING_DATA);
+       		 BYTE cOuputPort = sKeyEvent.eKey - ke6TO1;
+			if(psSystemSettingData->acIChannellock[5]&BIT(cOuputPort))
+			{
+				sprintf(USART1_tx_buff,"This input is locked!\r\n");
+            	             UART1_SendBytes((uint8_t *)USART1_tx_buff,strlen(USART1_tx_buff));
+			
+			}
+			else
+		  	{
+			  appUartSwitchInfoSet(5, 1, &cOuputPort,TRUE);
+	          	  appSystemSwitcherPortSet(5, 1, &cOuputPort);
+		
+		  	}
+			 	utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,false);
+        }
+    break;
+    case ke7TO1:
+    case ke7TO2:
+    case ke7TO3:
+    case ke7TO4:
+    case ke7TO5:
+    case ke7TO6:
+    case ke7TO7:
+    case ke7TO8:
+    {
+		  	PSYSTEM_SETTING_DATA   psSystemSettingData;  
+			psSystemSettingData = (PSYSTEM_SETTING_DATA)utilDataMgrWriteLockData(nnSYSTEM_SETTING_DATA);
+       		 BYTE cOuputPort = sKeyEvent.eKey - ke7TO1;
+			if(psSystemSettingData->acIChannellock[6]&BIT(cOuputPort))
+			{
+				sprintf(USART1_tx_buff,"This input is locked!\r\n");
+            	             UART1_SendBytes((uint8_t *)USART1_tx_buff,strlen(USART1_tx_buff));
+			
+			}
+			else
+		  	{
+			  appUartSwitchInfoSet(6, 1, &cOuputPort,TRUE);
+	          	  appSystemSwitcherPortSet(6, 1, &cOuputPort);
+		
+		  	}
+			 	utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,false);
+        }
+    break;
+    case ke8TO1:
+    case ke8TO2:
+    case ke8TO3:
+    case ke8TO4:
+    case ke8TO5:
+    case ke8TO6:
+    case ke8TO7:
+    case ke8TO8:
+    {
+		  	PSYSTEM_SETTING_DATA   psSystemSettingData;  
+			psSystemSettingData = (PSYSTEM_SETTING_DATA)utilDataMgrWriteLockData(nnSYSTEM_SETTING_DATA);
+       		 BYTE cOuputPort = sKeyEvent.eKey - ke8TO1;
+			if(psSystemSettingData->acIChannellock[7]&BIT(cOuputPort))
+			{
+				sprintf(USART1_tx_buff,"This input is locked!\r\n");
+            	             UART1_SendBytes((uint8_t *)USART1_tx_buff,strlen(USART1_tx_buff));
+			 	
+			}
+			else
+		  	{
+			  appUartSwitchInfoSet(7, 1, &cOuputPort,TRUE);
+	          	  appSystemSwitcherPortSet(7, 1, &cOuputPort);
+		
+		  	}
+			utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,false);
+        }
+    break;
+#endif
+    case ke1TOALL:
+    case ke2TOALL:
+    case ke3TOALL:
+    case ke4TOALL:
+    {
+        BYTE acOutPortList[MAX_OUT] ;
+        for(i=0; i<MAX_OUT; i++)
+        {
+            acOutPortList[i]=i;
+        }
+        BYTE cInPort = sKeyEvent.eKey - ke1TOALL;
+        appUartSwitchInfoSet(cInPort, 4, acOutPortList,TRUE);
+        appSystemSwitcherPortSet(cInPort, 4, acOutPortList);
+    }
+    break;
+    default:
+        break;
+    }
+    switch (eState) // 在各自状态中按键消息处理
+    {
+    case uiSPLASH:
+    {
+        if (keENTER == sKeyEvent.eKey||
+                keCLEAR == sKeyEvent.eKey)
+        {
+            m_bUpdateUI = TRUE;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+        }
+    }
+    break;
+    case uiSWITCH_VIDEO:
+    {
+        BYTE cOutPort;
+        if (keOUT1 == sKeyEvent.eKey ||
+                keOUT2 == sKeyEvent.eKey ||
+                keOUT3 == sKeyEvent.eKey ||
+                keOUT4 == sKeyEvent.eKey
+		  #if (MACHINETYPE!=MUH44A_H2)
+		  ||keOUT5 == sKeyEvent.eKey||
+                keOUT6 == sKeyEvent.eKey||
+                keOUT7 == sKeyEvent.eKey||
+                keOUT8 == sKeyEvent.eKey
+                #endif
+           )
+        {
+            cOutPort = sKeyEvent.eKey - keOUT1;
+            m_abSwitchOutPortSelect[cOutPort] = TRUE;
+            m_bUpdateUI = TRUE;
+	       Event_t   bEvent;
+		bEvent.Head.opcode=sLEDxLightOut;
+		bEvent.Head.DestAddr=mqLED;
+		bEvent.args[0]=cOutPort;
+		bEvent.Head.argCount=1;
+	       utilExecOlnyMsgSend(mqLED,
+                            bEvent);
+            	 if(sKeyEvent.cType==HALUICTRL_TYPE_KEYPAD)  // keybroad enter
+               {
+                    SiiPlatformTimerSet(etUI_ENTER, DEFAULT_UI_ENTER,0x01);    //expect only one
+                }
+          m_bSwitchEnter = FALSE;
+          m_bLedFlashingEN = FALSE;
+          SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+        }
+        if (keALL == sKeyEvent.eKey)
+        {
+            for (i = 0; i < MAX_OUT; i++)
+            {
+                m_abSwitchOutPortSelect[i] = TRUE;
+            }
+		Event_t   bEvent;
+		bEvent.Head.opcode=sLEDAllLightOut;
+		bEvent.Head.DestAddr=mqLED;
+		bEvent.Head.argCount=0;
+	       utilExecOlnyMsgSend(mqLED,
+                            bEvent);
+
+               /****************/	
+      //      m_bUpdateUI = TRUE;
+     //       m_bSwitchEnter = FALSE;
+     //       m_bLedFlashingEN = FALSE;
+          SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+        }
+        if (keENTER == sKeyEvent.eKey)
+        {
+            BYTE  cPortNumber = 0;
+            BYTE  cPortList[MAX_OUT];
+         //  	psSystemSettingData = (PSYSTEM_SETTING_DATA)utilDataMgrWriteLockData(nnSYSTEM_SETTING_DATA);
+	//	    	dvLedOnSet(1 << elnENTER);			//点亮ENTER灯
+	//	memset(USART1_tx_buff,0,USART1_TX_BUFF_MAX);
+            //begin switch
+            for (i = 0; i < MAX_OUT; i++)
+            {
+                if (m_abSwitchOutPortSelect[i] == TRUE)
+                {
+		                 cPortList[cPortNumber] = i;
+	                        cPortNumber++;
+                 }
+            }
+	 //   UART1_SendBytes((uint8_t *)USART1_tx_buff,strlen(USART1_tx_buff));
+	//    utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,false);
+            if (cPortNumber > 0)
+            {
+              //  appSystemSwitcherPortSet(m_cSwitchInputPort, cPortNumber, cPortList);
+              Event_t   bEvent;
+		bEvent.Head.opcode=eLEDChannelSwitch;
+		bEvent.Head.DestAddr=mqLED;
+		bEvent.args[0]=m_cSwitchInputPort;
+	       bEvent.args[1]=cPortNumber;
+		memcpy(&bEvent.args[2],cPortList,cPortNumber);
+		bEvent.Head.argCount=cPortNumber+2;
+	       utilExecOlnyMsgSend(mqLED,
+                            bEvent);
+               /****************/	
+              //***********************************************
+              bEvent.Head.opcode=eSwitchxTox;
+		bEvent.Head.DestAddr=mqSWITCH;
+		bEvent.args[0]=m_cSwitchInputPort;
+	       bEvent.args[1]=cPortNumber;
+		memcpy(&bEvent.args[2],cPortList,cPortNumber);
+		bEvent.Head.argCount=cPortNumber+2;
+	       utilExecOlnyMsgSend(mqSWITCH,
+                            bEvent);
+              //***************************************************
+#ifdef PRD_IR_OUT
+                appSystemIRSwitcherPortSet(m_cSwitchInputPort, cPortNumber, cPortList);
+#endif
+                m_bUpdateUI = TRUE;
+                SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+                m_bSwitchEnter = TRUE;
+                //m_cLedFlashCNT = 0;
+            }
+        }
+    }
+    break;
+    case uiEDID_EXTERN_MANAGE:
+    {
+	BYTE   acEdid[256]={0};
+	if (keOUT1 == sKeyEvent.eKey ||
+                keOUT2 == sKeyEvent.eKey ||
+                keOUT3 == sKeyEvent.eKey ||
+                keOUT4 == sKeyEvent.eKey
+		  #if (MACHINETYPE!=MUH44A_H2)
+		  ||keOUT5 == sKeyEvent.eKey||
+                keOUT6 == sKeyEvent.eKey||
+                keOUT7 == sKeyEvent.eKey||
+                keOUT8 == sKeyEvent.eKey
+                #endif
+           )
+        {
+            m_cEdidManageOutPort = sKeyEvent.eKey - keOUT1;
+            m_bUpdateUI = TRUE;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bLedFlashingEN = FALSE;
+        }
+        if (keIN1 == sKeyEvent.eKey ||
+                keIN2 == sKeyEvent.eKey ||
+                keIN3 == sKeyEvent.eKey ||
+                keIN4 == sKeyEvent.eKey
+		  #if (MACHINETYPE!=MUH44A_H2)
+		  ||keIN5 == sKeyEvent.eKey||
+                keIN6 == sKeyEvent.eKey||
+                keIN7 == sKeyEvent.eKey||
+                keIN8 == sKeyEvent.eKey
+                #endif
+           )
+        {
+            m_cEdidManageInPort = sKeyEvent.eKey - keIN1;
+            m_bUpdateUI = TRUE;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bLedFlashingEN = FALSE;
+        }
+        if (keALL== sKeyEvent.eKey)
+        {
+            m_cEdidManageInPort = MAX_IN;
+            m_bUpdateUI = TRUE;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bLedFlashingEN = FALSE;
+        }
+        if (keENTER == sKeyEvent.eKey &&
+                0xff != m_cEdidManageOutPort &&
+                0xff != m_cEdidManageInPort&&
+                !m_bLedFlashingEN) // 闪烁下不对ENTER起作用
+        {
+		SiiTxEdidGetEdidData(utilOutputPortToInstance(m_cEdidManageOutPort), acEdid);
+	     if(m_cEdidManageInPort == MAX_IN)
+            {
+                    appSystemInputPortEdidSet(0, m_cEdidManageOutPort + edsEDID_EXTERN1, acEdid,ALL_INPORT);
+            }
+            else
+            {
+                appSystemInputPortEdidSet(m_cEdidManageInPort,m_cEdidManageOutPort+ edsEDID_EXTERN1, acEdid,SINGLE_INPORT);
+            }
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF); // to Flashing
+            m_bUpdateUI = TRUE;
+            m_wLedToFlashing = 0;
+            //m_cLedFlashCNT = 0;
+        }
+        if (keEDID == sKeyEvent.eKey )
+        {
+            // 重新开始
+        }
+    }
+    break;
+    case uiEDID_INTERN_MANAGE: // 内部EDID 管理
+    {
+	 BYTE   acEdid[256]={0};
+	 //select intEDID
+        //     INPUT  OUT1,OUT2
+        //EDID/3/1
+        if (keIN1 == sKeyEvent.eKey ||
+                keIN2 == sKeyEvent.eKey ||
+                keIN3 == sKeyEvent.eKey ||
+                keIN4 == sKeyEvent.eKey
+		  #if (MACHINETYPE!=MUH44A_H2)
+		  ||keIN5 == sKeyEvent.eKey||
+                keIN6 == sKeyEvent.eKey||
+                keIN7 == sKeyEvent.eKey||
+                keIN8 == sKeyEvent.eKey
+                #endif
+           )
+        {
+            m_cEdidManageInPort = sKeyEvent.eKey - keIN1;
+            m_bUpdateUI = TRUE;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bLedFlashingEN = FALSE;
+        }
+        if (keOUT1 == sKeyEvent.eKey ||
+                keOUT2 == sKeyEvent.eKey)
+        {
+            //Range 0 ~ 4
+            if (keOUT1 == sKeyEvent.eKey)
+            {
+                if (m_cEdidManageOutPort < edsEDID_EXTERN1 - edsEDID_INTERN1 - 1)
+                {
+                    m_cEdidManageOutPort++;
+                }
+                else
+                {
+                    m_cEdidManageOutPort = 0;
+                }
+                m_bLedFlashingEN = FALSE;
+            }
+            else
+            {
+                if(m_cEdidManageOutPort == 0xff)
+                {
+                    m_cEdidManageOutPort = edsEDID_EXTERN1 - edsEDID_INTERN1 - 1;
+                }
+                else if (m_cEdidManageOutPort > 0)
+                {
+                    m_cEdidManageOutPort--;
+                }
+                else
+                {
+                    m_cEdidManageOutPort = edsEDID_EXTERN1 - edsEDID_INTERN1 - 1;
+                }
+                m_bLedFlashingEN = FALSE;
+            }
+            m_bUpdateUI = TRUE;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+        }
+        if (keENTER == sKeyEvent.eKey &&
+                0xff != m_cEdidManageOutPort &&
+                0xff != m_cEdidManageInPort&&
+                !m_bLedFlashingEN) // 闪烁下不对ENTER起作用
+        {
+            appSystemInputPortEdidSet(m_cEdidManageInPort, m_cEdidManageOutPort + edsEDID_INTERN1, acEdid,SINGLE_INPORT);
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+    }
+    break;
+    case uiSYSTEM_INCONNECT_INFO:
+        //dvLCDLineDraw(0, 0, "In      01 02 03 04");
+        //dvLCDLineDraw(1, 0, "Connect N N N N");
+        if (keIN3 == sKeyEvent.eKey)
+        {
+            m_eNextState = uiSYSTEM_OUT_RESOLUTION_INFO;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        if (keIN4 == sKeyEvent.eKey)
+        {
+            m_eNextState = uiSYSTEM_OUTCONNECT_INFO;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+	 if (keIN1 == sKeyEvent.eKey)
+        {
+            if (m_cUpDownKeyCount > 0)
+            {
+                m_cUpDownKeyCount=0;
+            }
+            else
+            {
+		   #if (MACHINETYPE!=MUH44A_H2)
+		   m_cUpDownKeyCount = 1;
+		   #endif
+            }
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        if (keIN2 == sKeyEvent.eKey)
+        {
+            if (m_cUpDownKeyCount ==0)
+            {
+		  #if (MACHINETYPE!=MUH44A_H2)
+		  m_cUpDownKeyCount=1;
+		  #endif
+            }
+            else
+            {
+                m_cUpDownKeyCount = 0;
+            }
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        break;
+    case uiSYSTEM_OUTCONNECT_INFO:
+        //dvLCDLineDraw(0, 0, "Out     01 02 03 04");
+        //dvLCDLineDraw(1, 0, "Connect N  N  N  N");
+        if (keIN3 == sKeyEvent.eKey)
+        {
+            m_eNextState = uiSYSTEM_INCONNECT_INFO;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        if (keIN4 == sKeyEvent.eKey)
+        {
+            m_eNextState = uiSYSTEM_SWITCH_INFO;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+	 if (keIN1 == sKeyEvent.eKey)
+        {
+            if (m_cUpDownKeyCount > 0)
+            {
+                m_cUpDownKeyCount=0;
+            }
+            else
+            {
+		   #if (MACHINETYPE!=MUH44A_H2)
+		   m_cUpDownKeyCount = 1;
+		   #endif
+            }
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        if (keIN2 == sKeyEvent.eKey)
+        {
+            if (m_cUpDownKeyCount ==0)
+            {
+		  #if (MACHINETYPE!=MUH44A_H2)
+		  m_cUpDownKeyCount=1;
+		  #endif
+            }
+            else
+            {
+                m_cUpDownKeyCount = 0;
+            }
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        break;
+    case uiSYSTEM_SWITCH_INFO:
+        //dvLCDLineDraw(0, 0, "Out  01 02 03 04");
+        //dvLCDLineDraw(1, 0, "In   N  N  N  N");
+        if (keIN3 == sKeyEvent.eKey)
+        {
+            m_eNextState = uiSYSTEM_OUTCONNECT_INFO;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        if (keIN4 == sKeyEvent.eKey)
+        {
+            m_eNextState = uiSYSTEM_IN_HDCP_INFO;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+	 if (keIN1 == sKeyEvent.eKey)
+        {
+            if (m_cUpDownKeyCount > 0)
+            {
+                m_cUpDownKeyCount=0;
+            }
+            else
+            {
+		   #if (MACHINETYPE!=MUH44A_H2)
+		   m_cUpDownKeyCount = 1;
+		   #endif
+            }
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        if (keIN2 == sKeyEvent.eKey)
+        {
+            if (m_cUpDownKeyCount ==0)
+            {
+		  #if (MACHINETYPE!=MUH44A_H2)
+		  m_cUpDownKeyCount=1;
+		  #endif
+            }
+            else
+            {
+                m_cUpDownKeyCount = 0;
+            }
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        break;
+    case uiSYSTEM_IN_HDCP_INFO:
+        //dvLCDLineDraw(0, 0, "In   01 02 03 04");
+        //dvLCDLineDraw(1, 0, "Hdcp N  N  N  N");
+        if (keIN3 == sKeyEvent.eKey)
+        {
+            m_eNextState = uiSYSTEM_SWITCH_INFO;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        if (keIN4 == sKeyEvent.eKey)
+        {
+            m_eNextState = uiSYSTEM_OUT_HDCP_INFO;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+	 if (keIN1 == sKeyEvent.eKey)
+        {
+            if (m_cUpDownKeyCount > 0)
+            {
+                m_cUpDownKeyCount=0;
+            }
+            else
+            {
+		   #if (MACHINETYPE!=MUH44A_H2)
+		   m_cUpDownKeyCount = 1;
+		   #endif
+            }
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        if (keIN2 == sKeyEvent.eKey)
+        {
+            if (m_cUpDownKeyCount ==0)
+            {
+		  #if (MACHINETYPE!=MUH44A_H2)
+		  m_cUpDownKeyCount=1;
+		  #endif
+            }
+            else
+            {
+                m_cUpDownKeyCount = 0;
+            }
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        break;
+    case uiSYSTEM_OUT_HDCP_INFO:
+        //dvLCDLineDraw(0, 0, "Out  01 02 03 04");
+        //dvLCDLineDraw(1, 0, "Hdcp N  N  N  N");
+        if (keIN3 == sKeyEvent.eKey)
+        {
+            m_eNextState = uiSYSTEM_IN_HDCP_INFO;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        if (keIN4 == sKeyEvent.eKey)
+        {
+            m_eNextState = uiSYSTEM_OUT_RESOLUTION_INFO;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+	 if (keIN1 == sKeyEvent.eKey)
+        {
+            if (m_cUpDownKeyCount > 0)
+            {
+                m_cUpDownKeyCount=0;
+            }
+            else
+            {
+		   #if (MACHINETYPE!=MUH44A_H2)
+		   m_cUpDownKeyCount = 1;
+		   #endif
+            }
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        if (keIN2 == sKeyEvent.eKey)
+        {
+            if (m_cUpDownKeyCount ==0)
+            {
+		  #if (MACHINETYPE!=MUH44A_H2)
+		  m_cUpDownKeyCount=1;
+		  #endif
+            }
+            else
+            {
+                m_cUpDownKeyCount = 0;
+            }
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        break;
+    case uiSYSTEM_OUT_RESOLUTION_INFO:
+        //dvLCDLineDraw(0, 0, "Resolution");
+        //dvLCDLineDraw(1, 0, "Out 1 0000x0000");
+        if (keIN3 == sKeyEvent.eKey)
+        {
+            m_eNextState = uiSYSTEM_OUT_HDCP_INFO;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        if (keIN4 == sKeyEvent.eKey)
+        {
+            m_eNextState = uiSYSTEM_INCONNECT_INFO;
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        if (keIN1 == sKeyEvent.eKey)
+        {
+            if (m_cEdidManageOutPort > 0)
+            {
+                m_cEdidManageOutPort--;
+            }
+            else
+            {
+                m_cEdidManageOutPort = MAX_OUT - 1;
+            }
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        if (keIN2 == sKeyEvent.eKey)
+        {
+            if (m_cEdidManageOutPort < MAX_OUT - 1)
+            {
+                m_cEdidManageOutPort++;
+            }
+            else
+            {
+                m_cEdidManageOutPort = 0;
+            }
+            SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+            m_bUpdateUI = TRUE;
+        }
+        break;
+    case uiIDLE:
+        if (keENTER == sKeyEvent.eKey)
+        {
+            m_eNextState = uiSPLASH;
+        }
+        break;
+    default:
+        break;
+    }
+}
+// ---------------------------------------------------------------------------
+// Perform rendering for current UI state
+//
+// Params:
+//  eState : UI state to render
+//
+// Return: none
+// ---------------------------------------------------------------------------
+//   it is not good ideal add KEY_EVENT param for this function
+//
+// --------------------------------------------------------------------------
+static void UIStateRender(eUI_STATE eState,
+                          KEY_EVENT sKeyEvent)
+{
+    BYTE i = 0;
+    BYTE cDrawTXT[25] = { 0 };
+    BYTE acUartMsg[40] = { 0 };
+    BYTE cCount = 0;
+    BYTE cCount2 = 0;
+    Event_t   bEvent;
+    PSYSTEM_SETTING_DATA   psSystemSettingData;
+    POUTPUTPORT_MANAGER_DATA  psOutputPortMgrData;
+    memset(cDrawTXT,0,20);
+    memset(acUartMsg,0,40);
+    switch (eState)
+    {
+    case uiSPLASH:
+    {
+        if (keENTER == sKeyEvent.eKey)
+        {
+            dvLedAllOffSet(0xFFFFFFFF);
+            dvLedOnSet(1<<elnENTER);
+        }
+        if ( keCLEAR == sKeyEvent.eKey)
+        {
+            dvLedAllOffSet(0xFFFFFFFF);
+            dvLedOnSet(1<<elnCLEAR);
+        }
+    }
+    break;
+    case uiSWITCH_VIDEO:
+    case uiUART_SWITCH_VIDEO2:
+    case uiUART_SWITCH_IR:
+    {
+        DWORD wLed = 0;
+        BYTE acOutPort[20];
+        BYTE j = 0,cCount1=0,cCount2=0;
+	 BYTE acMessage1[LCD_MAX_CHAR] = { 0 };
+	 BYTE acMessage2[LCD_MAX_CHAR] = { 0 };
+	 memset(acMessage1, 0, LCD_MAX_CHAR);
+	 memset(acMessage2, 0, LCD_MAX_CHAR);
+	 
+        //闪烁完后，如果CLEAR 时间还没到，还会进入这里
+        if (!m_bSwitchEnter) // 这里还不能自己用ENTER 按键来判断，
+        {
+            //dvLedOffSet(1 << elnENTER);
+			
+            //cCount += SiiSprintf(&cDrawTXT[cCount], "AV:%2x->", m_cSwitchInputPort);
+            for (i = 0; i < MAX_OUT; i++)
+            {
+                if (m_abSwitchOutPortSelect[i] == TRUE)
+                {
+                    wLed |= (1 << (elnOUT1 + i));
+                    cCount += SiiSprintf(&cDrawTXT[cCount], "%2x,", i + 1);
+		      if(cCount1<=14)
+		      {
+				cCount1 += SiiSprintf((char*)&acMessage1[cCount1], "%2d,",i + 1);
+		      }
+		      else
+		      {
+				cCount2 += SiiSprintf((char*)&acMessage2[cCount2], ",%2d",i + 1);
+		      }
+                }
+            }
+
+			
+	     #if 0
+	     if(i<MAX_OUT)				// LCD屏显示信息
+	     {
+	          if(cInPort+1>MAX_IN)
+	          {
+	            		cCount += SiiSprintf((char*)&acMessage1[cCount], "AV:OFF->");
+	          }
+	          else
+	          {
+	            		cCount += SiiSprintf((char*)&acMessage1[cCount], "AV: %2d->", cInPort+1);
+	          }
+	          for(OutPut=0; OutPut<i; OutPut++)
+	          {
+				if(OutPut<=2)
+				{
+					cCount += SiiSprintf((char*)&acMessage1[cCount], "%2d,",acOutPortList[OutPut]+1);
+				}
+				else
+				{
+					cCount1 += SiiSprintf((char*)&acMessage2[cCount1], ",%2d",acOutPortList[OutPut]+1);
+				}
+	          }
+		   if(cCount1==0)
+		   {
+				acMessage1[cCount-1] = ' ';		//去掉第一行的最后一个逗号
+				appUIUartMessageSet(NULL, acMessage1, FALSE);
+		   }
+		   else
+		   {
+				acMessage1[cCount-1] = ' ';		//去掉第一行的最后一个逗号
+				appUIUartMessageSet(acMessage1, acMessage2, FALSE);
+		   }
+          	   appUartSwitchLedStateChange(cInPort, cInPort, ulAllThrough);
+          	   appUIStateChange(uiUART_SWITCH_VIDEO);
+	     }
+	     else
+	     {
+		   cCount=0;
+            	   if(cInPort+1>MAX_IN)
+                 {
+                		cCount += SiiSprintf((char*)&acMessage2[cCount], "OFF To All.");
+                 }
+            	   else
+            	   {
+                		cCount += SiiSprintf((char*)&acMessage2[cCount], "%2d To All.", cInPort+1);
+            	   }
+            	   appUIUartMessageSet(NULL, acMessage2, FALSE);
+          	   appUartSwitchLedStateChange(cInPort, cInPort, ulAllThrough);
+          	   appUIStateChange(uiUART_SWITCH_VIDEO);
+	     }
+	     #endif
+			
+            if (sKeyEvent.eKey == keALL)
+            {
+                //dvLedOnSet(1 << elnALL);
+            }
+			
+            if(uiSWITCH_VIDEO == eState)  //[kyq add: 20151026 17:13:55]
+            {
+                if (wLed > 0)
+                {
+                    cDrawTXT[cCount - 1] = 0;
+                    //dvLCDLineDraw(1, 0, cDrawTXT);
+                    //dvLedOnSet(wLed);
+
+		      if(cCount2==0)		//一行可以显示完
+		      {
+				acMessage1[cCount1-1] = ' ';		//去掉第一行的最后一个逗号		
+				dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+				dvLCDLineDraw(1, 0, acMessage1);
+		      }
+		      else
+		      {
+				acMessage1[cCount1-1] = ' ';		//去掉第一行的最后一个逗号
+				dvLCDLineDraw(0, 0, acMessage1);
+				dvLCDLineDraw(1, 0, acMessage2);
+		      }
+
+					
+                    if(sKeyEvent.cType==HALUICTRL_TYPE_KEYPAD)
+                    {
+                        SiiPlatformTimerSet(etUI_ENTER, DEFAULT_UI_ENTER,0x01);    //expect only one
+                    }
+                }
+                else
+                {
+                    //dvLedAllOnSet(1 << (elnIN1 + m_cSwitchInputPort));
+                    dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+                    dvLCDLineTXTDraw(1, 0, "%2x", m_cSwitchInputPort + 1);
+                    SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+                }
+            }
+            // kyq 20150925
+            if (uiUART_SWITCH_VIDEO2 == eState||
+                    uiUART_SWITCH_IR == eState )
+            {
+                m_bSwitchEnter = TRUE; // UART COMMAND LET GO TO ENTER PROCESS
+                m_bLedFlashingEN = FALSE;
+                //[kyq Begin: 20151026 17:14:21]
+                //dvLedAllOnSet(1 << (elnIN1 + m_cSwitchInputPort));
+                //dvLedOnSet(wLed);
+                //[kyq End: 20151026 17:14:30]
+                SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF); // 总共闪烁时间3S
+                appUIUpdateSet();
+            }
+        }
+        else if (!m_bLedFlashingEN)		// Enter key pressed
+        {
+            //m_cLedFlashCNT = 0;
+            BOOL bSelectAll = FALSE;
+            //m_bLedFlashingEN = TRUE;
+            m_cLedFlashCNT = 0;
+            //dvLedOnSet(1 << elnENTER);
+            cCount = 0;
+            j = 0;
+            for (i = 0; i < MAX_OUT; i++)
+            {
+                if (m_abSwitchOutPortSelect[i] == TRUE)
+                {
+                    wLed |= (1 << (elnOUT1 + i));
+                    j++;
+                }
+            }
+            if (j >= MAX_OUT)
+            {
+                bSelectAll = TRUE;
+            }
+            if (!bSelectAll)
+            {
+		   if (m_cSwitchInputPort>=MAX_IN)
+	          {
+	            		cCount1 += SiiSprintf((char*)&acMessage1[cCount1], "AV:OFF->");
+	          }
+	          else
+	          {
+	            		cCount1 += SiiSprintf((char*)&acMessage1[cCount1], "AV: %2d->", m_cSwitchInputPort+1);
+	          }
+
+		   for (i = 0; i < MAX_OUT; i++)
+            	   {
+                	  if (m_abSwitchOutPortSelect[i] == TRUE)
+	                {
+			      if(cCount1<=15)
+			      {
+					cCount1 += SiiSprintf((char*)&acMessage1[cCount1], "%2d,",i + 1);
+			      }
+			      else
+			      {
+					cCount2 += SiiSprintf((char*)&acMessage2[cCount2], ",%2d",i + 1);
+			      }
+	                }
+            	   }
+		
+		   if(cCount2==0)
+		   {
+			   acMessage1[cCount1-1] = ' ';		//去掉第一行的最后一个逗号
+			   dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+			   dvLCDLineDraw(1, 0, acMessage1);
+		   }
+		   else
+		   {
+			    acMessage1[cCount1-1] = ' ';		//去掉第一行的最后一个逗号
+			    dvLCDLineDraw(0, 0, acMessage1);
+			    dvLCDLineDraw(1, 0, acMessage2);
+		   }
+			   
+		  #if 0
+		  if (m_cSwitchInputPort>=MAX_OUT)
+                {
+                    if (uiUART_SWITCH_IR == eState)
+                    {
+                        cCount += SiiSprintf(&cDrawTXT[cCount], "IR:OFF->");
+                    }
+                    else
+                    {
+                        cCount += SiiSprintf(&cDrawTXT[cCount], "AV:OFF->");
+                    }
+                }
+                else
+                {
+                    if (uiUART_SWITCH_IR == eState)
+                    {
+                        cCount += SiiSprintf(&cDrawTXT[cCount], "IR:%2x->",m_cSwitchInputPort + 1);
+                    }
+                    else
+                    {
+                        cCount += SiiSprintf(&cDrawTXT[cCount], "AV:%2x->", m_cSwitchInputPort + 1);
+                    }
+                }
+                j = 0;
+                for (i = 0; i < MAX_OUT; i++)
+                {
+                    if (m_abSwitchOutPortSelect[i] == TRUE)
+                    {
+                        //wLed |= (1 << (elnOUT1 + i));
+                        j += SiiSprintf(&acOutPort[j], "%2x,", i + 1); // 01,02,03,04,
+                    }
+                }
+                cCount += SiiSprintf(&cDrawTXT[cCount], "%s", acOutPort);
+                cDrawTXT[cCount - 1] = 0;
+		  #endif
+            }
+            else
+            {
+                if(uiUART_SWITCH_IR == eState)
+                {
+                    if (m_cSwitchInputPort >= MAX_OUT)
+                    {
+                        //cCount += SiiSprintf(&cDrawTXT[cCount], "IR:OFF To All"); // IR not add . Gui maybe wrong accept
+                        cCount += SiiSprintf(&cDrawTXT[cCount], "IR:OFF->All");
+                    }
+                    else
+                    {
+                        //cCount += SiiSprintf(&cDrawTXT[cCount], "IR:%2x%s", m_cSwitchInputPort + 1, " To All");
+                        cCount += SiiSprintf(&cDrawTXT[cCount], "IR:%2x->All", m_cSwitchInputPort + 1);
+                    }
+                }
+                else
+                {
+                    if (m_cSwitchInputPort >= MAX_OUT)
+                    {
+                        cCount += SiiSprintf(&cDrawTXT[cCount], "OFF To All.");
+                    }
+                    else
+                    {
+                        cCount += SiiSprintf(&cDrawTXT[cCount], "%2x%s", m_cSwitchInputPort + 1, " To All.");
+                    }
+                }
+		  dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+		  dvLCDLineDraw(1, 0, cDrawTXT);
+            }
+            if (wLed > 0)
+            {
+                //BOOL bUartReturnMessage_EN;
+                //dvLCDLineDraw(1, 0, cDrawTXT);
+                //if (cCount <= 11) // 去掉最后一个","
+                if (!bSelectAll)
+                {
+                    cCount--;
+                }
+                //UART1_SendData2PC(cDrawTXT, strlen(cDrawTXT));
+                //dvLedOnSet(wLed);
+            }
+            else
+            {
+                //dvLedAllOnSet(1 << (elnIN1 + m_cSwitchInputPort));
+                dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+                dvLCDLineTXTDraw(1, 0, "%2x", m_cSwitchInputPort);
+            }
+
+	     /*
+            // 马上开始闪烁
+            SiiPlatformTimerSet(etUI_FLASHING, mS_TO_TICKS(500L),0xFF);
+            m_wLedToFlashing = dvLedOnGet();
+            */
+	     SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF); // 总共闪烁时间3S
+        }
+      else
+      {
+          //dvLedToggleSet(m_wLedToFlashing);
+       }
+    }
+    break;
+    case uiUART_SWITCH_VIDEO:
+    {
+        DWORD wLed = 0;
+	 if (m_cUartMessage1[0] != 0)					//LCD屏显示
+        {
+            dvLCDLineDraw(0, 0, m_cUartMessage1);
+        }
+        else
+        {
+            dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+        }
+        if (m_cUartMessage2[0] != 0)
+        {
+            dvLCDLineDraw(1, 0, m_cUartMessage2);
+        }
+        else
+        {
+            dvLCDLineDraw(1, 0, LCD2_IDLE_TEXT);
+        }
+
+        if (m_bUartMessageSend)
+        {
+            UART1_SendData2PC(m_cUartMessage2, strlen(m_cUartMessage2));
+            //UART1_SendData2PC("\r\n",2);
+            m_bUartMessageSend = FALSE;
+        }
+        
+        switch (m_eUartLedState)
+        {
+        case ulChannelSwitch:                              // switch one channel
+
+#if 0
+             /****************/
+		//Event_t   bEvent;
+		bEvent.Head.opcode=eLEDChannelSwitch;
+		bEvent.Head.DestAddr=mqLED;
+		bEvent.args[0]=m_cSwitchInputPort;
+	       for (i = 1; i < MAX_OUT+1; i++)
+		  bEvent.args[i]=m_abSwitchOutPortSelect[i-1] ;	
+		bEvent.Head.argCount=sizeof(m_cSwitchInputPort)+MAX_OUT;
+	       utilExecOlnyMsgSend(mqLED,
+                            bEvent);
+            /****************/	
+#else 			
+  //move LedReceiveEvent.c
+            if (!m_bLedFlashingEN)
+            {
+                m_bLedFlashingEN = TRUE;
+                m_cLedFlashCNT = 0;
+                dvLedOffSet(1 << elnENTER);
+                for (i = 0; i < MAX_OUT; i++)
+                {
+                    if (m_abSwitchOutPortSelect[i] == TRUE)
+                    {
+                        wLed |= (1 << (elnOUT1 + i));
+                    }
+                }
+                dvLedAllOnSet(1 << (elnIN1 + m_cSwitchInputPort));
+                dvLedOnSet(wLed);
+                dvLedOnSet(1 << elnENTER);
+                SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF); // 总共闪烁时间3S
+                // 马上开始闪烁
+                SiiPlatformTimerSet(etUI_FLASHING, mS_TO_TICKS(500L),0xFF);
+                m_wLedToFlashing = dvLedOnGet();
+            }
+            else
+            {
+                dvLedToggleSet(m_wLedToFlashing);
+            }
+#endif
+            break;
+        case ulAllThrough:                            // all through  move LedReceiveEvent.c
+
+            if (!m_bLedFlashingEN)
+            {
+                //m_bLedFlashingEN = TRUE;
+                m_cLedFlashCNT = 0;
+		
+		  /*
+                dvLedOffSet(1 << elnENTER);
+                for (i = 0; i < MAX_OUT; i++)           //输入输出灯全亮
+                {
+                    wLed |= (1 << (elnOUT1 + i)) | (1 << (elnIN1 + i));
+                }
+                dvLedOnSet(wLed);
+                // 马上开始闪烁
+                SiiPlatformTimerSet(etUI_FLASHING, mS_TO_TICKS(500L),0xFF);
+                m_wLedToFlashing = dvLedOnGet();
+		  */
+                SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF); // 总共闪烁时间3S
+            }
+            else
+            {
+                //dvLedToggleSet(m_wLedToFlashing);
+            }
+            break;
+         
+        case ulAllClose:                              // all channel closed
+        case ulAllOpen:                              // all channel open
+            if (!m_bLedFlashingEN)
+            {
+                m_bLedFlashingEN = TRUE;
+                m_cLedFlashCNT = 0;
+                dvLedOffSet(1 << elnENTER);
+                for (i = 0; i < MAX_OUT; i++)           //输出灯全亮
+                {
+                    wLed |= (1 << (elnOUT1 + i));
+                }
+                dvLedOnSet(wLed);
+                SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF); // 总共闪烁时间3S
+                SiiPlatformTimerSet(etUI_FLASHING, mS_TO_TICKS(500L),0xFF);
+                m_wLedToFlashing = dvLedOnGet();
+            }
+            else
+            {
+                dvLedToggleSet(m_wLedToFlashing);
+            }
+            break;
+        case   ulToAll:                                 // one channel to all channel   //move LedReceiveEvent.c
+            if (!m_bLedFlashingEN)
+            {
+                //m_bLedFlashingEN = TRUE;
+                m_cLedFlashCNT = 0;
+
+		  /*
+                dvLedOffSet(1 << elnENTER);
+                for (i = 0; i < MAX_OUT; i++)           //输出灯全亮
+                {
+                    wLed |= (1 << (elnOUT1 + i));
+                }
+                dvLedAllOnSet(1 << (elnIN1 + m_cSwitchInputPort));       //亮对应的输入灯
+                dvLedOnSet(wLed);
+                dvLedOnSet(1 << elnENTER);
+                // 马上开始闪烁
+                SiiPlatformTimerSet(etUI_FLASHING, mS_TO_TICKS(500L),0xFF);
+                m_wLedToFlashing = dvLedOnGet();
+		  */
+		  SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF); // 总共闪烁时间3S
+            }
+            else
+            {
+                //dvLedToggleSet(m_wLedToFlashing);
+            }
+            break;
+        case  ulThrough:                              // through one channel
+            if (!m_bLedFlashingEN)
+            {
+                //m_bLedFlashingEN = TRUE;
+                m_cLedFlashCNT = 0;
+		  /*
+                dvLedOffSet(1 << elnENTER);
+                for (i = 0; i < MAX_OUT; i++)
+                {
+                    if (m_abSwitchOutPortSelect[i] == TRUE)
+                    {
+                        wLed |= (1 << (elnOUT1 + i));
+                    }
+                }
+                dvLedAllOnSet(1 << (elnIN1 + m_cSwitchInputPort));       //亮对应的输入灯
+                dvLedOnSet(wLed);
+                dvLedOnSet(1 << elnENTER);
+                // 马上开始闪烁
+                SiiPlatformTimerSet(etUI_FLASHING, mS_TO_TICKS(500L),0xFF);
+                m_wLedToFlashing = dvLedOnGet();
+                */
+                SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF); // 总共闪烁时间3S
+            }
+            else
+            {
+                //dvLedToggleSet(m_wLedToFlashing);
+            }
+            break;
+        case  ulClose:                                // close one channel
+        case  ulOpen:
+            if (!m_bLedFlashingEN)
+            {
+                m_bLedFlashingEN = TRUE;
+                m_cLedFlashCNT = 0;
+                dvLedOffSet(1 << elnENTER);
+                for (i = 0; i < MAX_OUT; i++)
+                {
+                    if (m_abSwitchOutPortSelect[i] == TRUE)
+                    {
+                        wLed |= (1 << (elnOUT1 + i));
+                    }
+                }
+                dvLedOnSet(wLed);
+                // 马上开始闪烁
+                SiiPlatformTimerSet(etUI_FLASHING, mS_TO_TICKS(500L),0xFF);
+                m_wLedToFlashing = dvLedOnGet();
+                SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF); // 总共闪烁时间3S
+            }
+            else
+            {
+                dvLedToggleSet(m_wLedToFlashing);
+            }
+            break;
+        default :
+            break;
+        }
+    }
+    break;
+    case uiSWITCH_INFO:
+    {
+        BYTE cInPort = 0;
+        BYTE cIRInPort = 0;
+        //POUTPUTPORT_MANAGER_DATA    psOutputPortMgrData;
+        psOutputPortMgrData  = (POUTPUTPORT_MANAGER_DATA)utilDataMgrReadLockData(nnOUTPUTPORT_MANAGER_DATA);
+        cInPort = psOutputPortMgrData->acInPortSelect[m_cSwitcherInfoPort];
+#ifdef PRD_IR_OUT
+        cIRInPort = psOutputPortMgrData->acIRInPortSelect[m_cSwitcherInfoPort];
+#endif
+        utilDataMgrUnlock(nnOUTPUTPORT_MANAGER_DATA,
+                          FALSE);
+        dvLedAllOnSet(1 << (elnOUT1 + m_cSwitcherInfoPort));
+        if (cInPort >= MAX_IN)
+        {
+            cCount += SiiSprintf(&cDrawTXT[cCount], "AV:%s->%2x", "OFF", m_cSwitcherInfoPort + 1);
+        }
+        else
+        {
+            cCount += SiiSprintf(&cDrawTXT[cCount], "AV:%2x->%2x", cInPort + 1, m_cSwitcherInfoPort + 1);
+            dvLedOnSet(1 << (elnIN1 + cInPort));
+        }
+#ifndef PRD_IR_OUT
+        dvLCDLineDraw(1, 0, cDrawTXT);
+        UART1_SendData2PC(cDrawTXT, cCount);
+#endif
+#ifdef PRD_IR_OUT
+        dvLCDLineDraw(0, 0, cDrawTXT);
+        UART1_SendData2PC(cDrawTXT, cCount);
+        cCount = 0;
+        memset(cDrawTXT,0,20);
+        if (cIRInPort >= MAX_IN)
+        {
+            cCount += SiiSprintf(&cDrawTXT[cCount], "IR:%s->%2x", "OFF", m_cSwitcherInfoPort + 1);
+        }
+        else
+        {
+            cCount += SiiSprintf(&cDrawTXT[cCount], "IR:%2x->%2x", cIRInPort + 1, m_cSwitcherInfoPort + 1);
+        }
+        dvLCDLineDraw(1, 0, cDrawTXT);
+        UART1_SendData2PC(cDrawTXT, cCount);
+#endif
+        SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+    }
+    break;
+    case uiEDID_EXTERN_MANAGE: //
+    {
+        if (!m_bLedFlashingEN)
+        {
+            // EDIDM1B2
+            dvLedOnSet(1 << (elnEDID)); // 闪烁状态下按IN,OUT 键, 在刚好闪烁黑的情况下需要重新亮
+            dvLedOffSet(1 << (elnENTER)); // 闪烁状态下按IN,OUT 键, 没有按下ENTER 键不亮
+            cCount += SiiSprintf(&cDrawTXT[cCount], "%s", "EDIDM");
+            if (m_cEdidManageOutPort != 0xff)
+            {
+                cCount += SiiSprintf(&cDrawTXT[cCount], "%xB", m_cEdidManageOutPort + 1);
+                              dvLedOffSet((1 << elnOUT1) | (1 << elnOUT2) | (1 << elnOUT3) | (1 << elnOUT4)
+#if (MAX_IN>4)
+		       |(1 << elnIN5) |(1 << elnIN6) 
+#endif
+
+#if(MAX_IN>6)
+	              |(1 << elnIN7)|(1 << elnIN8) 
+#endif
+                          );
+                dvLedOnSet(1 << (elnOUT1 + m_cEdidManageOutPort));
+                //m_wLedToFlashing |= 1 << (elnOUT1 + m_cEdidManageOutPort);
+            }
+            else
+            {
+                cCount += SiiSprintf(&cDrawTXT[cCount], "%cB", ' ');
+            }
+            if (m_cEdidManageInPort != 0xff)
+            {
+                if (m_cEdidManageInPort == MAX_IN)
+                {
+                    cCount += SiiSprintf(&cDrawTXT[cCount], "%s", "ALL");
+                    //dvLedOffSet((1 << elnIN1) | (1 << elnIN2) | (1 << elnIN3) | (1 << elnIN4));
+             //       dvLedOnSet((1 << elnIN1) | (1 << elnIN2) | (1 << elnIN3) | (1 << elnIN4) | (1 << elnALL));
+                dvLedOnSet((1 << elnIN1) | (1 << elnIN2) | (1 << elnIN3) | (1 << elnIN4)
+#if (MAX_IN>4)
+		       |(1 << elnIN5) |(1 << elnIN6) 
+#endif
+
+#if(MAX_IN>6)
+	              |(1 << elnIN7)|(1 << elnIN8) 
+#endif
+                     | (1 << elnALL));
+                    //dvLedOnSet(1 << elnALL);
+                    //m_wLedToFlashing |= 1 << (elnIN1 + m_cEdidManageInPort);
+                }
+                else
+                {
+                    cCount += SiiSprintf(&cDrawTXT[cCount], "%x", m_cEdidManageInPort + 1);
+                         dvLedOffSet((1 << elnIN1) | (1 << elnIN2) | (1 << elnIN3) | (1 << elnIN4)
+#if (MAX_IN>4)
+		       |(1 << elnIN5) |(1 << elnIN6) 
+#endif
+
+#if(MAX_IN>6)
+	              |(1 << elnIN7)|(1 << elnIN8) 
+#endif
+
+                    | (1 << elnALL)
+ );
+               //     dvLedOffSet((1 << elnIN1) | (1 << elnIN2) | (1 << elnIN3) | (1 << elnIN4) );
+                    dvLedOnSet(1 << (elnIN1 + m_cEdidManageInPort));
+                    //m_wLedToFlashing |= 1 << (elnIN1 + m_cEdidManageInPort);
+                }
+            }
+            else
+            {
+                cCount += SiiSprintf(&cDrawTXT[cCount], "%c", ' ');
+            }
+            if (keENTER == sKeyEvent.eKey)
+            {
+                dvLedOnSet(1 << (elnENTER));
+                //m_wLedToFlashing |= (1 << (elnENTER));
+                m_bLedFlashingEN = TRUE;
+                m_cLedFlashCNT = 0;
+                SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+                SiiPlatformTimerSet(etUI_FLASHING, mS_TO_TICKS(500L),0xFF);
+                m_wLedToFlashing = dvLedOnGet();
+                UART1_SendData2PC(cDrawTXT, cCount);
+            }
+            dvLCDLineDraw(1, 0, cDrawTXT);
+        }
+        else
+        {
+            //m_cLedFlashCNT++;
+            dvLedToggleSet(m_wLedToFlashing);
+        }
+    }
+    break;
+    case uiEDID_INTERN_MANAGE:  // 内部EDID 显示 // 0K
+    {
+        if (!m_bLedFlashingEN)
+        {
+            //select intEDID
+            //EDID/3/1
+            dvLedOnSet(1 << (elnEDID)); // 闪烁状态下按IN,OUT 键, 在刚好闪烁黑的情况下需要重新亮
+            dvLedOffSet(1 << (elnENTER));// 闪烁状态下按IN,OUT 键, 没有按下ENTER 键不亮
+            cCount += SiiSprintf(&cDrawTXT[cCount], "%s", "EDID/");
+            if (m_cEdidManageInPort != 0xff)
+            {
+                cCount += SiiSprintf(&cDrawTXT[cCount], "%x", m_cEdidManageInPort + 1);
+                dvLedOffSet((1 << elnIN1) | (1 << elnIN2) | (1 << elnIN3) | (1 << elnIN4)
+					
+#if (MAX_IN>4)
+		       |(1 << elnIN5) |(1 << elnIN6) 
+#endif
+
+#if(MAX_IN>6)
+	              |(1 << elnIN7)|(1 << elnIN8) 
+#endif
+
+                          );
+                dvLedOnSet(1 << (elnIN1 + m_cEdidManageInPort));
+            }
+            else
+            {
+                cCount += SiiSprintf(&cDrawTXT[cCount], "%c", ' ');
+            }
+            if (m_cEdidManageOutPort != 0xff)
+            {
+                cCount += SiiSprintf(&cDrawTXT[cCount], "/%x",  m_cEdidManageOutPort + 1);
+            }
+            else
+            {
+                cCount += SiiSprintf(&cDrawTXT[cCount], "/%c", ' ');
+            }
+            //*
+            //在本状态中闪烁灭灯时候按下IN1~IN4,再按ENTER, output 灯不亮, 如果需要亮,要增加变量记录
+            if (keOUT1 == sKeyEvent.eKey)
+            {
+                dvLedOffSet((1 << elnOUT1) | (1 << elnOUT2) | (1 << elnOUT3) | (1 << elnOUT4)
+#if (MAX_OUT>4)
+		       |(1 << elnOUT5) |(1 << elnOUT6) 
+#endif
+
+#if(MAX_OUT>6)
+	              |(1 << elnOUT7)|(1 << elnOUT8) 
+#endif
+				);
+                dvLedOnSet(1 << (elnOUT1));
+            }
+            else if (keOUT2 == sKeyEvent.eKey)
+            {
+       dvLedOffSet((1 << elnOUT1) | (1 << elnOUT2) | (1 << elnOUT3) | (1 << elnOUT4)
+#if (MAX_OUT>4)
+		       |(1 << elnOUT5) |(1 << elnOUT6) 
+#endif
+
+#if(MAX_OUT>6)
+	              |(1 << elnOUT7)|(1 << elnOUT8) 
+#endif
+				);
+                dvLedOnSet(1 << (elnOUT2));
+            }
+            //*/
+            else if (keENTER == sKeyEvent.eKey)
+            {
+                dvLedOnSet(1 << (elnENTER));
+                m_bLedFlashingEN = TRUE; // 开始闪烁
+                m_cLedFlashCNT = 0;
+                SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF); // delay 0ms 开始
+                SiiPlatformTimerSet(etUI_FLASHING, mS_TO_TICKS(500L),0xFF); // delay 0ms 开始
+                m_wLedToFlashing = dvLedOnGet();
+                UART1_SendData2PC(cDrawTXT, cCount);
+            }
+            dvLCDLineDraw(1, 0, cDrawTXT);
+        }
+        else
+        {
+            // 闪烁3次
+            //m_cLedFlashCNT++;
+            dvLedToggleSet(m_wLedToFlashing);
+        }
+    }
+    break;
+    case uiSYSTEM_INCONNECT_INFO:
+    case uiUART_INCONNECT_INFO:
+        //dvLCDLineDraw(0, 0, "In      01 02 03 04");
+        //dvLCDLineDraw(1, 0, "Connect N N N N");
+
+	 if (uiUART_INCONNECT_INFO == eState)
+        {
+	        SiiSprintf(m_cUartMessage1, "In   01 02 03 04");
+	        SiiSprintf(m_cUartMessage2, "Connect  N N N N");
+	        cCount=9;
+	        for (i = 0; i < 4; i++)
+	        {
+	            cCount += SiiSprintf(&m_cUartMessage2[cCount], "%c ", Sii9396RxConnectGet(i) ? 'Y' : 'N');
+	        }
+		 
+	        if (uiUART_INCONNECT_INFO == eState)
+	        {
+	            //cCount += SiiSprintf(&m_cUartMessage2[cCount], "%s", "\r\n");
+	            UART1_SendData2PC(m_cUartMessage1, LCD_MAX_CHAR-1);
+	            UART1_SendData2PC(m_cUartMessage2, cCount);
+	        }
+		 dvLCDLineDraw(0, 0, m_cUartMessage1);
+	        dvLCDLineDraw(1, 0, m_cUartMessage2);
+	        
+#if(MAX_OUT>4)  //8 channel
+#if(MAX_OUT>6)
+	        SiiSprintf(m_cUartMessage1, "In   05 06 07 08");
+	        SiiSprintf(m_cUartMessage2, "Connect  N N N N");
+#else
+	        SiiSprintf(m_cUartMessage1, "In   05 06");
+	        SiiSprintf(m_cUartMessage2, "Connect  N N");
+#endif
+	        cCount=9;
+	        for (i =4; i < MAX_IN; i++)
+	        {
+	            cCount += SiiSprintf(&m_cUartMessage2[cCount], "%c ", Sii9396RxConnectGet(i) ? 'Y' : 'N');
+	        }
+	        if (uiUART_INCONNECT_INFO == eState)
+	        {
+	            //cCount += SiiSprintf(&m_cUartMessage2[cCount], "%s", "\r\n");
+	            UART1_SendData2PC(m_cUartMessage1, strlen(m_cUartMessage1));
+	            UART1_SendData2PC(m_cUartMessage2, cCount);
+	        }
+	        //dvLCDLineDraw(0, 0, m_cUartMessage1);
+	        //dvLCDLineDraw(1, 0, m_cUartMessage2);
+#endif
+		 appUIStateChange(uiSYSTEM_INCONNECT_INFO);
+            	 SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+	 }
+	 else
+	 {
+		if(m_cUpDownKeyCount==0)
+		{
+			 SiiSprintf(m_cUartMessage1, "In   01 02 03 04");
+		        SiiSprintf(m_cUartMessage2, "Connect  N N N N");
+		        cCount=9;
+		        for (i = 0; i < 4; i++)
+		        {
+		            cCount += SiiSprintf(&m_cUartMessage2[cCount], "%c ", Sii9396RxConnectGet(i) ? 'Y' : 'N');
+		        }
+			 dvLCDLineDraw(0, 0, m_cUartMessage1);
+		        dvLCDLineDraw(1, 0, m_cUartMessage2);
+		}
+		else if(m_cUpDownKeyCount==1)
+		{
+#if(MAX_OUT>4)  //8 channel
+#if(MAX_OUT>6)
+		        SiiSprintf(m_cUartMessage1, "In   05 06 07 08");
+		        SiiSprintf(m_cUartMessage2, "Connect  N N N N");
+#else
+		        SiiSprintf(m_cUartMessage1, "In   05 06");
+		        SiiSprintf(m_cUartMessage2, "Connect  N N");
+#endif
+		        cCount=9;
+		        for (i =4; i < MAX_IN; i++)
+		        {
+		            cCount += SiiSprintf(&m_cUartMessage2[cCount], "%c ", Sii9396RxConnectGet(i) ? 'Y' : 'N');
+		        }
+		        dvLCDLineDraw(0, 0, m_cUartMessage1);
+		        dvLCDLineDraw(1, 0, m_cUartMessage2);
+#endif
+		}
+		if (sKeyEvent.eKey >= keIN1 &&
+	                sKeyEvent.eKey <= keIN4)
+	        {
+	                              dvLedOffSet((1 << elnIN1) | (1 << elnIN2) | (1 << elnIN3) | (1 << elnIN4)
+#if (MAX_IN>4)
+			       |(1 << elnIN5) |(1 << elnIN6) 
+#endif
+
+#if(MAX_IN>6)
+		              |(1 << elnIN7)|(1 << elnIN8) 
+#endif
+	 );
+	            dvLedOnSet(1 << (elnIN1 + (sKeyEvent.eKey - keIN1)));
+	        }
+	        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+	 }
+        break;
+    case uiSYSTEM_OUTCONNECT_INFO:
+    case uiUART_OUTCONNECT_INFO:
+    {
+        //dvLCDLineDraw(0, 0, "Out     01 02 03 04");
+        //dvLCDLineDraw(1, 0, "Connect N  N  N  N");
+        BYTE cSii9396Instance;
+        //txStatus_t txStat;
+        //BOOL bHPD;
+        if (uiUART_OUTCONNECT_INFO == eState)
+        {
+	        SiiSprintf(m_cUartMessage1, "Out  01 02 03 04");
+	        SiiSprintf(m_cUartMessage2, "Connect  N N N N");
+	        cCount=9;
+	        for (i = 0; i < 4; i++)
+	        {
+	            cSii9396Instance = utilOutputPortToInstance(i);
+	            cCount += SiiSprintf(&m_cUartMessage2[cCount], "%c ", SiiTxHpdGet(cSii9396Instance) ? 'Y' : 'N');
+	        }
+	        dvLCDLineDraw(0, 0, m_cUartMessage1);
+	        dvLCDLineDraw(1, 0, m_cUartMessage2);
+	        if (uiUART_OUTCONNECT_INFO == eState)
+	        {
+	            //cCount += SiiSprintf(&m_cUartMessage2[cCount], "%s", "\r\n");
+	            UART1_SendData2PC(m_cUartMessage1, LCD_MAX_CHAR-1);
+	            UART1_SendData2PC(m_cUartMessage2, cCount);
+	        }
+#if(MAX_OUT>4)  //8 channel
+#if(MAX_OUT>6)
+	        SiiSprintf(m_cUartMessage1, "Out  05 06 07 08");
+	        SiiSprintf(m_cUartMessage2, "Connect  N N N N");
+#else
+	        SiiSprintf(m_cUartMessage1, "Out  05 06");
+	        SiiSprintf(m_cUartMessage2, "Connect  N N");
+#endif
+	        cCount=9;
+	        for (i = 4; i < MAX_OUT; i++)
+	        {
+	            cSii9396Instance = utilOutputPortToInstance(i);
+	            cCount += SiiSprintf(&m_cUartMessage2[cCount], "%c ", SiiTxHpdGet(cSii9396Instance) ? 'Y' : 'N');
+	        }
+	        //dvLCDLineDraw(0, 0, m_cUartMessage1);
+	        //dvLCDLineDraw(1, 0, m_cUartMessage2);
+	        if (uiUART_OUTCONNECT_INFO == eState)
+	        {
+	            //cCount += SiiSprintf(&m_cUartMessage2[cCount], "%s", "\r\n");
+	            UART1_SendData2PC(m_cUartMessage1, strlen(m_cUartMessage1));
+	            UART1_SendData2PC(m_cUartMessage2, cCount);
+	        }
+#endif
+		 appUIStateChange(uiSYSTEM_OUTCONNECT_INFO);
+            	 SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+        }
+	 else
+	 {
+	 	if(m_cUpDownKeyCount==0)
+		{
+			 SiiSprintf(m_cUartMessage1, "Out  01 02 03 04");
+		        SiiSprintf(m_cUartMessage2, "Connect  N N N N");
+		        cCount=9;
+		        for (i = 0; i < 4; i++)
+		        {
+		            cSii9396Instance = utilOutputPortToInstance(i);
+		            cCount += SiiSprintf(&m_cUartMessage2[cCount], "%c ", SiiTxHpdGet(cSii9396Instance) ? 'Y' : 'N');
+		        }
+		        dvLCDLineDraw(0, 0, m_cUartMessage1);
+		        dvLCDLineDraw(1, 0, m_cUartMessage2);
+		}
+		else if(m_cUpDownKeyCount==1)
+		{
+#if(MAX_OUT>4)  //8 channel
+#if(MAX_OUT>6)
+		        SiiSprintf(m_cUartMessage1, "Out  05 06 07 08");
+		        SiiSprintf(m_cUartMessage2, "Connect  N N N N");
+#else
+		        SiiSprintf(m_cUartMessage1, "Out  05 06");
+		        SiiSprintf(m_cUartMessage2, "Connect  N N");
+#endif
+		        cCount=9;
+		        for (i = 4; i < MAX_OUT; i++)
+		        {
+		            cSii9396Instance = utilOutputPortToInstance(i);
+		            cCount += SiiSprintf(&m_cUartMessage2[cCount], "%c ", SiiTxHpdGet(cSii9396Instance) ? 'Y' : 'N');
+		        }
+		        dvLCDLineDraw(0, 0, m_cUartMessage1);
+		        dvLCDLineDraw(1, 0, m_cUartMessage2);
+#endif
+		}
+	        if (sKeyEvent.eKey >= keIN1 &&
+	                sKeyEvent.eKey <= keIN4)
+	        {
+	                dvLedOffSet((1 << elnIN1) | (1 << elnIN2) | (1 << elnIN3) | (1 << elnIN4)
+#if (MAX_IN>4)
+			       |(1 << elnIN5) |(1 << elnIN6) 
+#endif
+
+#if(MAX_IN>6)
+		              |(1 << elnIN7)|(1 << elnIN8) 
+#endif
+	                          );
+	            dvLedOnSet(1 << (elnIN1 + (sKeyEvent.eKey - keIN1)));
+	        }
+	        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+	 }
+    }
+    break;
+    case uiSYSTEM_SWITCH_INFO:
+    case uiUART_SWITCH_INFO:
+    {
+        //dvLCDLineDraw(0, 0, "Out  01 02 03 04");
+        //dvLCDLineDraw(1, 0, "In   N  N  N  N");
+        BYTE cInPort = 0;
+        POUTPUTPORT_MANAGER_DATA    psOutputPortMgrData;
+        psOutputPortMgrData  = (POUTPUTPORT_MANAGER_DATA)utilDataMgrReadLockData(nnOUTPUTPORT_MANAGER_DATA);
+	 utilDataMgrUnlock(nnOUTPUTPORT_MANAGER_DATA,FALSE);
+	 if (uiUART_SWITCH_INFO == eState)
+        {
+	        SiiSprintf(m_cUartMessage1, "Out  01 02 03 04");
+	        SiiSprintf(m_cUartMessage2, "In   01 01 01 01");
+	        cCount=4;
+	        for (i = 0; i < 4; i++)
+	        {
+	            cInPort = psOutputPortMgrData->acInPortSelect[i];
+	            if (cInPort >= MAX_IN)
+	            {
+	                cCount += SiiSprintf(&m_cUartMessage2[cCount], " %s", "00");
+	            }
+	            else
+	            {
+	                cCount += SiiSprintf(&m_cUartMessage2[cCount], " %2d", cInPort + 1);
+	            }
+	        }
+	        if (uiUART_SWITCH_INFO == eState)
+	        {
+	            // cCount += SiiSprintf(&m_cUartMessage2[cCount], "%s", "\r\n");
+	            UART1_SendData2PC(m_cUartMessage1, LCD_MAX_CHAR-1);
+	            UART1_SendData2PC(m_cUartMessage2, cCount);
+	        }
+	        dvLCDLineDraw(0, 0, m_cUartMessage1);
+	        dvLCDLineDraw(1, 0, m_cUartMessage2);
+			
+#if(MAX_OUT>4)  //8 channel
+#if(MAX_OUT>6)
+	        SiiSprintf(m_cUartMessage1, "Out  05 06 07 08");
+	        SiiSprintf(m_cUartMessage2, "In   01 01 01 01");
+#else
+	        SiiSprintf(m_cUartMessage1, "Out  05 06");
+	        SiiSprintf(m_cUartMessage2, "In   01 01");
+#endif
+	        cCount=4;
+	        for (i = 4; i < MAX_OUT; i++)
+	        {
+	            cInPort = psOutputPortMgrData->acInPortSelect[i];
+	            if (cInPort >= MAX_IN)
+	            {
+	                cCount += SiiSprintf(&m_cUartMessage2[cCount], " %s", "00");
+	            }
+	            else
+	            {
+	                cCount += SiiSprintf(&m_cUartMessage2[cCount], " %2d", cInPort + 1);
+	            }
+	        }
+	        if (uiUART_SWITCH_INFO == eState)
+	        {
+	            // cCount += SiiSprintf(&m_cUartMessage2[cCount], "%s", "\r\n");
+	            UART1_SendData2PC(m_cUartMessage1, LCD_MAX_CHAR-1);
+	            UART1_SendData2PC(m_cUartMessage2, cCount);
+	        }
+	        //dvLCDLineDraw(0, 0, m_cUartMessage1);
+	        //dvLCDLineDraw(1, 0, m_cUartMessage2);
+#endif
+		appUIStateChange(uiSYSTEM_SWITCH_INFO);
+            	SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+	 }
+	 else
+	 {
+		if(m_cUpDownKeyCount==0)
+		{
+			 SiiSprintf(m_cUartMessage1, "Out  01 02 03 04");
+		        SiiSprintf(m_cUartMessage2, "In   01 01 01 01");
+		        cCount=4;
+		        for (i = 0; i < 4; i++)
+		        {
+		            cInPort = psOutputPortMgrData->acInPortSelect[i];
+		            if (cInPort >= MAX_IN)
+		            {
+		                cCount += SiiSprintf(&m_cUartMessage2[cCount], " %s", "00");
+		            }
+		            else
+		            {
+		                cCount += SiiSprintf(&m_cUartMessage2[cCount], " %2d", cInPort + 1);
+		            }
+		        }
+		        dvLCDLineDraw(0, 0, m_cUartMessage1);
+		        dvLCDLineDraw(1, 0, m_cUartMessage2);	
+		}
+		else if(m_cUpDownKeyCount==1)
+		{
+#if(MAX_OUT>4)  //8 channel
+#if(MAX_OUT>6)
+		        SiiSprintf(m_cUartMessage1, "Out  05 06 07 08");
+		        SiiSprintf(m_cUartMessage2, "In   01 01 01 01");
+#else
+		        SiiSprintf(m_cUartMessage1, "Out  05 06");
+		        SiiSprintf(m_cUartMessage2, "In   01 01");
+#endif
+		        cCount=4;
+		        for (i = 4; i < MAX_OUT; i++)
+		        {
+		            cInPort = psOutputPortMgrData->acInPortSelect[i];
+		            if (cInPort >= MAX_IN)
+		            {
+		                cCount += SiiSprintf(&m_cUartMessage2[cCount], " %s", "00");
+		            }
+		            else
+		            {
+		                cCount += SiiSprintf(&m_cUartMessage2[cCount], " %2d", cInPort + 1);
+		            }
+		        }
+		        dvLCDLineDraw(0, 0, m_cUartMessage1);
+		        dvLCDLineDraw(1, 0, m_cUartMessage2);
+#endif
+		}
+		if (sKeyEvent.eKey >= keIN1 &&
+		     sKeyEvent.eKey <= keIN4)
+	       {
+	                dvLedOffSet((1 << elnIN1) | (1 << elnIN2) | (1 << elnIN3) | (1 << elnIN4)
+#if (MAX_IN>4)
+			       |(1 << elnIN5) |(1 << elnIN6) 
+#endif
+
+#if(MAX_IN>6)
+		              |(1 << elnIN7)|(1 << elnIN8) 
+#endif
+	                          );
+	            dvLedOnSet(1 << (elnIN1 + (sKeyEvent.eKey - keIN1)));
+	       }
+	       SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,0xFF);
+	 } 
+    }
+    break;
+    case uiSYSTEM_IN_HDCP_INFO:
+    case uiUART_IN_HDCP_INFO:
+        //dvLCDLineDraw(0, 0, "In   01 02 03 04");
+        //dvLCDLineDraw(1, 0, "Hdcp N  N  N  N");
+
+	 if (uiUART_IN_HDCP_INFO == eState)
+        {
+	        SiiSprintf(m_cUartMessage1, "In   01 02 03 04");
+	        SiiSprintf(m_cUartMessage2, "HDCP  N  N  N  N");
+	        cCount=4;
+	        for (i = 0; i <4; i++)
+	        {
+	            cCount += SiiSprintf(&m_cUartMessage2[cCount], "  %c", Sii9396RxHDCPGet(i) ? 'Y' : 'N');
+	        }
+	        //cCount += SiiSprintf(&m_cUartMessage2[cCount], "%s", "\r\n");
+	        if (uiUART_IN_HDCP_INFO == eState)
+	        {
+	            UART1_SendData2PC(m_cUartMessage1, LCD_MAX_CHAR-1);
+	            UART1_SendData2PC(m_cUartMessage2, cCount);
+	        }
+	        dvLCDLineDraw(0, 0, m_cUartMessage1);
+	        dvLCDLineDraw(1, 0, m_cUartMessage2);
+			
+#if(MAX_OUT>4)  //8 channel
+#if(MAX_OUT>6)
+	        SiiSprintf(m_cUartMessage1, "In   05 06 07 08");
+	        SiiSprintf(m_cUartMessage2, "HDCP  N  N  N  N");
+#else
+	        SiiSprintf(m_cUartMessage1, "In   05 06");
+	        SiiSprintf(m_cUartMessage2, "HDCP  N  N");
+#endif
+	        cCount=4;
+	        for (i = 4; i < MAX_IN; i++)
+	        {
+	            cCount += SiiSprintf(&m_cUartMessage2[cCount], "  %c", Sii9396RxHDCPGet(i) ? 'Y' : 'N');
+	        }
+	        //cCount += SiiSprintf(&m_cUartMessage2[cCount], "%s", "\r\n");
+	        if (uiUART_IN_HDCP_INFO == eState)
+	        {
+	            UART1_SendData2PC(m_cUartMessage1, LCD_MAX_CHAR-1);
+	            UART1_SendData2PC(m_cUartMessage2, cCount);
+	        }
+	        //dvLCDLineDraw(0, 0, m_cUartMessage1);
+	        //dvLCDLineDraw(1, 0, m_cUartMessage2);
+#endif
+		 appUIStateChange(uiSYSTEM_IN_HDCP_INFO);
+            	 SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+	 }
+	 else
+	 {
+		if(m_cUpDownKeyCount==0)
+		{
+			 SiiSprintf(m_cUartMessage1, "In   01 02 03 04");
+		        SiiSprintf(m_cUartMessage2, "HDCP  N  N  N  N");
+		        cCount=4;
+		        for (i = 0; i <4; i++)
+		        {
+		            cCount += SiiSprintf(&m_cUartMessage2[cCount], "  %c", Sii9396RxHDCPGet(i) ? 'Y' : 'N');
+		        }
+		        dvLCDLineDraw(0, 0, m_cUartMessage1);
+		        dvLCDLineDraw(1, 0, m_cUartMessage2);		
+		}
+		else if(m_cUpDownKeyCount==1)
+		{
+#if(MAX_OUT>4)  //8 channel
+#if(MAX_OUT>6)
+		        SiiSprintf(m_cUartMessage1, "In   05 06 07 08");
+		        SiiSprintf(m_cUartMessage2, "HDCP  N  N  N  N");
+#else
+		        SiiSprintf(m_cUartMessage1, "In   05 06");
+		        SiiSprintf(m_cUartMessage2, "HDCP  N  N");
+#endif
+		        cCount=4;
+		        for (i = 4; i < MAX_IN; i++)
+		        {
+		            cCount += SiiSprintf(&m_cUartMessage2[cCount], "  %c", Sii9396RxHDCPGet(i) ? 'Y' : 'N');
+		        }
+		        dvLCDLineDraw(0, 0, m_cUartMessage1);
+		        dvLCDLineDraw(1, 0, m_cUartMessage2);
+#endif
+		}
+		
+		if (sKeyEvent.eKey >= keIN1 &&
+	                sKeyEvent.eKey <= keIN4)
+	        {
+	                dvLedOffSet((1 << elnIN1) | (1 << elnIN2) | (1 << elnIN3) | (1 << elnIN4)
+#if (MAX_IN>4)
+			       |(1 << elnIN5) |(1 << elnIN6) 
+#endif
+
+#if(MAX_IN>6)
+		              |(1 << elnIN7)|(1 << elnIN8) 
+#endif
+	        );
+	            dvLedOnSet(1 << (elnIN1 + (sKeyEvent.eKey - keIN1)));
+	        }
+	        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+	 }
+        break;
+    case uiUART_IN_HDCPENABLE_INFO:
+    {
+        PINPUTPORT_MANAGER_DATA       psInputPortMgrData;
+        psInputPortMgrData = (PINPUTPORT_MANAGER_DATA)utilDataMgrReadLockData(nnINPUTPORT_MAMAGER_DATA);
+        SiiSprintf(m_cUartMessage1, "In   01 02 03 04");
+        SiiSprintf(m_cUartMessage2, "HDCPEN  Y Y Y Y ");
+        cCount = 8;
+        for (i = 0; i < 4; i++)
+        {
+            cCount += SiiSprintf(&m_cUartMessage2[cCount], "%c ", psInputPortMgrData->abInputHDCP_EN[i] ? 'Y' : 'N');
+        }
+        dvLCDLineDraw(0, 0, m_cUartMessage1);
+        dvLCDLineDraw(1, 0, m_cUartMessage2);
+        if (uiUART_IN_HDCPENABLE_INFO == eState)
+        {
+            //cCount += SiiSprintf(&m_cUartMessage2[cCount], "%s", "\r\n");
+            UART1_SendData2PC(m_cUartMessage1, LCD_MAX_CHAR-1);
+            UART1_SendData2PC(m_cUartMessage2, cCount);
+        }
+#if(MAX_OUT>4)  //8 channel
+#if(MAX_OUT>6)
+        SiiSprintf(m_cUartMessage1, "In   05 06 07 08");
+        SiiSprintf(m_cUartMessage2, "HDCPEN  Y Y Y Y ");
+#else
+        SiiSprintf(m_cUartMessage1, "In   05 06");
+        SiiSprintf(m_cUartMessage2, "HDCPEN  Y Y");
+#endif
+        cCount = 8;
+        for (i = 4; i < MAX_IN; i++)
+        {
+            cCount += SiiSprintf(&m_cUartMessage2[cCount], "%c ", psInputPortMgrData->abInputHDCP_EN[i] ? 'Y' : 'N');
+        }
+        dvLCDLineDraw(0, 0, m_cUartMessage1);
+        dvLCDLineDraw(1, 0, m_cUartMessage2);
+        if (uiUART_IN_HDCPENABLE_INFO == eState)
+        {
+            //cCount += SiiSprintf(&m_cUartMessage2[cCount], "%s", "\r\n");
+            UART1_SendData2PC(m_cUartMessage1, LCD_MAX_CHAR-1);
+            UART1_SendData2PC(m_cUartMessage2, cCount);
+        }
+#endif
+        if (sKeyEvent.eKey >= keIN3 &&
+                sKeyEvent.eKey <= keIN4)
+        {
+                dvLedOffSet((1 << elnIN1) | (1 << elnIN2) | (1 << elnIN3) | (1 << elnIN4)
+#if (MAX_IN>4)
+		       |(1 << elnIN5) |(1 << elnIN6) 
+#endif
+
+#if(MAX_IN>6)
+	              |(1 << elnIN7)|(1 << elnIN8) 
+#endif
+                          );
+            dvLedOnSet(1 <<(elnIN1 +(sKeyEvent.eKey - keIN1)));
+        }
+        utilDataMgrUnlock(nnINPUTPORT_MAMAGER_DATA,FALSE);
+        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+    }
+    break;
+    case uiSYSTEM_OUT_HDCP_INFO:
+    case uiUART_OUT_HDCP_INFO:
+    {
+        //dvLCDLineDraw(0, 0, "Out  01 02 03 04");
+        //dvLCDLineDraw(1, 0, "Hdcp N  N  N  N");
+        BOOL bOutHDCPEN;
+       
+	 if (uiUART_OUT_HDCP_INFO == eState)
+        {	
+	 	 SiiSprintf(m_cUartMessage1, "Out  01 02 03 04");
+        	 SiiSprintf(m_cUartMessage2, "HDCP  N  N  N  N");
+		 cCount = 4;
+	        for (i = 0; i < 4; i++)
+	        {
+	            bOutHDCPEN = Sii9396TxHDCPGet(utilOutputPortToInstance(i)); 
+	            cCount += SiiSprintf(&m_cUartMessage2[cCount], "  %c", bOutHDCPEN ? 'Y' : 'N');
+	        }
+	        dvLCDLineDraw(0, 0, m_cUartMessage1);
+	        dvLCDLineDraw(1, 0, m_cUartMessage2);
+	        if (uiUART_OUT_HDCP_INFO == eState)
+	        {
+	            UART1_SendData2PC(m_cUartMessage1, LCD_MAX_CHAR-1);
+	            UART1_SendData2PC(m_cUartMessage2, cCount);
+	        }
+			
+#if(MAX_OUT>4)  //8 channel
+#if(MAX_OUT>6)
+	        SiiSprintf(m_cUartMessage1, "Out  05 06 07 08");
+	        SiiSprintf(m_cUartMessage2, "HDCP  N  N  N  N");
+#else
+	        SiiSprintf(m_cUartMessage1, "Out  05 06");
+	        SiiSprintf(m_cUartMessage2, "HDCP  N  N  N  N");
+#endif
+	        cCount = 4;
+	        for (i =4; i < MAX_OUT; i++)
+	        {
+	            bOutHDCPEN = Sii9396TxHDCPGet(utilOutputPortToInstance(i));
+	            cCount += SiiSprintf(&m_cUartMessage2[cCount], "  %c", bOutHDCPEN ? 'Y' : 'N');
+	        }
+	        //dvLCDLineDraw(0, 0, m_cUartMessage1);
+	        //dvLCDLineDraw(1, 0, m_cUartMessage2);
+	        if (uiUART_OUT_HDCP_INFO == eState)
+	        {
+	            UART1_SendData2PC(m_cUartMessage1, LCD_MAX_CHAR-1);
+	            UART1_SendData2PC(m_cUartMessage2, cCount);
+	        }
+#endif
+		appUIStateChange(uiSYSTEM_OUT_HDCP_INFO);
+            	SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+	 }
+	 else
+	 {
+		if(m_cUpDownKeyCount==0)
+		{
+			 SiiSprintf(m_cUartMessage1, "Out  01 02 03 04");
+	        	 SiiSprintf(m_cUartMessage2, "HDCP  N  N  N  N");
+			 cCount = 4;
+		        for (i = 0; i < 4; i++)
+		        {
+		            bOutHDCPEN = Sii9396TxHDCPGet(utilOutputPortToInstance(i)); 
+		            cCount += SiiSprintf(&m_cUartMessage2[cCount], "  %c", bOutHDCPEN ? 'Y' : 'N');
+		        }
+		        dvLCDLineDraw(0, 0, m_cUartMessage1);
+		        dvLCDLineDraw(1, 0, m_cUartMessage2);
+		}
+		else if(m_cUpDownKeyCount==1)
+		{
+#if(MAX_OUT>4)  //8 channel
+#if(MAX_OUT>6)
+		        SiiSprintf(m_cUartMessage1, "Out  05 06 07 08");
+		        SiiSprintf(m_cUartMessage2, "HDCP  N  N  N  N");
+#else
+		        SiiSprintf(m_cUartMessage1, "Out  05 06");
+		        SiiSprintf(m_cUartMessage2, "HDCP  N  N  N  N");
+#endif
+		        cCount = 4;
+		        for (i =4; i < MAX_OUT; i++)
+		        {
+		            bOutHDCPEN = Sii9396TxHDCPGet(utilOutputPortToInstance(i));
+		            cCount += SiiSprintf(&m_cUartMessage2[cCount], "  %c", bOutHDCPEN ? 'Y' : 'N');
+		        }
+		        dvLCDLineDraw(0, 0, m_cUartMessage1);
+		        dvLCDLineDraw(1, 0, m_cUartMessage2);
+#endif
+
+		}
+		
+		if (sKeyEvent.eKey >= keIN1 &&
+	                sKeyEvent.eKey <= keIN4)
+	        {
+	                         dvLedOffSet((1 << elnIN1) | (1 << elnIN2) | (1 << elnIN3) | (1 << elnIN4)
+#if (MAX_IN>4)
+			       |(1 << elnIN5) |(1 << elnIN6) 
+#endif
+
+#if(MAX_IN>6)
+		              |(1 << elnIN7)|(1 << elnIN8) 
+#endif
+	 						);
+	            dvLedOnSet(1 <<(elnIN1 +(sKeyEvent.eKey - keIN1)));
+	        }
+	        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+	 }
+    }
+    break;
+    case uiSYSTEM_OUT_RESOLUTION_INFO:
+    case uiUART_OUT_RESOLUTION_INFO:
+    {
+        BYTE cSii9396Instance;
+        INT nHRes = 0;
+        INT nVRes = 0;
+        INT nCLK = 0;
+        bool_t bInterlace;
+        SiiSprintf(m_cUartMessage1, "Resolution");
+        SiiSprintf(m_cUartMessage2, "Out 1  0000x0000");
+        if (uiUART_OUT_RESOLUTION_INFO == eState)
+        {
+            UART1_SendData2PC(m_cUartMessage1, strlen(m_cUartMessage1));
+            for (i = 0; i < MAX_IN; i++)
+            {
+                cCount=4;
+                cSii9396Instance = utilOutputPortToInstance(i);
+                Sii9396RXResolutionGet(cSii9396Instance, &nHRes, &nVRes, &nCLK,&bInterlace);
+                if (nVRes>100)
+                {
+                  if(nHRes>999)
+                    cCount += SiiSprintf(&m_cUartMessage2[cCount], "%d %4dx%d%c", i + 1, nHRes, nVRes, bInterlace ? 'I' : 'P');
+		   else
+		   	cCount += SiiSprintf(&m_cUartMessage2[cCount], "%d  %3dx%d%c", i + 1, nHRes, nVRes, bInterlace ? 'I' : 'P');
+		   	
+                }
+                else
+                {
+                    cCount += SiiSprintf(&m_cUartMessage2[cCount], "%d 0000x0000", i + 1);
+                }
+                if(i==0)
+                {
+                    dvLCDLineDraw(1, 0, m_cUartMessage2);       //lcd上显示
+                }
+                UART1_SendData2PC(m_cUartMessage2, cCount);
+                //UART1_SendData2PC("\r\n",2);
+            }
+            appUIStateChange(uiSYSTEM_OUT_RESOLUTION_INFO);
+            SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+        }
+        else
+        {
+            cSii9396Instance = utilOutputPortToInstance(m_cEdidManageOutPort);
+            Sii9396RXResolutionGet(cSii9396Instance, &nHRes, &nVRes, &nCLK,&bInterlace);
+            // outport resolution
+            cCount=4;
+            if(nVRes>100)
+            {
+                if (m_bCharFlashing)
+                {
+                   if(nHRes>999)
+                    cCount += SiiSprintf(&m_cUartMessage2[cCount], "%c %4dx%d%c", ' ', nHRes, nVRes,bInterlace?'I':'P');
+		     else
+		      cCount += SiiSprintf(&m_cUartMessage2[cCount], "%c  %3dx%d%c", ' ', nHRes, nVRes,bInterlace?'I':'P'); 	
+                    m_bCharFlashing = FALSE;
+                }
+                else
+                {
+                  if(nHRes>999)
+                    cCount += SiiSprintf(&m_cUartMessage2[cCount], "%d %4dx%d%c", m_cEdidManageOutPort + 1, nHRes, nVRes,bInterlace?'I':'P');//[kyq edid: 20151026 17:35:20]
+                  else
+		     cCount += SiiSprintf(&m_cUartMessage2[cCount], "%d  %3dx%d%c", m_cEdidManageOutPort + 1, nHRes, nVRes,bInterlace?'I':'P');//[kyq edid: 20151026 17:35:20]	  	
+                    m_bCharFlashing = TRUE;
+                }
+            }
+            else
+            {
+                if (m_bCharFlashing)
+                {
+                    cCount += SiiSprintf(&m_cUartMessage2[cCount], "  0000x0000");
+                    m_bCharFlashing = FALSE;
+                }
+                else
+                {
+                    cCount += SiiSprintf(&m_cUartMessage2[cCount], "%d 0000x0000", m_cEdidManageOutPort + 1);//[kyq edid: 20151026 17:35:20]
+                    m_bCharFlashing = TRUE;
+                }
+            }
+            dvLCDLineDraw(1, 0, m_cUartMessage2);
+            if (sKeyEvent.eKey >= keIN1 &&
+                    sKeyEvent.eKey <= keIN4)
+            {
+                 dvLedOffSet((1 << elnIN1) | (1 << elnIN2) | (1 << elnIN3) | (1 << elnIN4)
+#if (MAX_IN>4)
+		       |(1 << elnIN5) |(1 << elnIN6) 
+#endif
+
+#if(MAX_IN>6)
+	              |(1 << elnIN7)|(1 << elnIN8) 
+#endif
+                          );
+                dvLedOnSet(1 << (elnIN1 + (sKeyEvent.eKey - keIN1)));
+            }
+            /*
+            else if (keENTER == sKeyEvent.eKey)
+            {
+                dvLedOnSet(1 << (elnENTER));
+            }
+            */
+        }
+        SiiPlatformTimerSet(etUI_FLASHING, mS_TO_TICKS(500L),0xFF);
+    }
+    break;
+    case uiUART_MESSAGE:
+        if (m_cUartMessage1[0] != 0)
+        {
+            dvLCDLineDraw(0, 0, m_cUartMessage1);
+        }
+        else
+        {
+            dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+        }
+        if (m_cUartMessage2[0] != 0)
+        {
+            dvLCDLineDraw(1, 0, m_cUartMessage2);
+        }
+        else
+        {
+            dvLCDLineDraw(1, 0, LCD2_IDLE_TEXT);
+        }
+        if (m_bUartMessageSend)
+        {
+            UART1_SendData2PC(m_cUartMessage2, strlen(m_cUartMessage2));
+            //UART1_SendData2PC("\r\n",2);
+        }
+        m_bUartMessageSend = FALSE;
+        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+        break;
+    case uiUART_CMD_ERROR:
+	 dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+	 dvLCDLineDraw(1, 0, "CMD Error!");
+        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(3000),0xFF);
+        break;
+    case uiSYSTEM_LOCK_INFO:
+    {
+        BOOL bLocked;
+        //PSYSTEM_SETTING_DATA    psSystemSettingData;
+        psSystemSettingData  = (PSYSTEM_SETTING_DATA)utilDataMgrReadLockData(nnSYSTEM_SETTING_DATA);
+        bLocked = psSystemSettingData->bSystemLock;
+        utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,
+                          FALSE);
+        cCount += SiiSprintf(&cDrawTXT[cCount], "%s",
+                             bLocked ?  "System Locked!" : "System UnLock!");
+	 dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+        dvLCDLineDraw(1, 0, cDrawTXT);
+        // cCount += SiiSprintf(&cDrawTXT[cCount], "%s", "\r\n");
+        UART1_SendData2PC(cDrawTXT, cCount);
+        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+    }
+    break;
+    case uiUART_EDID_STATUS:
+    {
+	 switch(appGetDialSwitchEdidStatus())
+	 {
+		case eEDID_BYPASS:			
+				sprintf(USART1_tx_buff, "EDID BYPASS 0000\r\n");
+				UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+				break;         
+		case eEDID_720P_2D_BYPASS:
+				sprintf(USART1_tx_buff, "EDID 720P 2D BYPASS 0001\r\n");
+				UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+				break;
+		case eEDID_720P_3D_BYPASS:
+				sprintf(USART1_tx_buff, "EDID 720P 3D BYPASS 0010\r\n");
+				UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+				break;
+		case eEDID_1080P_2D_BYPASS:
+				sprintf(USART1_tx_buff, "EDID 1080P 2D BYPASS 0011\r\n");
+				UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+				break;
+		case eEDID_1080P_3D_BYPASS:
+				sprintf(USART1_tx_buff, "EDID 1080P 3D BYPASS 0100\r\n");
+				UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+				break;
+		case eEDID_4K_30HZ_BYPASS:
+				sprintf(USART1_tx_buff, "EDID 4K 30HZ BYPASS 0101\r\n");
+				UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+				break;
+		case eEDID_4K_30HZ_2CH:
+				sprintf(USART1_tx_buff, "EDID 4K 30HZ 2.0CH 0110\r\n");
+				UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+				break;
+		case eEDID_4K_30HZ_8CH:
+				sprintf(USART1_tx_buff, "EDID 4K 30HZ 7.1CH 0111\r\n");
+				UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+				break;
+		case eEDID_4K_60HZ_420_BYPASS:
+				sprintf(USART1_tx_buff, "EDID 4K 60HZ 420 BYPASS 1000\r\n");
+				UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+				break;
+		case eEDID_4K_60HZ_420_8CH:
+				sprintf(USART1_tx_buff, "EDID 4K 60HZ 420 7.1CH 1001\r\n");
+				UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+				break;
+		case eEDID_4K_60HZ_444_BYPASS:
+				sprintf(USART1_tx_buff, "EDID 4K 60HZ 444 BYPASS 1010\r\n");
+				UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+				break;
+		case eEDID_4K_60HZ_444_8CH:
+				sprintf(USART1_tx_buff, "EDID 4K 60HZ 444 7.1CH 1011\r\n");
+				UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+				break;
+		case eEDID_RS232_GUI_CONTROL:
+				sprintf(USART1_tx_buff, "EDID RS232 GUI CONTROL 1111\r\n");
+				UART1_SendBytes((uint8_t *)USART1_tx_buff, strlen(USART1_tx_buff));
+				break;
+		default:break;
+	 }	
+        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+    }
+    break;	
+    case uiSYSTEM_NAME:
+    {
+        psSystemSettingData = (PSYSTEM_SETTING_DATA)utilDataMgrReadLockData(nnSYSTEM_SETTING_DATA);
+	 dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+        dvLCDLineDraw(1, 0, psSystemSettingData->acProduct_Name);
+        utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,
+                          FALSE);
+        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+    }
+    break;
+    case uiSYSTEM_VERSION:
+	 dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+        dvLCDLineDraw(1, 0, g_FW_Version);
+        UART1_SendData2PC(g_FW_Version, strlen(g_FW_Version));
+        //UART1_SendData2PC("\r\n",2);
+        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+        break;
+    case uiSYSTEM_MESSAGE_ONOFF_INFO:
+        //dvLCDLineDraw(1, 0, "/:MessageOff;");
+        //dvLCDLineDraw(1, 0, "/:MessageOn;");
+        psSystemSettingData = (PSYSTEM_SETTING_DATA)utilDataMgrReadLockData(nnSYSTEM_SETTING_DATA);
+        cCount += SiiSprintf(&cDrawTXT[cCount], "%s",
+                             psSystemSettingData->bUartReturnMessage_EN ?
+                             "/:MessageOn;" : "/:MessageOff;");
+        utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,
+                          FALSE);
+	 dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+        dvLCDLineDraw(1, 0, cDrawTXT);
+        //cCount += SiiSprintf(&cDrawTXT[cCount], "%s", "\r\n");
+        UART1_SendData2PC(cDrawTXT, cCount);
+        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+        break;
+    case uiUART_SWITCH_PORT_INFO:       //status指令查询单个输入输出对应的反馈
+    {
+        BYTE cInPort = 0;
+#if 0 //def PRD_IR_OUT
+        BYTE cIRInPort = 0;
+        BYTE cCnt = 0;
+        BYTE acUartMsg2[40] =
+        { 0 };
+#endif
+        psOutputPortMgrData  = (POUTPUTPORT_MANAGER_DATA)utilDataMgrReadLockData(nnOUTPUTPORT_MANAGER_DATA);
+        if (m_bOutPortSwitcherInf < MAX_OUT)
+        {
+            cInPort = psOutputPortMgrData->acInPortSelect[m_bOutPortSwitcherInf];
+            if (cInPort >= MAX_IN)
+            {
+                cCount += SiiSprintf(&cDrawTXT[cCount], "AV:%s->%2d",
+                                     "OFF", m_bOutPortSwitcherInf+ 1);
+            }
+            else
+            {
+                cCount += SiiSprintf(&cDrawTXT[cCount], "AV: %2d->%2d",
+                                     cInPort + 1, m_bOutPortSwitcherInf + 1);
+            }
+#ifndef PRD_IR_OUT
+	     dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+            dvLCDLineDraw(1, 0, cDrawTXT);
+            //cCount2 += SiiSprintf(&acUartMsg[cCount2], "%s", "\r\n");
+#endif
+            UART1_SendData2PC(cDrawTXT, cCount);
+#ifdef PRD_IR_OUT
+            dvLCDLineDraw(0, 0, cDrawTXT);
+            cCount = 0;
+            memset(cDrawTXT, 0, 20);
+            cInPort = psOutputPortMgrData->acIRInPortSelect[m_bOutPortSwitcherInf];
+            if (cInPort >= MAX_IN)
+            {
+                cCount += SiiSprintf(&cDrawTXT[cCount], "IR:%s->%2d",
+                                     "OFF", m_bOutPortSwitcherInf + 1);
+            }
+            else
+            {
+                cCount += SiiSprintf(&cDrawTXT[cCount], "IR: %2d->%2d",
+                                     cInPort + 1, m_bOutPortSwitcherInf + 1);
+            }
+            dvLCDLineDraw(1, 0, cDrawTXT);
+            UART1_SendData2PC(cDrawTXT, cCount);
+#endif
+        }
+
+        utilDataMgrUnlock(nnOUTPUTPORT_MANAGER_DATA,
+                          FALSE);
+        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+    }
+    break;
+    case uiUART_SWITCH_ALL_PORT_INFO:                   //status指令查询所有输入输出对应的反馈
+    {
+        dvLCDLineDraw(0, 0, "Out  01 02 03 04");
+        //dvLCDLineDraw(1, 0, "In   01 01 01 01");
+        BYTE cInPort = 0;
+#ifdef PRD_IR_OUT
+        BYTE cIRInPort = 0;
+        BYTE cCnt = 0;
+        BYTE acUartMsg2[40] ={ 0 };
+#endif
+        POUTPUTPORT_MANAGER_DATA    psOutputPortMgrData;
+        cCount=0;
+        psOutputPortMgrData  = (POUTPUTPORT_MANAGER_DATA)utilDataMgrReadLockData(nnOUTPUTPORT_MANAGER_DATA);
+        for (i = 0; i < MAX_OUT; i++)
+        {
+	     cCount2=0;
+	#ifdef PRD_IR_OUT
+            cCnt=0;
+	#endif
+	     cInPort = psOutputPortMgrData->acInPortSelect[i];
+            if (cInPort >= MAX_IN)
+            {
+                cCount += SiiSprintf(&cDrawTXT[cCount], " %s", "00");
+                cCount2 += SiiSprintf(&acUartMsg[cCount2], "AV:%s->%2d",
+                                      "OFF", i + 1);
+            }
+            else
+            {
+                cCount += SiiSprintf(&cDrawTXT[cCount], " %2d", cInPort + 1);
+                cCount2 += SiiSprintf(&acUartMsg[cCount2], "AV:%2d->%2d",
+                                      cInPort + 1, i + 1);
+            }
+#ifdef PRD_IR_OUT
+            cIRInPort = psOutputPortMgrData->acIRInPortSelect[i];
+            if (cIRInPort >= MAX_IN)
+            {
+                cCnt += SiiSprintf(&acUartMsg2[cCnt], "IR:%s->%2d\r\n",
+                                   "OFF", i + 1);
+            }
+            else
+            {
+                cCnt += SiiSprintf(&acUartMsg2[cCnt], "IR:%2d->%2d\r\n",
+                                   cIRInPort+ 1, i + 1);
+            }
+#endif
+            UART1_SendData2PC(acUartMsg, cCount2);
+#ifdef PRD_IR_OUT
+            UART1_SendData2PC(acUartMsg2, cCnt);
+#endif
+            dvLCDLineDraw(1, 4, cDrawTXT);
+        }
+        utilDataMgrUnlock(nnOUTPUTPORT_MANAGER_DATA,
+                          FALSE);
+        appUIStateChange(uiSYSTEM_SWITCH_INFO);
+        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+    }
+    break;
+    case uiUART_OUT_HDMIAUDIO_INFO:
+        SiiSprintf(m_cUartMessage1, "Out  01 02 03 04");
+        SiiSprintf(m_cUartMessage2, "Audio    Y Y Y Y");
+        psOutputPortMgrData  = (POUTPUTPORT_MANAGER_DATA)utilDataMgrReadLockData(nnOUTPUTPORT_MANAGER_DATA);
+        cCount = 8;
+
+	for(i=0;i<4;i++)
+        cCount += SiiSprintf(&m_cUartMessage2[cCount], " %c",
+                             psOutputPortMgrData->abHDMIAudio_EN[i]==SII_AUDIO__SPDIF ? 'Y' : 'N'
+                        
+                            );
+	   dvLCDLineDraw(0, 0, m_cUartMessage1);
+        dvLCDLineDraw(1, 0, m_cUartMessage2);
+        //cCount += SiiSprintf(&m_cUartMessage2[cCount], "%s", "\r\n");
+        UART1_SendData2PC(m_cUartMessage1, cCount);
+        UART1_SendData2PC(m_cUartMessage2, cCount);
+
+	#if(MAX_OUT>4)  //8 channel
+#if(MAX_OUT>6)
+                SiiSprintf(m_cUartMessage1, "Out  05 06 07 08");
+        SiiSprintf(m_cUartMessage2, "Audio    Y Y Y Y");
+#else
+               SiiSprintf(m_cUartMessage1, "Out  05 06");
+        SiiSprintf(m_cUartMessage2, "Audio  Y  Y");
+#endif
+
+    //    psOutputPortMgrData  = (POUTPUTPORT_MANAGER_DATA)utilDataMgrReadLockData(nnOUTPUTPORT_MANAGER_DATA);
+        cCount = 8;
+  	for(i=4;i<MAX_OUT;i++)
+        cCount += SiiSprintf(&m_cUartMessage2[cCount], " %c",
+                             psOutputPortMgrData->abHDMIAudio_EN[i]==SII_AUDIO__SPDIF ? 'Y' : 'N'
+                        
+                            );
+	 
+	   dvLCDLineDraw(0, 0, m_cUartMessage1);
+        dvLCDLineDraw(1, 0, m_cUartMessage2);
+        //cCount += SiiSprintf(&m_cUartMessage2[cCount], "%s", "\r\n");
+        UART1_SendData2PC(m_cUartMessage1, cCount);
+        UART1_SendData2PC(m_cUartMessage2, cCount);
+#endif
+
+        utilDataMgrUnlock(nnOUTPUTPORT_MANAGER_DATA, FALSE);
+        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+        break;
+    case uiUART_IP_INFO:
+        psSystemSettingData  = (PSYSTEM_SETTING_DATA)utilDataMgrReadLockData(nnSYSTEM_SETTING_DATA);
+        cCount += SiiSprintf(&cDrawTXT[cCount], "%d.%d.%d.%d",
+                             psSystemSettingData->acIP_Address[0],
+                             psSystemSettingData->acIP_Address[1],
+                             psSystemSettingData->acIP_Address[2],
+                             psSystemSettingData->acIP_Address[3]
+                            );
+        cCount2 += SiiSprintf(acUartMsg, "IP:%d.%d.%d.%d",
+                              psSystemSettingData->acIP_Address[0],
+                              psSystemSettingData->acIP_Address[1],
+                              psSystemSettingData->acIP_Address[2],
+                              psSystemSettingData->acIP_Address[3]
+                             );
+        utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,
+                          FALSE);
+        dvLCDLineDraw(0, 0, "IP:");
+        dvLCDLineDraw(1, 0, cDrawTXT);
+        UART1_SendData2PC(acUartMsg, cCount2);
+        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+        break;
+    case uiUART_SYSTEM_TYPE:
+        psSystemSettingData  = (PSYSTEM_SETTING_DATA)utilDataMgrReadLockData(nnSYSTEM_SETTING_DATA);
+	 dvLCDLineDraw(0, 0, LCD1_IDLE_TEXT);
+        dvLCDLineDraw(1, 0, psSystemSettingData->acProduct_Name);
+        utilDataMgrUnlock(nnSYSTEM_SETTING_DATA,
+                          FALSE);
+        UART1_SendData2PC(psSystemSettingData->acProduct_Name, strlen(psSystemSettingData->acProduct_Name));
+        SiiPlatformTimerSet(etUI_CLEAR, mS_TO_TICKS(DEFAULT_UI_CLEAR),0xFF);
+        break;
+    default:
+        break;
+    }
+}
+// ---------------------------------------------------------------------------
+// Perform processing for exiting a UI state
+//
+// Params:
+//  eState : UI state being exited
+//
+// Return: none
+// ---------------------------------------------------------------------------
+// it is not good ideal add KEY_EVENT param for this function
+//
+static void UIStateExit(eUI_STATE eState,
+                        KEY_EVENT sKeyEvent)
+{
+    BYTE i;
+    // 各自状态用到的变量退出时候看是否清除
+    switch (eState)
+    {
+        /*
+        uiSPLASH,
+        uiSWITCH_VIDEO,
+        uiSWITCH_INFO,
+        uiEDID_EXTERN_MANAGE,
+        uiEDID_INTERN_MANAGE,
+
+
+
+
+
+        uiTEST,
+        */
+    case uiSPLASH:
+        dvLCDLineDraw(0, 0, " ");
+        dvLCDLineDraw(1, 0, " ");
+        dvLedAllOffSet(0xFFFFFFFF); // all led off, except power led
+        break;
+    case uiSWITCH_VIDEO:
+        dvLCDLineDraw(0, 0, " ");
+        dvLCDLineDraw(1, 0, " ");
+        dvLedAllOffSet(0xFFFFFFFF); // all led off, except power led
+        for (i = 0; i < MAX_OUT; i++)
+        {
+            m_abSwitchOutPortSelect[i] = FALSE;
+        }
+        m_bSwitchEnter = FALSE;
+        m_bLedFlashingEN = FALSE;
+        m_cLedFlashCNT = 0;
+        break;
+    case uiSWITCH_INFO:
+        dvLedAllOffSet(0xFFFFFFFF); // all led off, except power led
+        break;
+    case uiEDID_EXTERN_MANAGE:
+        dvLedAllOffSet(0xFFFFFFFF); // all led off, except power led
+        m_cEdidManageInPort = 0xff;
+        m_cEdidManageOutPort = 0xff;
+        break;
+    case uiEDID_INTERN_MANAGE:
+        dvLedAllOffSet(0xFFFFFFFF);// all led off, except power led
+        m_cEdidManageInPort = 0xff;
+        m_cEdidManageOutPort = 0xff;
+        break;
+    //case  uiSYSTEM_INCONNECT_INFO:    // 输入是否接信号
+    //case  uiUART_INCONNECT_INFO:
+    //case  uiSYSTEM_OUTCONNECT_INFO: // 输出是否接信号
+    //case  uiUART_OUTCONNECT_INFO:
+    //case  uiSYSTEM_SWITCH_INFO:          // 所有输入和输出的对应关系
+    //case  uiUART_SWITCH_INFO:             //  所有端口的切换关系
+    //case  uiSYSTEM_IN_HDCP_INFO:
+    //case  uiUART_IN_HDCP_INFO:
+    //case  uiSYSTEM_OUT_HDCP_INFO:
+    //case  uiUART_OUT_HDCP_INFO:
+    case  uiSYSTEM_OUT_RESOLUTION_INFO:
+    case  uiUART_OUT_RESOLUTION_INFO:
+    case  uiUART_MESSAGE:
+        // uiSYSTEM_INFO,
+    case  uiSYSTEM_LOCK_INFO:
+        //uiSYSTEM_UNLOCK,
+    case  uiSYSTEM_NAME:
+    case  uiSYSTEM_VERSION:
+    case  uiSYSTEM_MESSAGE_ONOFF_INFO:
+    case  uiUART_SWITCH_PORT_INFO:   // 串口查询端口切换关系
+    case  uiUART_OUT_HDMIAUDIO_INFO:
+    case  uiUART_IN_HDCPENABLE_INFO:    // 用户设定HDCP 使能状态
+    case  uiUART_IP_INFO:
+    case  uiUART_SYSTEM_TYPE:
+    case uiIDLE:
+        dvLCDLineDraw(0, 0, " ");  //[kyq add: 20150907 20:51:01]
+        dvLCDLineDraw(1, 0, " ");
+    default:
+        break;
+    }
+    m_wLedToFlashing = 0;
+    m_bLedFlashingEN = FALSE;
+    m_bUIFlashingEN = FALSE;
+    dvLedAllOffSet(0xFFFFFFFF);// all led off, except power led
+}
+//#pragma argsused
+// ---------------------------------------------------------------------------
+// This API is accessed by the Data Manager component to allow initialization
+// and resetting of this component抯 persistent data node by handling external
+// events triggered by the persistent data storage.
+//
+// Params:
+//  eNodeID : Node identifier that is saved internally to access this node
+//  eEvent  : Identifier of the external event. Event can be  nveRESETALL or
+//            nveINITIALIZE
+//
+// Return: none
+// ---------------------------------------------------------------------------
+void appUINodeCallback(eNODE_NAME eNodeID,
+                       eNV_EVENT  eEvent)
+{
+}
+#if 0
+//----------------------------------------------------------------------------
+// Enable or disable the UI
+//
+// Params:
+//  bEnable  : TRUE to Enable the UI, FALSE to disable
+//
+// Return: <none>
+//----------------------------------------------------------------------------
+void appUIEnable(BOOL bEnable)
+{
+    /* -------------- BEGIN CUSTOM AREA [090] appUserInterface.c -------------- */
+    /* ---------------------------- END CUSTOM AREA --------------------------- */
+    m_bUIEnabled = bEnable;
+}
+#endif
+// ---------------------------------------------------------------------------
+// Return TURE if current UI state is IDLE
+//
+// Params: none
+//
+// Return: TRUE if current UI state is IDLE
+//
+// Notes:
+// ---------------------------------------------------------------------------
+BOOL appUIStateIsIdle(void)
+{
+    return (m_eState == uiIDLE);
+}
+// ---------------------------------------------------------------------------
+// Change the state of the user interface to the specified value.
+//
+// Params:
+//  eState : state to transition to
+//
+// Return: none
+//
+// Notes:
+//  This API must ONLY be called from within the User Interface component,
+//  and only from appUIxxxEvent routines.
+// ---------------------------------------------------------------------------
+void appUIStateChange(eUI_STATE eState)
+{
+    m_eNextState = eState;
+    m_bUpdateUI = TRUE;
+}
+
+// some caller is wrong parame
+void appUartSwitchLedStateChange(BYTE IN, BYTE OUT, eUartLed_STATE State)
+{
+    BYTE i;
+    for (i = 0; i < MAX_OUT; i++)
+    {
+        m_abSwitchOutPortSelect[i] = FALSE;
+    }
+    m_eUartLedState= State;
+    m_cSwitchInputPort=IN-1;
+    m_abSwitchOutPortSelect[OUT-1] = TRUE;
+    m_bLedFlashingEN = FALSE; // add by kyq 20150929
+}
+
+//  IN -  输入口, begin 0
+//  cPortCount: 输出端口数,从 1 开始
+//  acPortList:   输出端口号 从 0开始
+//  bAVorIR: 1: 视频和IR 切换? 0: IR 切换
+//
+void appUartSwitchInfoSet(BYTE cInPort, BYTE cPortCount,PBYTE acOutPortList,BOOL bAVorIR)
+{
+    BYTE i;
+    for (i = 0; i < MAX_OUT; i++)
+    {
+        m_abSwitchOutPortSelect[i] = FALSE;
+    }
+    //m_eUartLedState= State;
+    m_cSwitchInputPort = cInPort;
+    for (i = 0; i < cPortCount; i++)
+    {
+        m_abSwitchOutPortSelect[acOutPortList[i]] = TRUE;
+    }
+    //m_abSwitchOutPortSelect[OUT-1] = TRUE;
+    m_bSwitchEnter = FALSE; // KYQ 20151026
+    m_bLedFlashingEN = FALSE; //[kyq ADD: 20151026 17:02:11]
+    if (bAVorIR)
+    {
+        appUIStateChange(uiUART_SWITCH_VIDEO2);
+    }
+    else
+    {
+        appUIStateChange(uiUART_SWITCH_IR);
+    }
+}
+
+// mars add---------------------------------------------------------------------------
+// Get the state of the user interface.
+//
+// Params: none
+//
+// Return: eState : state to transition to
+// ---------------------------------------------------------------------------
+eUI_STATE appUIStateGet(void)
+{
+    return m_eState;
+}
+
+// ---------------------------------------------------------------------------
+// Set a flag indicating that the user interface graphics need to be updated
+//
+// Params: none
+//
+// Return: none
+//
+// Notes:
+//  This API must ONLY be called from within the User Interface component,
+//  and only from appUIxxxEvent routines.
+// ---------------------------------------------------------------------------
+void appUIUpdateSet(void)
+{
+    m_bUpdateUI = TRUE;
+}
+
+// ---------------------------------------------------------------------------
+// Enable or disable the UI
+//
+// Params:
+//  bEnable : TRUE to enable the UI (reset the current state), FALSE to disable
+//
+// Return: none
+//
+// Notes:
+// ---------------------------------------------------------------------------
+void appUIEnable(BOOL bEnable)
+{
+    KEY_EVENT sKeyEvent;
+    sKeyEvent.eKey = keNONE;
+    // If disabling, exit the current state
+    if (!bEnable)
+    {
+        UIStateExit(m_eState, sKeyEvent);
+    }
+    // Otherwise, re-enter the current state and flag the UI to be updated
+    else
+    {
+        UIStateEnter(m_eState, sKeyEvent);
+        m_bUpdateUI = TRUE;
+    }
+}
+
+void appUIExit(void)
+{
+    KEY_EVENT sKeyEvent;
+    sKeyEvent.eKey = keNONE;
+    // If disabling, exit the current state
+    //if (!bEnable)
+    {
+        UIStateExit(m_eState, sKeyEvent);
+        m_eState = uiIDLE;
+    }
+}
+eUI_STATE appUINextStateGet(void)
+{
+    return m_eNextState;
+}
+
+// ***************************************************************************
+// **************** START OF PUBLIC PROCEDURE IMPLEMENTATIONS ****************
+// ***************************************************************************
+// ---------------------------------------------------------------------------
+// This API sets up the internal state of this component.
+//
+// Params: none
+//
+// Return: none
+// ---------------------------------------------------------------------------
+void appUIInitialize(void)
+{
+    ePOWERSTATE         eLastBootState;
+    //BYTE                cLogoSel = 0;
+    PSYSTEM_SETTING_DATA  psSystemSettingData;
+    BOOL  bIRKeyEn;
+    // initialize user interface state
+    psSystemSettingData = (PSYSTEM_SETTING_DATA)utilDataMgrReadLockData(nnSYSTEM_SETTING_DATA);
+    bIRKeyEn = !psSystemSettingData->bSystemLock;
+    memcpy(LCD1_IDLE_TEXT, psSystemSettingData->acLCDLine1DefaultTXT, 17);
+    memcpy(LCD2_IDLE_TEXT, psSystemSettingData->acLCDLine2DefaultTXT, 17);
+// kyq 20151201
+    memcpy(m_acProduct_Type,psSystemSettingData->acProduct_Type, 17);
+    memcpy(m_acProduct_Name,psSystemSettingData->acProduct_Name, 17);
+ //   memcpy(m_acProduct_Name,psSystemSettingData->acProduct_Name,strlen( psSystemSettingData->acProduct_Name));
+    utilDataMgrUnlock(nnSYSTEM_SETTING_DATA, FALSE);
+    m_eState = uiIDLE;
+    m_bUpdateUI = FALSE;
+    //m_FAN_ERR_Timer = 0;
+    /* -------------- BEGIN CUSTOM AREA [060] appUserInterface.c -------------- */
+    // Set initial state transition
+    // See how we got here from the boot code and only display the splash
+    // screen if this was a cold start.
+#if 0
+    if(pwrSTANDBY == appPowerMgrLastPowerStateGet()||
+            pwrSOFTOFF ==  appPowerMgrLastPowerStateGet())
+    {
+        m_eNextState = uiSYSTEM_VERSION;
+    }
+    else
+#endif
+    {
+        m_eNextState = uiSPLASH;
+    }
+    memset(m_cUartMessage1, 0, LCD_MAX_CHAR);
+    memset(m_cUartMessage2, 0, LCD_MAX_CHAR);
+    // to init LCD1_IDLE_TEXT,LCD2_IDLE_TEXT from NVRAM
+    // TODO
+    appUIIRKeyEnableSet(bIRKeyEn);
+    /* ---------------------------- END CUSTOM AREA --------------------------- */
+}
+
+// ---------------------------------------------------------------------------
+// This API performs periodic processing for the user interface.  It checks
+// for user input (e.g. keypad or infrared) and updates the state of the user
+// interface appropriately.
+//
+// Params: none
+//
+// Return: none
+// ---------------------------------------------------------------------------
+void appUIProcess(void)
+{
+    KEY_EVENT sKeyEvent;
+    BOOL      bStateChanged = FALSE;
+    // check for state change on timeout
+    ProcessStateChangeOnTimeout();
+    /* ---------------------------- END CUSTOM AREA --------------------------- */
+    // check if user input control has a new keypress
+    if (utilExecMsgPresent(mqUSER_INPUT))
+    {
+        utilExecMsgRead(mqUSER_INPUT,
+                        (BYTE *)&sKeyEvent);
+        //DEBUG_PRINT(MSG_ERR, "***USER_INPUT = %d\r\n",  sKeyEvent.eKey);
+        /* Add code here to perform a post read operation on the user input queue */
+        utilExecMsgClear(mqUSER_INPUT);
+        /* ---------------------------- END CUSTOM AREA --------------------------- */
+    }
+    else
+    {
+        sKeyEvent.eKey = keNONE;
+    }
+    // 当前状态下按键处理
+    if (keNONE != sKeyEvent.eKey)
+    {
+        UIStateEvent(m_eState,
+                     sKeyEvent);
+        //SiiPlatformTimerSet(etUI_CLEAR, DEFAULT_UI_CLEAR,,0xFF); // test only
+        // any key press will exit DEMO mode
+        appSystemSwitchDemoModeEnableSet(FALSE);			//任何一个按键或红外按下都会退出demo模式
+        //    m_bUpdateUI = TRUE;
+    }
+    bStateChanged = (m_eNextState != m_eState);
+    /* -------------- BEGIN CUSTOM AREA [077] appUserInterface.c -----------------
+     * Add code here to force a state change if required even though the event
+     * handler didn't change the state. */
+    /* ---------------------------- END CUSTOM AREA --------------------------- */
+    if (bStateChanged)
+    {
+        // execute exit code for current state
+        UIStateExit(m_eState, sKeyEvent);
+        // execute entry code for next state
+        UIStateEnter(m_eNextState, sKeyEvent);
+        /* -------------- BEGIN CUSTOM AREA [078] appUserInterface.c -----------------
+         * Add code here to force a state change if required even though the event
+         * handler didn't change the state. */
+        /* ---------------------------- END CUSTOM AREA --------------------------- */
+        // update state information and set flag to redraw graphics
+        m_eState = m_eNextState;
+        m_bUpdateUI = TRUE;
+    }
+    // if the user interface graphics need to be updated,
+    if (m_bUpdateUI)
+    {
+        m_bUpdateUI = FALSE;
+        // call the rendering routine for the current state
+      UIStateRender(m_eState, sKeyEvent);
+    }
+    /* -------------- BEGIN CUSTOM AREA [079] appUserInterface.c -------------- */
+    /* ---------------------------- END CUSTOM AREA --------------------------- */
+}
+
+void appUIIRKeyEnableSet(BOOL bEnable)
+{
+ /****************/
+		Event_t   bEvent;
+		bEvent.Head.opcode=eKeyLock;
+		bEvent.Head.DestAddr=mqKEY;
+		bEvent.args[0]=bEnable;
+		bEvent.Head.argCount=1;
+	       utilExecOlnyMsgSend(mqKEY,
+                            bEvent);
+/****************/	
+/****************/
+		bEvent.Head.opcode=eIRLock;
+		bEvent.Head.DestAddr=mqIR;
+		bEvent.args[0]=bEnable;
+		bEvent.Head.argCount=1;
+	       utilExecOlnyMsgSend(mqIR,
+                            bEvent);
+/****************/	
+	//halUICtrlKeyEnalbe(bEnable);  //msg send
+	//halUICtrlIRKeyEnalbe(bEnable);  //msg send
+}
+
+// 把串口命令中响应后的LCD 显示设置进来
+void appUIUartMessageSet(PBYTE pcLine1Message, PBYTE pcLine2Message, BOOL bSendMessage)
+{
+    assert_param(strlen(pcLine1Message) <= 16);
+    assert_param(strlen(pcLine2Message) <= 16);
+    memset(m_cUartMessage2, 0, LCD_MAX_CHAR);
+    memset(m_cUartMessage1, 0, LCD_MAX_CHAR);
+    if (pcLine1Message != NULL)
+    {
+        memcpy(m_cUartMessage1, pcLine1Message, (strlen(pcLine1Message)>LCD_MAX_CHAR-1)?(LCD_MAX_CHAR-1):strlen(pcLine1Message));
+    }
+    if (pcLine2Message != NULL)
+    {
+        memcpy(m_cUartMessage2, pcLine2Message, (strlen(pcLine2Message)>LCD_MAX_CHAR-1)?(LCD_MAX_CHAR-1):strlen(pcLine2Message));
+    }
+    m_bUartMessageSend = bSendMessage;
+}
+
+// 显示某个端口的切换信息
+// MAX_OUT为显示所有输出端口信息
+void appUIUartMessageSwitcherPortSet(BYTE cOutPort)
+{
+    m_bOutPortSwitcherInf = cOutPort;
+    if (m_bOutPortSwitcherInf < MAX_OUT)
+    {
+        appUIStateChange(uiUART_SWITCH_PORT_INFO);    // 显示单个端口
+    }
+    else
+    {
+        appUIStateChange(uiUART_SWITCH_ALL_PORT_INFO);    // 显示所有端口
+    }
+}
+
+// DEMO 时候设置显示状态
+void appUIDemoSwitcherInfoSet(BYTE cOutPort)
+{
+    m_cSwitcherInfoPort = cOutPort;
+    m_eNextState = uiSWITCH_INFO;
+    m_bUpdateUI = TRUE;
+}
+

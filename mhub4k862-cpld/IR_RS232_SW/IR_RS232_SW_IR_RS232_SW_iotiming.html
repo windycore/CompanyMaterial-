@@ -1,0 +1,123 @@
+<HTML>
+<HEAD><TITLE>I/O Timing Report</TITLE>
+<STYLE TYPE="text/css">
+<!--
+ body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
+-->
+</STYLE>
+</HEAD>
+<PRE><A name="Top"></A><B><U><big>I/O Timing Report</big></U></B>
+// Design: IR_RS232_SW
+// Package: TQFP100
+// ncd File: ir_rs232_sw_ir_rs232_sw.ncd
+// Version: Diamond Version 2.0.0.154
+// Written on Tue Nov 05 16:35:22 2013
+// M: Minimum Performance Grade
+// iotiming IR_RS232_SW_IR_RS232_SW.ncd IR_RS232_SW_IR_RS232_SW.prf
+
+I/O Timing Report (All units are in ns)
+
+Worst Case Results across Performance Grades (M, 6, 5, 4):
+
+// Input Setup and Hold Times
+
+Port           Clock Edge  Setup Performance_Grade  Hold Performance_Grade
+----------------------------------------------------------------------
+db9_rs232_tx   clk   R    -0.466      M       3.622     4
+ir402_in1      clk   R     3.422      4       1.832     4
+ir402_in2      clk   R     4.241      4       0.966     4
+ir402_in3      clk   R     4.640      4       0.679     4
+ir402_in4      clk   R     2.734      4       1.467     4
+ir_all_in      clk   R    -0.131      M       3.795     4
+ir_eye         clk   R     0.276      4       2.312     4
+ir_in1         clk   R    -0.519      M       3.814     4
+ir_in2         clk   R    -0.519      M       3.814     4
+ir_in3         clk   R    -0.519      M       3.814     4
+ir_in4         clk   R    -0.519      M       3.814     4
+rclk           clk   R    -0.522      M       3.814     4
+rs232_zone1_tx clk   R    -0.519      M       3.814     4
+rs232_zone2_tx clk   R    -0.519      M       3.814     4
+rs232_zone3_tx clk   R    -0.519      M       3.814     4
+rs232_zone4_tx clk   R    -0.519      M       3.814     4
+rstn           clk   R     3.340      4       1.754     4
+ser            srclk R    -0.304      M       3.269     4
+tcp_rs232_tx   clk   R    -0.515      M       3.795     4
+
+
+// Clock to Output Delay
+
+Port          Clock Edge  Max_Delay Performance_Grade  Min_Delay Performance_Grade
+------------------------------------------------------------------------
+ack2mcu       clk   R     9.891         4        2.833          M
+db9_rs232_rx  clk   R    15.570         4        3.448          M
+ir2mcu        clk   R    16.906         4        3.398          M
+ir402out1     clk   R    17.731         4        3.101          M
+ir402out2     clk   R    18.435         4        3.367          M
+ir402out3     clk   R    17.869         4        3.280          M
+ir402out4     clk   R    17.520         4        3.345          M
+ir_out1       clk   R    16.718         4        3.241          M
+ir_out2       clk   R    16.842         4        3.265          M
+ir_out3       clk   R    17.083         4        3.442          M
+ir_out4       clk   R    16.700         4        3.378          M
+mcu_rs232_rx  clk   R    15.067         4        3.295          M
+rs232_402_1rx clk   R    13.811         4        3.170          M
+rs232_402_2rx clk   R    13.769         4        3.335          M
+rs232_402_3rx clk   R    13.533         4        3.277          M
+rs232_402_4rx clk   R    13.231         4        3.402          M
+tcp_rs232_rx  clk   R    13.964         4        3.024          M
+
+
+
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+</PRE></FONT>
+</BODY>
+</HTML>

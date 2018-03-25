@@ -1,0 +1,266 @@
+[ START MERGED ]
+n4415 rs232_tcp_rx_c_c
+n4439 rs232tx
+n30348 rstn_c
+pc2mcu_uart_top1/pc2mcu_rx/n30208 pc2mcu_uart_top1/pc2mcu_rx/rx_step_1
+mcu2pc_uart_top1/mcu2pc_tx/n5 to_db9_baud_2
+mcu2pc_uart_top1/mcu2pc_tx/n2_adj_3 to_db9_baud_1
+mcu2pc_uart_top1/mcu2pc_rx/n2 rxbaud_fifo_tx_db9_2
+mcu2pc_uart_top1/mcu2pc_rx/n1_adj_1 rxbaud_fifo_tx_db9_1
+mcu2pc_uart_top1/mcu2pc_rx/n30202 mcu2pc_uart_top1/mcu2pc_rx/rx_step_2
+[ END MERGED ]
+[ START CLIPPED ]
+GND_net
+VCC_net
+mcu2pc_uart_top1/mcu2pc_rx/sub_8_add_2_15/S1
+mcu2pc_uart_top1/mcu2pc_rx/sub_8_add_2_15/CO
+mcu2pc_uart_top1/mcu2pc_rx/add_6_1/S0
+mcu2pc_uart_top1/mcu2pc_rx/add_6_1/CI
+mcu2pc_uart_top1/mcu2pc_rx/add_6_15/S1
+mcu2pc_uart_top1/mcu2pc_rx/add_6_15/CO
+mcu2pc_uart_top1/mcu2pc_rx/equal_9_0/S1
+mcu2pc_uart_top1/mcu2pc_rx/equal_9_0/S0
+mcu2pc_uart_top1/mcu2pc_rx/equal_9_0/CI
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_1/S1
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_1/S0
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_1/CI
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_3/S1
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_3/S0
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_5/S1
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_5/S0
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_7/S1
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_7/S0
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_9/S1
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_9/S0
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_11/S1
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_11/S0
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_13/S1
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_13/S0
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_15/S0
+mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_15/CO
+mcu2pc_uart_top1/mcu2pc_rx/equal_9_10/S1
+mcu2pc_uart_top1/mcu2pc_rx/equal_9_10/S0
+mcu2pc_uart_top1/mcu2pc_rx/sub_8_add_2_1/S0
+mcu2pc_uart_top1/mcu2pc_rx/sub_8_add_2_1/CI
+mcu2pc_uart_top1/mcu2pc_rx/equal_9_12/S1
+mcu2pc_uart_top1/mcu2pc_rx/equal_9_12/S0
+mcu2pc_uart_top1/mcu2pc_rx/equal_9_14_26287/S1
+mcu2pc_uart_top1/mcu2pc_rx/equal_9_14_26287/S0
+mcu2pc_uart_top1/mcu2pc_rx/equal_9_14/S1
+mcu2pc_uart_top1/mcu2pc_rx/equal_9_14/CO
+mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504_add_4_1/S0
+mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504_add_4_1/CI
+mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504_add_4_15/S1
+mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504_add_4_15/CO
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_1/S1
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_1/S0
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_1/CI
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_3/S1
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_3/S0
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_5/S1
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_5/S0
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_7/S1
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_7/S0
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_9/S1
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_9/S0
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_11/S1
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_11/S0
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_13/S1
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_13/S0
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_15/S0
+mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_15/CO
+ir_rx_isntx/add_7_1/S0
+ir_rx_isntx/add_7_1/CI
+ir_rx_isntx/add_7_13/S1
+ir_rx_isntx/add_7_13/CO
+ir_car_detect6/add_9_1/S0
+ir_car_detect6/add_9_1/CI
+ir_car_detect6/add_9_13/S1
+ir_car_detect6/add_9_13/CO
+ir_car_detect3/add_9_1/S0
+ir_car_detect3/add_9_1/CI
+ir_car_detect3/add_9_13/S1
+ir_car_detect3/add_9_13/CO
+pc2mcu_uart_top1/pc2mcu_rx/equal_9_12/S1
+pc2mcu_uart_top1/pc2mcu_rx/equal_9_12/S0
+pc2mcu_uart_top1/pc2mcu_rx/equal_9_14_26288/S1
+pc2mcu_uart_top1/pc2mcu_rx/equal_9_14_26288/S0
+pc2mcu_uart_top1/pc2mcu_rx/add_6_1/S0
+pc2mcu_uart_top1/pc2mcu_rx/add_6_1/CI
+pc2mcu_uart_top1/pc2mcu_rx/add_6_15/S1
+pc2mcu_uart_top1/pc2mcu_rx/add_6_15/CO
+pc2mcu_uart_top1/pc2mcu_rx/equal_9_14/S1
+pc2mcu_uart_top1/pc2mcu_rx/equal_9_14/CO
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_1/S1
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_1/S0
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_1/CI
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_3/S1
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_3/S0
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_5/S1
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_5/S0
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_7/S1
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_7/S0
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_9/S1
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_9/S0
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_11/S1
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_11/S0
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_13/S1
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_13/S0
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_15/S0
+pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_15/CO
+pc2mcu_uart_top1/pc2mcu_rx/sub_8_add_2_1/S0
+pc2mcu_uart_top1/pc2mcu_rx/sub_8_add_2_1/CI
+pc2mcu_uart_top1/pc2mcu_rx/sub_8_add_2_15/S1
+pc2mcu_uart_top1/pc2mcu_rx/sub_8_add_2_15/CO
+pc2mcu_uart_top1/pc2mcu_rx/equal_9_0/S1
+pc2mcu_uart_top1/pc2mcu_rx/equal_9_0/S0
+pc2mcu_uart_top1/pc2mcu_rx/equal_9_0/CI
+pc2mcu_uart_top1/pc2mcu_rx/equal_9_10/S1
+pc2mcu_uart_top1/pc2mcu_rx/equal_9_10/S0
+pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506_add_4_1/S0
+pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506_add_4_1/CI
+pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506_add_4_15/S1
+pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506_add_4_15/CO
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_2/S1
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_2/S0
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_2/CI
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_4/S1
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_4/S0
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_6/S1
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_6/S0
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_8/S1
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_8/S0
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_10/S1
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_10/S0
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_12/S1
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_12/S0
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_14/S0
+pc2mcu_uart_top1/pc2mcu_tx/add_26288_14/CO
+ir_car_detect5/add_9_1/S0
+ir_car_detect5/add_9_1/CI
+ir_car_detect5/add_9_13/S1
+ir_car_detect5/add_9_13/CO
+ir_car_detect7/add_9_1/S0
+ir_car_detect7/add_9_1/CI
+ir_car_detect7/add_9_13/S1
+ir_car_detect7/add_9_13/CO
+ir_car_detect4/add_9_13/S1
+ir_car_detect4/add_9_13/CO
+ir_car_detect4/add_9_1/S0
+ir_car_detect4/add_9_1/CI
+ir_car_detect0/add_9_13/S1
+ir_car_detect0/add_9_13/CO
+ir_car_detect0/add_9_1/S0
+ir_car_detect0/add_9_1/CI
+ir_car_detect2/add_9_1/S0
+ir_car_detect2/add_9_1/CI
+ir_car_detect2/add_9_13/S1
+ir_car_detect2/add_9_13/CO
+ir_car_detect1/add_9_1/S0
+ir_car_detect1/add_9_1/CI
+ir_car_detect1/add_9_13/S1
+ir_car_detect1/add_9_13/CO
+car_cnt_1475_add_4_1/S0
+car_cnt_1475_add_4_1/CI
+car_cnt_1475_add_4_11/S1
+car_cnt_1475_add_4_11/CO
+clock_count_1473_add_4_1/S0
+clock_count_1473_add_4_1/CI
+clock_count_1473_add_4_17/S1
+clock_count_1473_add_4_17/CO
+wd_disable_402_to_mcu_1472_add_4_1/S0
+wd_disable_402_to_mcu_1472_add_4_1/CI
+wd_disable_402_to_mcu_1472_add_4_11/CO
+rs232_402x_tx_c_6
+rs232_402x_tx_6
+rs232_402x_tx_c_7
+rs232_402x_tx_7
+ir_all_in_c
+ir_all_in
+uart_u2/speed_tx/sub_1294_add_2_1/S1
+uart_u2/speed_tx/sub_1294_add_2_1/S0
+uart_u2/speed_tx/sub_1294_add_2_1/CI
+uart_u2/speed_tx/sub_1294_add_2_3/S1
+uart_u2/speed_tx/sub_1294_add_2_3/S0
+uart_u2/speed_tx/sub_1294_add_2_5/S1
+uart_u2/speed_tx/sub_1294_add_2_5/S0
+uart_u2/speed_tx/sub_1294_add_2_7/S1
+uart_u2/speed_tx/sub_1294_add_2_7/S0
+uart_u2/speed_tx/sub_1294_add_2_9/S1
+uart_u2/speed_tx/sub_1294_add_2_9/S0
+uart_u2/speed_tx/sub_1294_add_2_11/S1
+uart_u2/speed_tx/sub_1294_add_2_11/S0
+uart_u2/speed_tx/sub_1294_add_2_13/S1
+uart_u2/speed_tx/sub_1294_add_2_13/S0
+uart_u2/speed_tx/sub_1294_add_2_15/S0
+uart_u2/speed_tx/sub_1294_add_2_15/CO
+uart_u2/speed_tx/cnt_1508_add_4_1/S0
+uart_u2/speed_tx/cnt_1508_add_4_1/CI
+uart_u2/speed_tx/cnt_1508_add_4_15/S1
+uart_u2/speed_tx/cnt_1508_add_4_15/CO
+[ END CLIPPED ]
+[ START DESIGN PREFS ]
+SCHEMATIC START ;
+# map:  version Diamond Version 2.0.0.154 -- WARNING: Map write only section -- Thu Mar 09 19:53:07 2017
+
+SYSCONFIG SDM_PORT=DISABLE SLAVE_SPI_PORT=DISABLE I2C_PORT=DISABLE MASTER_SPI_PORT=DISABLE GENERATE_BITSTREAM=DISABLE COMPRESS_CONFIG=ON CONFIGURATION=CFG MY_ASSP=OFF ONE_TIME_PROGRAM=OFF CONFIG_SECURE=OFF MCCLK_FREQ=2.08 JTAG_PORT=ENABLE ENABLE_TRANSFR=DISABLE SHAREDEBRINIT=DISABLE MUX_CONFIGURATION_PORTS=DISABLE ;
+LOCATE COMP "clk" SITE "128" ;
+LOCATE COMP "ack2mcu" SITE "114" ;
+LOCATE COMP "irx_o_4" SITE "96" ;
+LOCATE COMP "ir2mcu" SITE "110" ;
+LOCATE COMP "rs232_mcu_rx" SITE "119" ;
+LOCATE COMP "irx_o_5" SITE "95" ;
+LOCATE COMP "rs232_tcp_rx" SITE "81" ;
+LOCATE COMP "rs232_db9_rx" SITE "83" ;
+LOCATE COMP "rs232_402x_rx_0" SITE "9" ;
+LOCATE COMP "rs232_402x_rx_1" SITE "20" ;
+LOCATE COMP "rs232_402x_rx_2" SITE "27" ;
+LOCATE COMP "rs232_402x_rx_3" SITE "39" ;
+LOCATE COMP "rs232_402x_rx_4" SITE "47" ;
+LOCATE COMP "rs232_402x_rx_5" SITE "56" ;
+LOCATE COMP "rs232_402x_rx_6" SITE "65" ;
+LOCATE COMP "ir_402x_o_0" SITE "5" ;
+LOCATE COMP "ir_402x_o_1" SITE "14" ;
+LOCATE COMP "ir_402x_o_2" SITE "25" ;
+LOCATE COMP "ir_402x_o_3" SITE "35" ;
+LOCATE COMP "ir_402x_o_4" SITE "44" ;
+LOCATE COMP "ir_402x_o_5" SITE "54" ;
+LOCATE COMP "rclk" SITE "111" ;
+LOCATE COMP "ir_402x_o_7" SITE "78" ;
+LOCATE COMP "irx_o_0" SITE "100" ;
+LOCATE COMP "irx_o_1" SITE "99" ;
+LOCATE COMP "irx_o_2" SITE "98" ;
+LOCATE COMP "irx_o_3" SITE "97" ;
+LOCATE COMP "irx_o_6" SITE "94" ;
+LOCATE COMP "irx_o_7" SITE "93" ;
+LOCATE COMP "ir_all_out" SITE "104" ;
+LOCATE COMP "srclk" SITE "112" ;
+LOCATE COMP "ser" SITE "113" ;
+LOCATE COMP "ir_eye" SITE "86" ;
+LOCATE COMP "ir_front" SITE "109" ;
+LOCATE COMP "irx_i_6" SITE "57" ;
+LOCATE COMP "irx_i_5" SITE "48" ;
+LOCATE COMP "irx_i_4" SITE "40" ;
+LOCATE COMP "irx_i_3" SITE "28" ;
+LOCATE COMP "irx_i_2" SITE "21" ;
+LOCATE COMP "irx_i_1" SITE "10" ;
+LOCATE COMP "irx_i_0" SITE "1" ;
+LOCATE COMP "ir_402x_i_7" SITE "77" ;
+LOCATE COMP "ir_402x_i_6" SITE "61" ;
+LOCATE COMP "ir_402x_i_5" SITE "52" ;
+LOCATE COMP "ir_402x_i_4" SITE "43" ;
+LOCATE COMP "ir_402x_i_3" SITE "34" ;
+LOCATE COMP "ir_402x_i_2" SITE "24" ;
+LOCATE COMP "ir_402x_i_1" SITE "13" ;
+LOCATE COMP "ir_402x_i_0" SITE "4" ;
+LOCATE COMP "rs232_402x_tx_5" SITE "55" ;
+LOCATE COMP "rs232_402x_tx_4" SITE "45" ;
+LOCATE COMP "rs232_402x_tx_3" SITE "38" ;
+LOCATE COMP "rs232_402x_tx_2" SITE "26" ;
+LOCATE COMP "rs232_402x_tx_1" SITE "19" ;
+LOCATE COMP "rs232_402x_tx_0" SITE "6" ;
+LOCATE COMP "rs232_db9_tx" SITE "84" ;
+LOCATE COMP "rs232_tcp_tx" SITE "82" ;
+LOCATE COMP "rs232_mcu_tx" SITE "120" ;
+SCHEMATIC END ;
+[ END DESIGN PREFS ]

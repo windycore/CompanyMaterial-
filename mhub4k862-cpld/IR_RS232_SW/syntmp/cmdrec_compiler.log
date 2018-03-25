@@ -1,0 +1,21 @@
+D:\YangProgram\lscc\diamond\2.0\synpbase\bin\c_ver.exe  -prodtype  synplify_pro  -osyn  E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW\synwork\IR_RS232_SW_IR_RS232_SW_compiler.srs  -top  IR_RS232_SW  -dspmac -fixsmult -infer_seqShift -nram -divnmod -I E:\CPLD\MUH4K862\MUH88E(4K862)  -I E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW\  -I D:\YangProgram\lscc\diamond\2.0\synpbase\lib  -v2001  -devicelib  D:\YangProgram\lscc\diamond\2.0\synpbase\lib\lucent\machxo2.v  -devicelib  D:\YangProgram\lscc\diamond\2.0\synpbase\lib\lucent\pmi_def.v  -encrypt  -pro  -dmgen  E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW\dm  -ll 2000 -compiler_compatible  -ui -fid2 -ram -sharing on  -autosm -D_MULTIPLE_FILE_COMPILATION_UNIT_ -lib work D:\YangProgram\lscc\diamond\2.0\cae_library\synthesis\verilog\machxo2.v -lib work E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v -lib work E:\CPLD\MUH4K862\MUH88E(4K862)\HC74595.v -lib work E:\CPLD\MUH4K862\MUH88E(4K862)\ir_rx.v -lib work E:\CPLD\MUH4K862\MUH88E(4K862)\my_uart_top.v -lib work E:\CPLD\MUH4K862\MUH88E(4K862)\my_uart_tx.v -lib work E:\CPLD\MUH4K862\MUH88E(4K862)\speed_select.v -lib work E:\CPLD\MUH4K862\MUH88E(4K862)\fifo64x8.v -lib work E:\CPLD\MUH4K862\MUH88E(4K862)\ir_car_detect.v -lib work E:\CPLD\MUH4K862\MUH88E(4K862)\check_IR_defv.v -lib work E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\uart_rx.v -lib work E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\pc2mcu_uart_top.v -lib work E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\mcu2pc_uart_top.v -loga  E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW\IR_RS232_SW_IR_RS232_SW.srf 
+rc:1 success:1
+E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW\synwork\IR_RS232_SW_IR_RS232_SW_compiler.srs|o|1471934332|32424
+D:\YangProgram\lscc\diamond\2.0\synpbase\lib\lucent\machxo2.v|i|1337240534|51592
+D:\YangProgram\lscc\diamond\2.0\synpbase\lib\lucent\pmi_def.v|i|1337310648|40586
+D:\YangProgram\lscc\diamond\2.0\cae_library\synthesis\verilog\machxo2.v|i|1340145864|51592
+E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v|i|1471934312|24576
+E:\CPLD\MUH4K862\MUH88E(4K862)\HC74595.v|i|1459909399|1275
+E:\CPLD\MUH4K862\MUH88E(4K862)\ir_rx.v|i|1470122525|1015
+E:\CPLD\MUH4K862\MUH88E(4K862)\my_uart_top.v|i|1471933366|1685
+E:\CPLD\MUH4K862\MUH88E(4K862)\my_uart_tx.v|i|1459909399|3315
+E:\CPLD\MUH4K862\MUH88E(4K862)\speed_select.v|i|1471932560|2452
+E:\CPLD\MUH4K862\MUH88E(4K862)\fifo64x8.v|i|1459909399|2712
+E:\CPLD\MUH4K862\MUH88E(4K862)\ir_car_detect.v|i|1459909399|1770
+E:\CPLD\MUH4K862\MUH88E(4K862)\check_IR_defv.v|i|1470644880|2285
+E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\uart_rx.v|i|1471920157|3841
+E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\pc2mcu_uart_top.v|i|1471933836|1573
+E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\mcu2pc_uart_top.v|i|1471933907|1580
+E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW\IR_RS232_SW_IR_RS232_SW.srf|o|1471934332|10074
+D:\YangProgram\lscc\diamond\2.0\synpbase\bin\c_ver.exe|i|1337310574|2039808
+D:\YangProgram\lscc\diamond\2.0\synpbase\bin64\c_ver.exe|i|1337310578|5529088

@@ -1,0 +1,2 @@
+@E: CL123 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\uart_rx.v":53:0:53:5|Logic for rx_dat_buf[7:0] does not match a standard flip-flop
+

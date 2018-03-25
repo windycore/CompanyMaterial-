@@ -1,0 +1,52 @@
+<!DOCTYPE ispTLA>
+<ispTLA>
+ <CreationDate>?????? ???? 22 19:26:10 2013</CreationDate>
+ <XCFFileName/>
+ <CableSetting>
+  <IsTRSTConnected val="false"/>
+  <TRSTSetting val="0"/>
+  <IsBSCANConnected val="false"/>
+  <BSCANSetting val="0"/>
+  <CableType val="USB"/>
+  <PortAddress val="0"/>
+  <PortSetting val="0"/>
+  <TCKDelay val="2"/>
+ </CableSetting>
+ <DeviceCount>1</DeviceCount>
+ <Device>
+  <DeviceIndex>0</DeviceIndex>
+  <DeviceName>LCMXO2-1200HC</DeviceName>
+  <DeviceID>19636291</DeviceID>
+  <HasIspTRACY>true</HasIspTRACY>
+  <HasJTAG2WB>false</HasJTAG2WB>
+  <IRBypassLen>8</IRBypassLen>
+  <RVLFileName>test.rvl</RVLFileName>
+  <RVSFileName>test.rvs</RVSFileName>
+  <LACoreCount>1</LACoreCount>
+  <WinUI CoreIndex="0">
+   <TraceSigTreeData>
+    <TraceSignal IsHidden="false" Name="ir402_in2" NodeType="0" PortIndex="0"/>
+    <TraceSignal IsHidden="false" Name="ir402_in2_out" NodeType="0" PortIndex="1"/>
+    <TraceSignal IsHidden="false" Name="low_cnt2" NodeType="1" PortIndex="2">
+     <BusRadix Radix="0"/>
+     <IsExpanded Expand="false"/>
+    </TraceSignal>
+    <TraceSignal IsHidden="false" Name="low_cnt2:0" NodeType="2" PortIndex="2"/>
+    <TraceSignal IsHidden="false" Name="low_cnt2:1" NodeType="2" PortIndex="3"/>
+    <TraceSignal IsHidden="false" Name="low_cnt2:2" NodeType="2" PortIndex="4"/>
+    <TraceSignal IsHidden="false" Name="low_cnt2:3" NodeType="2" PortIndex="5"/>
+    <TraceSignal IsHidden="false" Name="low_cnt2:4" NodeType="2" PortIndex="6"/>
+    <TraceSignal IsHidden="false" Name="low_cnt2:5" NodeType="2" PortIndex="7"/>
+    <TraceSignal IsHidden="false" Name="low_cnt2:6" NodeType="2" PortIndex="8"/>
+    <TraceSignal IsHidden="false" Name="low_cnt2:7" NodeType="2" PortIndex="9"/>
+    <TraceSignal IsHidden="false" Name="low_cnt2:8" NodeType="2" PortIndex="10"/>
+    <TraceSignal IsHidden="false" Name="low_cnt2:9" NodeType="2" PortIndex="11"/>
+   </TraceSigTreeData>
+   <TriggerUI UserSelect="0" PreSelectType="0" PreSelect="1" UserSelectPos="0"/>
+   <CoreRun Run="true"/>
+   <CoreWndUIData>
+    <ClockFrequency Unit="ns" Frequency="-1.0"/>
+   </CoreWndUIData>
+  </WinUI>
+ </Device>
+</ispTLA>

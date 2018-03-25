@@ -1,0 +1,738 @@
+
+//`define USE_RS232_ZONE //不使用zone232串口则屏蔽
+`define USE_RS232_402  //不使用402_232串口则屏蔽
+//`define IR_N2N  //不使用本地红外切换则屏蔽
+
+module IR_RS232_SW
+(
+// **************  sys **************
+    input     clk                , 
+    input     rstn               ,
+// **************  595 **************   
+    input     rclk               ,//1BYTE 传输完成一个脉冲  
+    input     srclk              ,
+    input     ser                ,  
+// **************  ir **************
+    input     ir_eye             ,  //本机控制
+              
+    input     ir_all_in          ,  //IR ALL IN
+    output    ir_all_out         ,  //IR ALL OUT
+              
+    input     [7:0] irx_i       ,  //本地IR IN
+    output    [7:0] irx_o     ,  //本地IR OUT
+              
+    input     [7:0] ir_402x_i    , //远端IR IN  
+    output    [7:0] ir_402x_o   , //远端IR OUT 
+// **************  rs232 **************    
+`ifdef USE_RS232_ZONE
+    input     [7:0] rs232_zonex_tx, //本地串口
+    output    [7:0] rs232_zonex_rx, //本地串口
+`endif 
+ 
+`ifdef USE_RS232_402           
+    input     [7:0] rs232_402x_tx , //远端串口
+    output    [7:0] rs232_402x_rx , //远端串口
+`endif  
+              
+    input     rs232_db9_tx        , //指令串口
+    output    rs232_db9_rx        , //指令串口
+              
+    input     rs232_tcp_tx        , //指令串口
+    output    rs232_tcp_rx        , //指令串口  
+              
+    input     rs232_mcu_tx        , //CPLD连
+    output    rs232_mcu_rx        ,	//指令串口
+// **************  debug **************    			
+    output    debugpin0           ,
+//    output    debugpin1           ,
+//    output    debugpin2           ,
+// **************  cpld_to_mcu **************    
+    output    ir2mcu              ,				
+    output    ack2mcu              //595接受数据后反馈给mcu的应答信号 
+);
+
+////////////////debug
+reg debugreg0;
+reg debugreg1;
+////////////////
+// ****************595****************
+wire [7:0] con;	
+hc74595 hc595_u(
+	.srclrn (rstn  ),
+	.rclk   (rclk  ),
+	.srclk  (srclk ),
+	.ser    (ser   ),
+	.qa     (con[0]),
+	.qb     (con[1]),
+	.qc     (con[2]),
+	.qd     (con[3]),
+	.qe     (con[4]),
+	.qf     (con[5]),
+	.qg     (con[6]),
+	.qh     (con[7]),
+	.qhn    ()
+);							
+								
+reg rclk_r0;
+reg rclk_r1;
+reg rclk_r2;
+reg rclk_r3;
+reg rclk_r ;
+always@(posedge clk)begin
+	rclk_r0 <= rclk;
+	rclk_r1 <= rclk_r0;
+	rclk_r2 <= rclk_r1;
+	if(rclk_r2&&rclk_r1)
+		rclk_r3 <= 1'b1;
+	else if(~(rclk_r2||rclk_r1))
+		rclk_r3 <= 1'b0;
+	else
+		rclk_r3 <= rclk_r3;
+	rclk_r <= rclk_r3;
+end
+wire rclk_pos = (~rclk_r ) && rclk_r3;
+wire rclk_neg = (~rclk_r3) && rclk_r ;
+	
+reg [7:0] con_reg;
+always@(posedge clk)begin
+	if(rclk_neg) con_reg <= con;
+	else con_reg <= con_reg;
+end
+//////////////////////////////////////////	
+reg ack;
+always@(posedge clk)begin
+	if(rclk_pos)ack <= 1'b1;
+	else if(rclk_neg&&ack)ack <= 1'b0;
+	else ack <= ack;
+end
+
+assign ack2mcu = ack;	
+
+reg        txen   ;
+wire [7:0] txdata ;
+wire       rs232tx;
+wire       rdy    ;
+wire       empty  ;
+wire       full   ;
+wire       rden   ;
+
+`ifdef USE_RS232_402 //如果有发送到远端402，则使用串口功能
+	wire wren_w = wren&&(~full);
+	fifo64x8 fifo_u1(
+		.Data       (con   ), 
+		.WrClock    (clk   ),  
+		.RdClock    (clk   ), 
+		.WrEn       (wren_w), 
+		.RdEn       (rden  ), 
+		.Reset      (~rstn ), 
+		.RPReset    (~rstn ), 
+		.Q          (txdata), 
+		.Empty      (empty ), 
+		.Full       (full  ),
+		.AlmostEmpty(      ), 
+		.AlmostFull (      )
+	);
+	my_uart_top  uart_u2(
+		.clk     (clk     ),
+		.rst_n   (rstn    ),
+		.bpssel  (bps_sel ),
+		.tx_int  (tx_int  ),
+		.tx_data (txdata  ),
+		.rs232_tx(rs232tx ),
+		.rdy     (rdy     )
+	);	
+`endif
+					
+always@(posedge clk,negedge rstn)
+	if(!rstn)
+		txen <= 1'b0;
+	else begin	
+		if(rdy)
+			txen <= 1'b0;
+		else if(!(rdy||empty))
+			txen <= 1'b1;				
+		else	
+			txen <= txen;
+	end
+	
+reg  rx_int0;
+reg  rx_int1;	
+always @ (posedge clk or negedge rstn) 
+if(!rstn) begin
+	rx_int0 <= 1'b0;
+	rx_int1 <= 1'b0;
+end
+else begin
+	rx_int0 <= txen   ;
+	rx_int1 <= rx_int0;
+end	
+
+assign rden  =  rx_int0 && (~rx_int1);
+
+reg tx_int;
+always@(posedge clk)
+	tx_int <= rden;
+// ************************************************
+reg [3:0] step       ;
+reg [7:0] sp_com_data;//缓存收到的指令
+`ifdef IR_N2N
+	reg [7:0] ir_com_i   ;//本地红外输入端口
+`endif
+reg [7:0] ir_com_o   ;//本地红外输出端口
+
+`ifdef USE_RS232_ZONE
+	reg [7:0] rs_t_402_ch; //本地zone切换
+`endif
+reg [7:0] ir_402_com_i;//远端红外输入端口
+//reg [7:0] ir_402_com_o;//远端红外输出端口 远端输出不需要切换
+
+reg irn_rs       ;
+reg [3:0] chnum  ;
+reg [2:0] bps_sel;
+reg pcto402_ack  ;
+reg wren;
+// ***************************
+// MUC指令解析状态机（一段）
+// ***************************
+always@(posedge clk,negedge rstn)//指令解析状态机
+begin
+	if(!rstn)begin
+		step<=4'd0;	
+	end
+	else if (rclk_neg)begin
+		case (step)
+			4'd0:begin
+				case(con)
+					8'hea  :step <= 4'd1;//指令
+					`ifdef IR_N2N
+						8'heb  :step <= 4'd3;//本地到本地
+					`endif
+					8'hec  :step <= 4'd5;//远端到本地
+					`ifdef USE_RS232_ZONE
+						8'hed  :step <= 4'd7;//本地DB9或者本机232信号(MCU) -> zone_232 
+					`endif
+					8'hee  :step <= 4'd9;//本机到远端串口 
+					default:step <= 4'd0;
+				endcase	
+			end	
+			//////////////////////////////
+			4'd1:begin
+				sp_com_data<=con;//特殊指令
+				step<=4'd15;//指令接收完成	
+			end
+			//////////////////////////////
+			`ifdef IR_N2N
+				4'd3:begin //本地到本地
+				debugreg0<=1'b1;
+					ir_com_i<=con-1'b1; 
+					step<=4'd4;
+				end
+				4'd4:begin
+					ir_com_o<=con-1'b1;
+					step<=4'd15;//指令接收完成	
+				end
+			`endif
+			//////////////////////////////
+			4'd5:begin //远端到本地
+			debugreg0<=1'b0;
+				ir_402_com_i<=con-1'b1; 
+				step<=4'd6;
+			end
+			4'd6:begin
+				ir_com_o<=con-1'b1;//本地输出
+				step<=4'd15;//指令接收完成	
+			end
+			/////////////////////////////
+			`ifdef USE_RS232_ZONE
+				4'd7:begin
+					rs_t_402_ch<=con; //本地402
+					step<=4'd15;//指令接收完成	
+				end
+			`endif
+			//////////////////////////////
+			4'd9:begin
+				irn_rs<=1'b1;
+				if(con==8'hee)step <= 4'd9;
+				else if(con==8'hef)begin step<=4'd0;irn_rs<=1'b0;end
+				else begin
+					chnum<=con[3:0]; //本地in
+					step<=4'd10;//指令接收完成	
+				end
+			end
+			4'd10:begin
+				if(con==8'hee)step <= 4'd9;
+				else if(con==8'hef)begin step<=4'd0;irn_rs<=1'b0;end
+				else begin
+					bps_sel<=con[2:0];//本地out
+					pcto402_ack <= 1'b1;
+					step<=4'd11;//指令接收完成	
+				end
+			end
+			4'd11:begin
+				pcto402_ack <= 1'b0;
+				if(con==8'hee)step <= 4'd9;
+				else if(con==8'hef)begin step<=4'd0;irn_rs<=1'b0;end
+				else begin
+					wren    <= 1'b1 ; 
+					//step   <= 4'd15;
+				end	
+			end
+			//////////////////////////////
+			4'd15:begin
+				if(con==8'hef)begin
+				step<=4'd0;//回到初始
+				irn_rs<=1'b0;
+				end
+			end
+
+		endcase 
+	end
+	else begin
+		pcto402_ack <= 1'b0;
+		step        <= step  ;
+		irn_rs      <= irn_rs ;
+		chnum       <= chnum  ; 	
+		bps_sel     <= bps_sel;
+		wren        <= 1'b0   ;
+	end
+end
+// ***************************
+// 计数器
+// ***************************
+reg [15:0] clock_count;
+always@(posedge clk,negedge rstn) //计数器，产生倍频时钟
+begin	
+	if(!rstn)	
+		clock_count <= 15'd0 ;
+	else 
+		clock_count <= clock_count+1'd1;
+end
+
+// ***************************
+// 远端红外默认电平检测
+// ***************************
+wire [7:0] def_voltag;
+check_IR_defv check_IR_defv0
+(
+	.clk(clock_count[14])    ,   //25M
+	.rstn(rstn)   ,
+	.ir_in(ir_402x_i)   ,
+	//output reg       pluse1ms,
+	.defv(def_voltag)     
+);
+
+// ***************************
+// 远端红外切换开关
+// ***************************
+//reg [7:0] sw0_f2n;//远端到本地的红外切换开关
+//reg [7:0] sw1_f2n;//远端到本地的红外切换开关
+//reg [7:0] sw2_f2n;//远端到本地的红外切换开关
+//reg [7:0] sw3_f2n;//远端到本地的红外切换开关
+//reg [7:0] sw4_f2n;//远端到本地的红外切换开关
+//reg [7:0] sw5_f2n;//远端到本地的红外切换开关
+//reg [7:0] sw6_f2n;//远端到本地的红外切换开关
+//reg [7:0] sw7_f2n;//远端到本地的红外切换开关
+//always@(posedge clk) //远端到本地红外切换标志位
+//begin	
+//{   sw7_f2n[ir_com_o[2:0]],sw6_f2n[ir_com_o[2:0]],
+//	sw5_f2n[ir_com_o[2:0]],sw4_f2n[ir_com_o[2:0]],
+//	sw3_f2n[ir_com_o[2:0]],sw2_f2n[ir_com_o[2:0]],
+//	sw1_f2n[ir_com_o[2:0]],sw0_f2n[ir_com_o[2:0]]}<=8'b1<<(ir_402_com_i[2:0]);
+//end
+//wire [7:0] f2n_irx_level;//远端进来的红外改电平（根据默认电平）
+//assign f2n_irx_level = def_voltag^ir_402x_i;//由默认电平将远端输入电平转换
+
+//wire [7:0] f2n_irx_temp;
+//assign f2n_irx_temp[0] = &(~sw0_f2n|f2n_irx_level);//本地到本地矩阵切换 
+//assign f2n_irx_temp[1] = &(~sw1_f2n|f2n_irx_level);//本地到本地矩阵切换
+//assign f2n_irx_temp[2] = &(~sw2_f2n|f2n_irx_level);//本地到本地矩阵切换
+//assign f2n_irx_temp[3] = &(~sw3_f2n|f2n_irx_level);//本地到本地矩阵切换
+//assign f2n_irx_temp[4] = &(~sw4_f2n|f2n_irx_level);//本地到本地矩阵切换
+//assign f2n_irx_temp[5] = &(~sw5_f2n|f2n_irx_level);//本地到本地矩阵切换
+//assign f2n_irx_temp[6] = &(~sw6_f2n|f2n_irx_level);//本地到本地矩阵切换
+//assign f2n_irx_temp[7] = &(~sw7_f2n|f2n_irx_level);//本地到本地矩阵切换
+
+reg [7:0] sw0_f2n;//远端到本地的红外切换开关
+reg [7:0] sw1_f2n;//远端到本地的红外切换开关
+reg [7:0] sw2_f2n;//远端到本地的红外切换开关
+reg [7:0] sw3_f2n;//远端到本地的红外切换开关
+reg [7:0] sw4_f2n;//远端到本地的红外切换开关
+reg [7:0] sw5_f2n;//远端到本地的红外切换开关
+reg [7:0] sw6_f2n;//远端到本地的红外切换开关
+reg [7:0] sw7_f2n;//远端到本地的红外切换开关
+always@(posedge clk) //远端到本地红外切换标志位
+begin	
+	case (ir_com_o[3:0])
+		4'd0:sw0_f2n<=8'b1<<(ir_402_com_i[3:0]);
+		4'd1:sw1_f2n<=8'b1<<(ir_402_com_i[3:0]);
+		4'd2:sw2_f2n<=8'b1<<(ir_402_com_i[3:0]);
+		4'd3:sw3_f2n<=8'b1<<(ir_402_com_i[3:0]);
+		4'd4:sw4_f2n<=8'b1<<(ir_402_com_i[3:0]);
+		4'd5:sw5_f2n<=8'b1<<(ir_402_com_i[3:0]);
+		4'd6:sw6_f2n<=8'b1<<(ir_402_com_i[3:0]);
+		4'd7:sw7_f2n<=8'b1<<(ir_402_com_i[3:0]);
+		default :begin
+			sw0_f2n<=sw0_f2n;
+			sw1_f2n<=sw1_f2n;
+			sw2_f2n<=sw2_f2n;
+			sw3_f2n<=sw3_f2n;
+			sw4_f2n<=sw4_f2n;
+			sw5_f2n<=sw5_f2n;
+			sw6_f2n<=sw6_f2n;
+			sw7_f2n<=sw7_f2n;		
+		end
+	endcase
+end
+
+wire [7:0] f2n_irx_level;//远端进来的红外改电平（根据默认电平）
+assign f2n_irx_level = def_voltag^ir_402x_i;//由默认电平将远端输入电平转换
+
+wire [7:0] f2n_irx_temp;
+
+assign f2n_irx_temp[0] = (~sw0_f2n[0]|f2n_irx_level[0]) & (sw1_f2n[0]?f2n_irx_level[1]:1) //本地到本地矩阵切换 
+                       & (sw2_f2n[0]?f2n_irx_level[2]:1) & (sw3_f2n[0]?f2n_irx_level[3]:1)
+                       & (sw4_f2n[0]?f2n_irx_level[4]:1) & (sw5_f2n[0]?f2n_irx_level[5]:1)
+                       & (sw6_f2n[0]?f2n_irx_level[6]:1) & (sw7_f2n[0]?f2n_irx_level[7]:1);
+assign f2n_irx_temp[1] = (sw0_f2n[1]?f2n_irx_level[0]:1) & (sw1_f2n[1]?f2n_irx_level[1]:1) //本地到本地矩阵切换 
+                       & (sw2_f2n[1]?f2n_irx_level[2]:1) & (sw3_f2n[1]?f2n_irx_level[3]:1)
+                       & (sw4_f2n[1]?f2n_irx_level[4]:1) & (sw5_f2n[1]?f2n_irx_level[5]:1)
+                       & (sw6_f2n[1]?f2n_irx_level[6]:1) & (sw7_f2n[1]?f2n_irx_level[7]:1);
+assign f2n_irx_temp[2] = (sw0_f2n[2]?f2n_irx_level[0]:1) & (sw1_f2n[2]?f2n_irx_level[1]:1) //本地到本地矩阵切换 
+                       & (sw2_f2n[2]?f2n_irx_level[2]:1) & (sw3_f2n[2]?f2n_irx_level[3]:1)
+                       & (sw4_f2n[2]?f2n_irx_level[4]:1) & (sw5_f2n[2]?f2n_irx_level[5]:1)
+                       & (sw6_f2n[2]?f2n_irx_level[6]:1) & (sw7_f2n[2]?f2n_irx_level[7]:1);
+assign f2n_irx_temp[3] = (sw0_f2n[3]?f2n_irx_level[0]:1) & (sw1_f2n[3]?f2n_irx_level[1]:1) //本地到本地矩阵切换 
+                       & (sw2_f2n[3]?f2n_irx_level[2]:1) & (sw3_f2n[3]?f2n_irx_level[3]:1)
+                       & (sw4_f2n[3]?f2n_irx_level[4]:1) & (sw5_f2n[3]?f2n_irx_level[5]:1)
+                       & (sw6_f2n[3]?f2n_irx_level[6]:1) & (sw7_f2n[3]?f2n_irx_level[7]:1);
+assign f2n_irx_temp[4] = (sw0_f2n[4]?f2n_irx_level[0]:1) & (sw1_f2n[4]?f2n_irx_level[1]:1) //本地到本地矩阵切换 
+                       & (sw2_f2n[4]?f2n_irx_level[2]:1) & (sw3_f2n[4]?f2n_irx_level[3]:1)
+                       & (sw4_f2n[4]?f2n_irx_level[4]:1) & (sw5_f2n[4]?f2n_irx_level[5]:1)
+                       & (sw6_f2n[4]?f2n_irx_level[6]:1) & (sw7_f2n[4]?f2n_irx_level[7]:1);
+assign f2n_irx_temp[5] = (sw0_f2n[5]?f2n_irx_level[0]:1) & (sw1_f2n[5]?f2n_irx_level[1]:1) //本地到本地矩阵切换 
+                       & (sw2_f2n[5]?f2n_irx_level[2]:1) & (sw3_f2n[5]?f2n_irx_level[3]:1)
+                       & (sw4_f2n[5]?f2n_irx_level[4]:1) & (sw5_f2n[5]?f2n_irx_level[5]:1)
+                       & (sw6_f2n[5]?f2n_irx_level[6]:1) & (sw7_f2n[5]?f2n_irx_level[7]:1);
+assign f2n_irx_temp[6] = (sw0_f2n[6]?f2n_irx_level[0]:1) & (sw1_f2n[6]?f2n_irx_level[1]:1) //本地到本地矩阵切换 
+                       & (sw2_f2n[6]?f2n_irx_level[2]:1) & (sw3_f2n[6]?f2n_irx_level[3]:1)
+                       & (sw4_f2n[6]?f2n_irx_level[4]:1) & (sw5_f2n[6]?f2n_irx_level[5]:1)
+                       & (sw6_f2n[6]?f2n_irx_level[6]:1) & (sw7_f2n[6]?f2n_irx_level[7]:1);
+assign f2n_irx_temp[7] = (sw0_f2n[7]?f2n_irx_level[0]:1) & (sw1_f2n[7]?f2n_irx_level[1]:1) //本地到本地矩阵切换 
+                       & (sw2_f2n[7]?f2n_irx_level[2]:1) & (sw3_f2n[7]?f2n_irx_level[3]:1)
+                       & (sw4_f2n[7]?f2n_irx_level[4]:1) & (sw5_f2n[7]?f2n_irx_level[5]:1)
+                       & (sw6_f2n[7]?f2n_irx_level[6]:1) & (sw7_f2n[7]?f2n_irx_level[7]:1);   
+                                           
+// *********************************************************************************
+// 解析指令，看是否需要载波，生成38K的载波
+// *********************************************************************************
+wire	rs_cmd_idle= (step==4'b00);
+reg		ir_car_care;		
+	always@(posedge clk or negedge rstn)
+	begin
+		if(!rstn)
+			ir_car_care <=0;
+		else if(sp_com_data==8'hdf && rs_cmd_idle)//关心载波
+			ir_car_care <=1;
+		else if(sp_com_data==8'hde && rs_cmd_idle)//不关心载波
+			ir_car_care <=0;
+	end
+reg	[9:0]	car_cnt;
+	always@(posedge clk or negedge rstn)
+	begin
+		if(!rstn)
+			car_cnt <=0;
+		else if(car_cnt <658)
+			car_cnt <=car_cnt +1;
+		else
+			car_cnt <=1;
+	end
+wire	car_clk =(car_cnt <329);//38K 载波
+
+// *********************************************************************************
+// 检测信号是否带载波
+// *********************************************************************************
+wire [7:0] irx_car_en;
+ir_car_detect	ir_car_detect0
+(
+	.clk          (clk            ),
+	.rst_n        (rstn           ),
+	.ir_sd_i      (f2n_irx_temp[0]),
+	.ir_car_care_i(ir_car_care	  ),
+	.ir_car_en_o  (irx_car_en[0]  )
+);
+ir_car_detect	ir_car_detect1
+(
+	.clk          (clk            ),
+	.rst_n        (rstn           ),
+	.ir_sd_i      (f2n_irx_temp[1]),
+	.ir_car_care_i(ir_car_care	  ),
+	.ir_car_en_o  (irx_car_en[1]  )
+);
+ir_car_detect	ir_car_detect2
+(
+	.clk          (clk            ),
+	.rst_n        (rstn           ),
+	.ir_sd_i      (f2n_irx_temp[2]),
+	.ir_car_care_i(ir_car_care	  ),
+	.ir_car_en_o  (irx_car_en[2]  )
+);
+ir_car_detect	ir_car_detect3
+(
+	.clk          (clk            ),
+	.rst_n        (rstn           ),
+	.ir_sd_i      (f2n_irx_temp[3]),
+	.ir_car_care_i(ir_car_care	  ),
+	.ir_car_en_o  (irx_car_en[3]  )
+);
+ir_car_detect	ir_car_detect4
+(
+	.clk          (clk            ),
+	.rst_n        (rstn           ),
+	.ir_sd_i      (f2n_irx_temp[4]),
+	.ir_car_care_i(ir_car_care	  ),
+	.ir_car_en_o  (irx_car_en[4]  )
+);
+ir_car_detect	ir_car_detect5
+(
+	.clk          (clk            ),
+	.rst_n        (rstn           ),
+	.ir_sd_i      (f2n_irx_temp[5]),
+	.ir_car_care_i(ir_car_care	  ),
+	.ir_car_en_o  (irx_car_en[5]  )
+);
+ir_car_detect	ir_car_detect6
+(
+	.clk          (clk            ),
+	.rst_n        (rstn           ),
+	.ir_sd_i      (f2n_irx_temp[6]),
+	.ir_car_care_i(ir_car_care	  ),
+	.ir_car_en_o  (irx_car_en[6]  )
+);
+ir_car_detect	ir_car_detect7
+(
+	.clk          (clk            ),
+	.rst_n        (rstn           ),
+	.ir_sd_i      (f2n_irx_temp[7]),
+	.ir_car_care_i(ir_car_care	  ),
+	.ir_car_en_o  (irx_car_en[7]  )
+);
+
+// *********************************************************************************
+// 有载波就加上载波，准备最后输出
+// *********************************************************************************
+wire [7:0] f2n_irx_car_temp;
+assign f2n_irx_car_temp[0] = irx_car_en[0] && ~f2n_irx_temp[0] ? car_clk :f2n_irx_temp[0];
+assign f2n_irx_car_temp[1] = irx_car_en[1] && ~f2n_irx_temp[1] ? car_clk :f2n_irx_temp[1];
+assign f2n_irx_car_temp[2] = irx_car_en[2] && ~f2n_irx_temp[2] ? car_clk :f2n_irx_temp[2];
+assign f2n_irx_car_temp[3] = irx_car_en[3] && ~f2n_irx_temp[3] ? car_clk :f2n_irx_temp[3];
+assign f2n_irx_car_temp[4] = irx_car_en[4] && ~f2n_irx_temp[4] ? car_clk :f2n_irx_temp[4];
+assign f2n_irx_car_temp[5] = irx_car_en[5] && ~f2n_irx_temp[5] ? car_clk :f2n_irx_temp[5];
+assign f2n_irx_car_temp[6] = irx_car_en[6] && ~f2n_irx_temp[6] ? car_clk :f2n_irx_temp[6];
+assign f2n_irx_car_temp[7] = irx_car_en[7] && ~f2n_irx_temp[7] ? car_clk :f2n_irx_temp[7];
+
+// *********************************************************************************
+// 本地红外切换
+// *********************************************************************************
+`ifdef IR_N2N
+	reg [7:0] sw0_n2n;//本地的红外切换开关
+	reg [7:0] sw1_n2n;//本地的红外切换开关
+	reg [7:0] sw2_n2n;//本地的红外切换开关
+	reg [7:0] sw3_n2n;//本地的红外切换开关
+	reg [7:0] sw4_n2n;//本地的红外切换开关
+	reg [7:0] sw5_n2n;//本地的红外切换开关
+	reg [7:0] sw6_n2n;//本地的红外切换开关
+	reg [7:0] sw7_n2n;//本地的红外切换开关
+	always@(posedge clk) //本地红外切换标志位
+	begin	
+		//sw0_n2n<=8'b11111111;
+		case (ir_com_o[3:0])
+			4'd0:sw0_n2n<=8'b1<<(ir_com_i[3:0]);
+			4'd1:sw1_n2n<=8'b1<<(ir_com_i[3:0]);
+			4'd2:sw2_n2n<=8'b1<<(ir_com_i[3:0]);
+			4'd3:sw3_n2n<=8'b1<<(ir_com_i[3:0]);
+			4'd4:sw4_n2n<=8'b1<<(ir_com_i[3:0]);
+			4'd5:sw5_n2n<=8'b1<<(ir_com_i[3:0]);
+			4'd6:sw6_n2n<=8'b1<<(ir_com_i[3:0]);
+			4'd7:sw7_n2n<=8'b1<<(ir_com_i[3:0]);
+			default :begin
+				sw0_n2n<=sw0_n2n;
+				sw1_n2n<=sw1_n2n;
+				sw2_n2n<=sw2_n2n;
+				sw3_n2n<=sw3_n2n;
+				sw4_n2n<=sw4_n2n;
+				sw5_n2n<=sw5_n2n;
+				sw6_n2n<=sw6_n2n;
+				sw7_n2n<=sw7_n2n;		
+			end
+		endcase
+	end
+	wire [7:0] n2n_irx_temp; //本地到本地输出最后缓存
+	//assign n2n_irx_temp = irx_i;
+	assign n2n_irx_temp[0] = (sw0_n2n[0]?irx_i[0]:1) & (sw1_n2n[0]?irx_i[1]:1) //本地到本地矩阵切换 
+	                       & (sw2_n2n[0]?irx_i[2]:1) & (sw3_n2n[0]?irx_i[3]:1)
+	                       & (sw4_n2n[0]?irx_i[4]:1) & (sw5_n2n[0]?irx_i[5]:1)
+	                       & (sw6_n2n[0]?irx_i[6]:1) & (sw7_n2n[0]?irx_i[7]:1);
+	assign n2n_irx_temp[1] = (sw0_n2n[1]?irx_i[0]:1) & (sw1_n2n[1]?irx_i[1]:1) //本地到本地矩阵切换 
+	                       & (sw2_n2n[1]?irx_i[2]:1) & (sw3_n2n[1]?irx_i[3]:1)
+	                       & (sw4_n2n[1]?irx_i[4]:1) & (sw5_n2n[1]?irx_i[5]:1)
+	                       & (sw6_n2n[1]?irx_i[6]:1) & (sw7_n2n[1]?irx_i[7]:1);
+	assign n2n_irx_temp[2] = (sw0_n2n[2]?irx_i[0]:1) & (sw1_n2n[2]?irx_i[1]:1) //本地到本地矩阵切换 
+	                       & (sw2_n2n[2]?irx_i[2]:1) & (sw3_n2n[2]?irx_i[3]:1)
+	                       & (sw4_n2n[2]?irx_i[4]:1) & (sw5_n2n[2]?irx_i[5]:1)
+	                       & (sw6_n2n[2]?irx_i[6]:1) & (sw7_n2n[2]?irx_i[7]:1);
+	assign n2n_irx_temp[3] = (sw0_n2n[3]?irx_i[0]:1) & (sw1_n2n[3]?irx_i[1]:1) //本地到本地矩阵切换 
+	                       & (sw2_n2n[3]?irx_i[2]:1) & (sw3_n2n[3]?irx_i[3]:1)
+	                       & (sw4_n2n[3]?irx_i[4]:1) & (sw5_n2n[3]?irx_i[5]:1)
+	                       & (sw6_n2n[3]?irx_i[6]:1) & (sw7_n2n[3]?irx_i[7]:1);
+	assign n2n_irx_temp[4] = (sw0_n2n[4]?irx_i[0]:1) & (sw1_n2n[4]?irx_i[1]:1) //本地到本地矩阵切换 
+	                       & (sw2_n2n[4]?irx_i[2]:1) & (sw3_n2n[4]?irx_i[3]:1)
+	                       & (sw4_n2n[4]?irx_i[4]:1) & (sw5_n2n[4]?irx_i[5]:1)
+	                       & (sw6_n2n[4]?irx_i[6]:1) & (sw7_n2n[4]?irx_i[7]:1);
+	assign n2n_irx_temp[5] = (sw0_n2n[5]?irx_i[0]:1) & (sw1_n2n[5]?irx_i[1]:1) //本地到本地矩阵切换 
+	                       & (sw2_n2n[5]?irx_i[2]:1) & (sw3_n2n[5]?irx_i[3]:1)
+	                       & (sw4_n2n[5]?irx_i[4]:1) & (sw5_n2n[5]?irx_i[5]:1)
+	                       & (sw6_n2n[5]?irx_i[6]:1) & (sw7_n2n[5]?irx_i[7]:1);
+	assign n2n_irx_temp[6] = (sw0_n2n[6]?irx_i[0]:1) & (sw1_n2n[6]?irx_i[1]:1) //本地到本地矩阵切换 
+	                       & (sw2_n2n[6]?irx_i[2]:1) & (sw3_n2n[6]?irx_i[3]:1)
+	                       & (sw4_n2n[6]?irx_i[4]:1) & (sw5_n2n[6]?irx_i[5]:1)
+	                       & (sw6_n2n[6]?irx_i[6]:1) & (sw7_n2n[6]?irx_i[7]:1);
+	assign n2n_irx_temp[7] = (sw0_n2n[7]?irx_i[0]:1) & (sw1_n2n[7]?irx_i[1]:1) //本地到本地矩阵切换 
+	                       & (sw2_n2n[7]?irx_i[2]:1) & (sw3_n2n[7]?irx_i[3]:1)
+	                       & (sw4_n2n[7]?irx_i[4]:1) & (sw5_n2n[7]?irx_i[5]:1)
+	                       & (sw6_n2n[7]?irx_i[6]:1) & (sw7_n2n[7]?irx_i[7]:1); 
+`endif                   
+// ***************************************************************
+// 远端IRin到本地IRout
+// ***************************************************************	
+`ifdef IR_N2N 
+	assign irx_o = n2n_irx_temp & f2n_irx_car_temp;//两路都从本地IROUT输出
+`else
+	assign irx_o = f2n_irx_car_temp;//两路都从本地IROUT输出
+`endif
+assign ir_all_out = &irx_o; //位缩
+
+// ***************************************************************
+// 本地IRin到远端IRout
+// ***************************************************************					  
+assign ir_402x_o=irx_i;//远端输出与本地输入一一对应	
+
+// ***************************************************************
+// ir到MCU
+// ***************************************************************	
+wire [7:0] 	ir_402_to_mcu;
+ir_rx ir_rx_isnt0
+(
+	.clk    (clk             ),//25M	
+	.rst_n  (rstn            ),
+	.ir_sd_i(f2n_irx_level[0]),
+	.ir_sd_o(ir_402_to_mcu[0])
+);
+ir_rx ir_rx_isnt1
+(
+	.clk    (clk             ),//25M	
+	.rst_n  (rstn            ),
+	.ir_sd_i(f2n_irx_level[1]),
+	.ir_sd_o(ir_402_to_mcu[1])
+);
+ir_rx ir_rx_isnt2
+(
+	.clk    (clk             ),//25M	
+	.rst_n  (rstn            ),
+	.ir_sd_i(f2n_irx_level[2]),
+	.ir_sd_o(ir_402_to_mcu[2])
+);
+ir_rx ir_rx_isnt3
+(
+	.clk    (clk             ),//25M	
+	.rst_n  (rstn            ),
+	.ir_sd_i(f2n_irx_level[3]),
+	.ir_sd_o(ir_402_to_mcu[3])
+);
+ir_rx ir_rx_isnt4
+(
+	.clk    (clk             ),//25M	
+	.rst_n  (rstn            ),
+	.ir_sd_i(f2n_irx_level[4]),
+	.ir_sd_o(ir_402_to_mcu[4])
+);
+ir_rx ir_rx_isnt5
+(
+	.clk    (clk             ),//25M	
+	.rst_n  (rstn            ),
+	.ir_sd_i(f2n_irx_level[5]),
+	.ir_sd_o(ir_402_to_mcu[5])
+);
+ir_rx ir_rx_isnt6
+(
+	.clk    (clk             ),//25M	
+	.rst_n  (rstn            ),
+	.ir_sd_i(f2n_irx_level[6]),
+	.ir_sd_o(ir_402_to_mcu[6])
+);
+ir_rx ir_rx_isnt7
+(
+	.clk    (clk             ),//25M	
+	.rst_n  (rstn            ),
+	.ir_sd_i(f2n_irx_level[7]),
+	.ir_sd_o(ir_402_to_mcu[7])
+);
+wire ir_eye_to_mcu; //ir_eye
+ir_rx ir_rx_isnt8
+(
+	.clk    (clk             ),//25M	
+	.rst_n  (rstn            ),
+	.ir_sd_i(ir_eye          ),
+	.ir_sd_o(ir_eye_to_mcu   )
+);
+assign  ir2mcu = (&ir_402_to_mcu)&ir_eye_to_mcu; //远端可ireye都可以控mcu
+
+// ***************************************************************		  
+// 串口	
+// ***************************************************************
+/////////////////////////////////////////
+reg rs_402_all_send;
+reg [7:0] send_to_402;
+always @(posedge clk)begin
+	if(chnum>0&&chnum<9) begin
+		rs_402_all_send <= rs232_402x_tx[chnum];
+		send_to_402 <= (~(8'b1<<(chnum-1)))|{8{rs232tx}};//cpld出来的串口选择哪个402出去
+	end
+	else begin
+		rs_402_all_send <= 1'b1;
+		send_to_402<=8'b11111111;
+	end
+end
+assign rs232_db9_rx  = rs_402_all_send & rs232_mcu_tx;//db9wait402ack ? rs232_402_tx && mcu_rs232_tx:1'b1;
+assign rs232_tcp_rx  = rs_402_all_send & rs232_mcu_tx;
+
+assign rs232_mcu_rx  = rs_402_all_send & rs232_db9_tx & rs232_tcp_tx;
+assign rs232_402x_rx = send_to_402;//现在只有DB9-MCU-CPLD-402,以后加本地zone
+
+//assign ir_all_out = irn_rs; //debug
+assign debugpin0  = step[0];
+/////////////////////////////////////////
+//reg mcu_402_en;
+//reg mcu_dbp_en;
+//reg dbp_402_en;
+//initial //默认只有db9 到MCU联通
+//begin
+//	mcu_402_en=0;
+//	mcu_dbp_en=1;
+//	dbp_402_en=0;
+//end
+//wire rs_all402_send=&rs232_402x_tx;//将远端的信号与位缩
+
+//wire rs232_mcu_rx_from402=(mcu_402_en?rs_all402_send:1'b1);
+//wire rs232_mcu_rx_fromdb9=(mcu_dbp_en?rs232_db9_tx:1'b1);
+//assign rs232_mcu_rx =rs232_tcp_tx&rs232_mcu_rx_from402&rs232_mcu_rx_fromdb9;//GUI 402 DBP 都到MCU
+
+//wire rs232_db9_rx_frommcu=(mcu_dbp_en?rs232_mcu_tx:1'b1);
+//wire rs232_db9_rx_from402=(dbp_402_en?rs_all402_send:1'b1);
+//assign rs232_db9_rx =rs232_db9_rx_frommcu&rs232_db9_rx_from402;//mcu 402到DB9
+
+//wire rs232_402_rx_frommcu=(mcu_402_en?rs232_mcu_tx:1'b1);//这里还要分出去
+//wire rs232_402_rx_fromdb9=(dbp_402_en?rs232_db9_tx:1'b1);
+//assign rs232_402x_rx=(~rs_t_402_ch)|{8{(rs232_402_rx_frommcu&rs232_402_rx_fromdb9)}};//MCU DB9到402 未使能8位一直高，使能后某位未选通也一直高
+
+//assign rs232_tcp_rx  = rs232_mcu_tx;	
+endmodule

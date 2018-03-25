@@ -1,0 +1,261 @@
+<HTML>
+<HEAD><TITLE>Synthesis and Ngdbuild Report</TITLE>
+<STYLE TYPE="text/css">
+<!--
+ body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
+-->
+</STYLE>
+</HEAD>
+<PRE><A name="Syn"></A><B><U><big>Synthesis and Ngdbuild  Report</big></U></B>
+synthesis:  version Diamond Version 2.0.0.154 
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved. Copyright (c) 1995 AT&T Corp.   All rights reserved. Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved. Copyright (c) 2001 Agere Systems   All rights reserved. Copyright (c) 2002-2012 Lattice Semiconductor Corporation,  All rights reserved.
+Thu Mar 09 19:53:01 2017 
+
+Command Line:  synthesis -f IR_RS232_SW_IR_RS232_SW_lattice.synproj 
+
+-- all messages logged in file synthesis.log
+
+<A name="lse_synopt"></A><B><U><big>Synthesis Options</big></U></B>
+
+INFO: Synthesis Options: (LSE-1022)
+INFO: -a option is = MachXO2
+INFO: -s option is = 4
+INFO: -t option is = TQFP144
+INFO: -d option is = LCMXO2-1200HC
+INFO: Using package TQFP144
+INFO: Using performance grade 4
+INFO:                                                           
+INFO: ##########################################################
+INFO: ### Lattice Family : MachXO2A
+INFO: ### Device  : LCMXO2-1200HC
+INFO: ### Package : TQFP144
+INFO: ### Speed   : 4
+INFO: ##########################################################
+INFO:                                                           
+INFO: Optimization Goal = Balanced
+INFO: Top level module name = IR_RS232_SW
+INFO: Target Frequency = 200.000000 MHz
+INFO: Max Fanout = 1000
+INFO: Timing Path count = 3
+INFO: bram Utilization = 100.000000 %
+INFO: dsp usage = TRUE (default)
+INFO: dsp utilization = 100 (default)
+INFO: fsm_encoding_style = auto
+INFO: resolve_mixed_drivers = 0
+INFO: Mux style = Auto
+INFO: Use Carry Chain = TRUE
+INFO: carry_chain_length = 0
+INFO: Use IO Insertion = TRUE
+INFO: Use IO Reg = TRUE
+INFO: Resource Sharing = TRUE
+INFO: Propagate Constants = TRUE
+INFO: Remove Duplicate Registers = TRUE
+INFO: force_gsr = auto
+INFO: ROM style = auto
+INFO: RAM style = auto
+INFO: -comp option is FALSE
+INFO: -syn option is FALSE
+INFO: -p G:/zjf/mhub4k862-cpld (searchpath added)
+INFO: -p D:/lscc/diamond/2.0/ispfpga/xo2c00/data (searchpath added)
+INFO: -p G:/zjf/mhub4k862-cpld/IR_RS232_SW (searchpath added)
+INFO: -p G:/zjf/mhub4k862-cpld (searchpath added)
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/ir_rx.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/my_uart_top.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/my_uart_tx.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/speed_select.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/HC74595.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/IR_RS232_SW.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/ir_car_detect.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/check_IR_defv.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/fifo64x8.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/new_uart/uart_rx.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/new_uart/uart_tx.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/new_uart/pc2mcu_uart_top.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/new_uart/mcu2pc_uart_top.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/ir_def_lv.v
+INFO: Ngd file = IR_RS232_SW_IR_RS232_SW.ngd
+INFO: -sdc option: sdc file input not used
+INFO: -lpf option: output file option is OFF
+INFO: hardtimer checking is enabled (default); -dt option not used
+INFO: -r option is OFF [ Remove LOC Properties is OFF ]
+-- Technology check ok...MachXO, MachXO2...
+INFO: * compile design *
+
+<A name="lse_comp"></A><B><U><big>Compile Design</big></U></B>
+
+INFO: Compile Design Begin
+g:/zjf/mhub4k862-cpld/ir_rs232_sw.v(6): INFO: compiling module IR_RS232_SW (VERI-1018)
+g:/zjf/mhub4k862-cpld/hc74595.v(1): INFO: compiling module hc74595 (VERI-1018)
+g:/zjf/mhub4k862-cpld/fifo64x8.v(8): INFO: compiling module fifo64x8 (VERI-1018)
+D:/lscc/diamond/2.0/ispfpga/userware/NT/SYNTHESIS_HEADERS/machxo2.v(1120): INFO: compiling module VHI (VERI-1018)
+D:/lscc/diamond/2.0/ispfpga/userware/NT/SYNTHESIS_HEADERS/machxo2.v(1124): INFO: compiling module VLO (VERI-1018)
+D:/lscc/diamond/2.0/ispfpga/userware/NT/SYNTHESIS_HEADERS/machxo2.v(1482): INFO: compiling module FIFO8KB_renamed_due_excessive_length_1 (VERI-1018)
+g:/zjf/mhub4k862-cpld/my_uart_top.v(21): INFO: compiling module my_uart_top (VERI-1018)
+g:/zjf/mhub4k862-cpld/speed_select.v(21): INFO: compiling module speed_select (VERI-1018)
+g:/zjf/mhub4k862-cpld/my_uart_tx.v(21): INFO: compiling module my_uart_tx (VERI-1018)
+g:/zjf/mhub4k862-cpld/check_ir_defv.v(21): INFO: compiling module check_IR_defv (VERI-1018)
+g:/zjf/mhub4k862-cpld/ir_car_detect.v(1): INFO: compiling module ir_car_detect (VERI-1018)
+g:/zjf/mhub4k862-cpld/ir_def_lv.v(11): INFO: compiling module ir_def_lv(BIT_NUM=3'b01,IO_NUM=7'b01) (VERI-1018)
+g:/zjf/mhub4k862-cpld/ir_rx.v(1): INFO: compiling module ir_rx (VERI-1018)
+g:/zjf/mhub4k862-cpld/new_uart/mcu2pc_uart_top.v(1): INFO: compiling module mcu2pc_uart_top (VERI-1018)
+g:/zjf/mhub4k862-cpld/new_uart/uart_rx.v(1): INFO: compiling module uart_rx (VERI-1018)
+g:/zjf/mhub4k862-cpld/new_uart/uart_tx.v(118): INFO: compiling module uart_tx (VERI-1018)
+g:/zjf/mhub4k862-cpld/new_uart/pc2mcu_uart_top.v(1): INFO: compiling module pc2mcu_uart_top (VERI-1018)
+INFO: Top level module name = IR_RS232_SW
+
+Extracted state machine for register: step
+State machine has 8 states with original encoding
+original encoding -> new encoding (OneHot Encoding)
+ 0000 -> 00000001
+ 0001 -> 00000010
+ 0101 -> 00000100
+ 0110 -> 00001000
+ 1001 -> 00010000
+ 1010 -> 00100000
+ 1011 -> 01000000
+ 1111 -> 10000000
+Number of Reachable States for this State Machine are 8 
+
+
+
+g:/zjf/mhub4k862-cpld/new_uart/uart_tx.v(142): WARNING: Bit 0 of Register \pc2mcu_uart_top1/pc2mcu_tx/rx_baud_count is stuck at Zero (VDB-5010)
+g:/zjf/mhub4k862-cpld/new_uart/uart_tx.v(142): WARNING: Bit 2 of Register \pc2mcu_uart_top1/pc2mcu_tx/rx_baud_count is stuck at One (VDB-5011)
+WARNING: Register i1597 is stuck at Zero (VDB-5013)
+INFO: GSR Instance connected to net: rstn_c (LSE-1149)
+WARNING: No lpf file will be written because -lpf option is not used or set to 0
+INFO: Applying 200.000000 MHz constraint to all clocks (LSE-5000)
+INFO: Results of ngd drc checks are available in IR_RS232_SW_drc.log
+INFO: All blocks are expanded and NGD expansion is successful
+INFO: Writing ngd file IR_RS232_SW_IR_RS232_SW.ngd
+
+################### Begin Area Report (IR_RS232_SW)######################
+Number of register bits => 600 of 1280 (46 % )
+CCU2D => 189
+FD1P3AX => 134
+FD1P3AY => 2
+FD1P3IX => 58
+FD1P3JX => 3
+FD1S3AX => 106
+FD1S3AY => 11
+FD1S3IX => 271
+FD1S3JX => 6
+FIFO8KB => 3
+GSR => 1
+IB => 35
+IFS1P3DX => 1
+INV => 32
+L6MUX21 => 3
+LUT4 => 624
+OB => 30
+OFS1P3DX => 8
+PFUMX => 16
+################### End Area Report ##################
+
+################### Begin Clock Report ######################
+Clock Nets
+Number of Clocks: 4
+  Net : clk_c, loads : 498
+  Net : clock_count_15, loads : 88
+  Net : rclk_c, loads : 9
+  Net : srclk_c, loads : 8
+Clock Enable Nets
+Number of Clock Enables: 78
+Highest fanout non-clock nets
+Top 10 highest fanout non-clock nets:
+  Net : rx_step_1, loads : 25
+  Net : rx_step_1, loads : 23
+  Net : rx_step_2, loads : 21
+  Net : rx_step_2, loads : 19
+  Net : rx_step_3, loads : 19
+  Net : rx_step_0, loads : 19
+  Net : rx_step_0, loads : 18
+  Net : rstn_c, loads : 17
+  Net : n5, loads : 17
+  Net : n5, loads : 17
+################### End Clock Report ##################
+
+<A name="lse_trs"></A><B><U><big>Timing Report Summary</big></U></B>
+--------------
+--------------------------------------------------------------------------------
+Constraint                              |   Constraint|       Actual|Levels
+--------------------------------------------------------------------------------
+                                        |             |             |
+create_clock -period 5.000000 -name     |             |             |
+clk3 [get_nets srclk_c]                 |  200.000 MHz|  519.481 MHz|     1  
+                                        |             |             |
+create_clock -period 5.000000 -name     |             |             |
+clk2 [get_nets clock_count[15]]         |  200.000 MHz|  137.287 MHz|     4 *
+                                        |             |             |
+create_clock -period 5.000000 -name     |             |             |
+clk1 [get_nets rclk_c]                  |            -|            -|     0  
+                                        |             |             |
+create_clock -period 5.000000 -name     |             |             |
+clk0 [get_nets clk_c]                   |  200.000 MHz|  101.523 MHz|     9 *
+                                        |             |             |
+--------------------------------------------------------------------------------
+
+
+2 constraints not met.
+
+
+Peak Memory Usage: 68.527  MB
+
+--------------------------------------------------------------
+Elapsed CPU time for LSE flow : 4.462  secs
+--------------------------------------------------------------
+
+
+
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+</PRE></FONT>
+</BODY>
+</HTML>

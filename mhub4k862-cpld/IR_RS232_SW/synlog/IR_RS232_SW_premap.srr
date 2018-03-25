@@ -1,0 +1,54 @@
+Synopsys Lattice Technology Pre-mapping, Version maplat, Build 401R, Built May 25 2012 10:34:30
+Copyright (C) 1994-2012, Synopsys Inc. This software the associated documentation are confidential and proprietary to Synopsys, Inc. Your use or disclosure of this software subject to the terms and conditions of a written license agreement between you, or your company, and Synopsys, Inc.
+Product Version F-2012.03L 
+
+Mapper Startup Complete (Time elapsed 0h:00m:00s; Memory used current: 48MB peak: 49MB)
+
+@L: E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW\IR_RS232_SW_scck.rpt 
+Printing clock  summary report in "E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW\IR_RS232_SW_scck.rpt" file 
+@N: MF249 |Running in 32-bit mode.
+@N: MF257 |Gated clock conversion enabled 
+@N: MF546 |Generated clock conversion enabled 
+
+Design Input Complete (Time elapsed 0h:00m:00s; Memory used current: 49MB peak: 50MB)
+
+
+Mapper Initialization Complete (Time elapsed 0h:00m:00s; Memory used current: 49MB peak: 50MB)
+
+
+Start loading timing files (Time elapsed 0h:00m:00s; Memory used current: 58MB peak: 59MB)
+
+
+Finished loading timing files (Time elapsed 0h:00m:00s; Memory used current: 58MB peak: 61MB)
+
+@W: FX474 |User-specified initial value found in some of the sequential elements. Applying an initial value to a register may not produce optimum synthesis results. For example, registers with initial values may become preserved which would prevent retiming/pipelining from being performed. To improve synthesis results, remove register initialization from the RTL code. 
+
+
+Clock Summary
+**************
+
+Start                 Requested     Requested     Clock        Clock                
+Clock                 Frequency     Period        Type         Group                
+------------------------------------------------------------------------------------
+System                1.0 MHz       1000.000      system       system_clkgroup      
+IR_RS232_SW|clk       1.0 MHz       1000.000      inferred     Autoconstr_clkgroup_0
+IR_RS232_SW|rclk      1.0 MHz       1000.000      inferred     Autoconstr_clkgroup_1
+IR_RS232_SW|srclk     1.0 MHz       1000.000      inferred     Autoconstr_clkgroup_2
+====================================================================================
+
+@W: MT529 :"e:\pjk\mhd44tp_ir_rs232_sw_130701\speed_select.v":76:0:76:5|Found inferred clock IR_RS232_SW|clk which controls 377 sequential elements including uart_u2/speed_tx/cnt[13:0]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+@W: MT529 :"e:\pjk\mhd44tp_ir_rs232_sw_130701\hc74595.v":65:1:65:6|Found inferred clock IR_RS232_SW|rclk which controls 9 sequential elements including hc595_u/qh. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+@W: MT529 :"e:\pjk\mhd44tp_ir_rs232_sw_130701\hc74595.v":41:0:41:5|Found inferred clock IR_RS232_SW|srclk which controls 9 sequential elements including hc595_u/qhn0. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+
+syn_allowed_resources : blockrams=2  set on top level netlist IR_RS232_SW
+
+Finished Pre Mapping Phase. (Time elapsed 0h:00m:00s; Memory used current: 75MB peak: 77MB)
+
+Pre-mapping successful!
+
+At Mapper Exit (Time elapsed 0h:00m:00s; Memory used current: 43MB peak: 77MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Mon Jul 29 14:31:05 2013
+
+###########################################################]

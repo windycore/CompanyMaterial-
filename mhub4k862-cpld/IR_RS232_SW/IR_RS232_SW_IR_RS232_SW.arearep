@@ -1,0 +1,423 @@
+----------------------------------------------------------------------
+Report for cell IR_RS232_SW.<NoName>
+Register bits:  600 of 1280 (46.875%)
+I/O cells:      65
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D       189          100.0
+                            FD1P3AX       134          100.0
+                            FD1P3AY         2          100.0
+                            FD1P3IX        58          100.0
+                            FD1P3JX         3          100.0
+                            FD1S3AX       106          100.0
+                            FD1S3AY        11          100.0
+                            FD1S3IX       271          100.0
+                            FD1S3JX         6          100.0
+                            FIFO8KB         3          100.0
+                                GSR         1          100.0
+                                 IB        35          100.0
+                           IFS1P3DX         1          100.0
+                                INV        32          100.0
+                            L6MUX21         3          100.0
+                               LUT4       624          100.0
+                                 OB        30          100.0
+                           OFS1P3DX         8          100.0
+                              PFUMX        16          100.0
+SUB MODULES
+                      check_IR_defv         1
+                  check_IR_defv_U11         1
+                  check_IR_defv_U12         1
+                  check_IR_defv_U13         1
+                  check_IR_defv_U14         1
+                  check_IR_defv_U15         1
+                  check_IR_defv_U16         1
+                  check_IR_defv_U17         1
+                           fifo64x8         1
+                       fifo64x8_U10         1
+                        fifo64x8_U2         1
+                            hc74595         1
+                      ir_car_detect         1
+                   ir_car_detect_U3         1
+                   ir_car_detect_U4         1
+                   ir_car_detect_U5         1
+                   ir_car_detect_U6         1
+                   ir_car_detect_U7         1
+                   ir_car_detect_U8         1
+                   ir_car_detect_U9         1
+ir_def_lv(BIT_NUM=3'b01,IO_NUM=7'b01)         1
+                              ir_rx         1
+                    mcu2pc_uart_top         1
+                        my_uart_top         1
+                         my_uart_tx         1
+                    pc2mcu_uart_top         1
+                       speed_select         1
+                            uart_rx         1
+                         uart_rx_U1         1
+                            uart_tx         1
+                         uart_tx_U0         1
+                              TOTAL      1564
+----------------------------------------------------------------------
+Report for cell check_IR_defv.v1
+Instance Path : check_IR_defv7
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FD1P3AX         1            0.7
+                            FD1S3IX        10            3.7
+                                INV         2            6.3
+                               LUT4        17            2.7
+                              TOTAL        30
+----------------------------------------------------------------------
+Report for cell my_uart_top.v1
+Instance Path : uart_u2
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D        16            8.5
+                            FD1P3AX         8            6.0
+                            FD1P3AY         1           50.0
+                            FD1P3IX         4            6.9
+                            FD1S3AX         3            2.8
+                            FD1S3IX        14            5.2
+                                INV         3            9.4
+                            L6MUX21         1           33.3
+                               LUT4        20            3.2
+                              PFUMX         2           12.5
+SUB MODULES
+                         my_uart_tx         1
+                       speed_select         1
+                              TOTAL        74
+----------------------------------------------------------------------
+Report for cell speed_select.v1
+Instance Path : uart_u2.speed_tx
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D        16            8.5
+                            FD1S3AX         1            0.9
+                            FD1S3IX        14            5.2
+                                INV         1            3.1
+                               LUT4         6            1.0
+                              TOTAL        38
+----------------------------------------------------------------------
+Report for cell my_uart_tx.v1
+Instance Path : uart_u2.my_uart_tx
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FD1P3AX         8            6.0
+                            FD1P3AY         1           50.0
+                            FD1P3IX         4            6.9
+                            FD1S3AX         2            1.9
+                                INV         2            6.3
+                            L6MUX21         1           33.3
+                               LUT4        14            2.2
+                              PFUMX         2           12.5
+                              TOTAL        34
+----------------------------------------------------------------------
+Report for cell fifo64x8_U10.v1
+Instance Path : fifo_u1
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FIFO8KB         1           33.3
+                              TOTAL         1
+----------------------------------------------------------------------
+Report for cell ir_car_detect_U8.v1
+Instance Path : ir_car_detect1
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D         7            3.7
+                            FD1P3AX         1            0.7
+                            FD1S3AX         2            1.9
+                            FD1S3IX        12            4.4
+                               LUT4        13            2.1
+                              TOTAL        35
+----------------------------------------------------------------------
+Report for cell ir_car_detect_U7.v1
+Instance Path : ir_car_detect2
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D         7            3.7
+                            FD1P3AX         1            0.7
+                            FD1S3AX         2            1.9
+                            FD1S3IX        12            4.4
+                               LUT4        13            2.1
+                              TOTAL        35
+----------------------------------------------------------------------
+Report for cell check_IR_defv_U13.v1
+Instance Path : check_IR_defv4
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FD1P3AX         1            0.7
+                            FD1S3IX        10            3.7
+                                INV         2            6.3
+                               LUT4        17            2.7
+                              TOTAL        30
+----------------------------------------------------------------------
+Report for cell ir_def_lv(BIT_NUM=3'b01,IO_NUM=7'b01).v1
+Instance Path : ir_def_lv_inst1
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FD1P3AX         1            0.7
+                            FD1S3IX        12            4.4
+                                INV         3            9.4
+                               LUT4        17            2.7
+                              TOTAL        33
+----------------------------------------------------------------------
+Report for cell check_IR_defv_U14.v1
+Instance Path : check_IR_defv3
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FD1P3AX         1            0.7
+                            FD1S3IX        10            3.7
+                                INV         2            6.3
+                               LUT4        17            2.7
+                              TOTAL        30
+----------------------------------------------------------------------
+Report for cell ir_car_detect_U9.v1
+Instance Path : ir_car_detect0
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D         7            3.7
+                            FD1P3AX         1            0.7
+                            FD1S3AX         2            1.9
+                            FD1S3IX        12            4.4
+                               LUT4        13            2.1
+                              TOTAL        35
+----------------------------------------------------------------------
+Report for cell ir_car_detect_U5.v1
+Instance Path : ir_car_detect4
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D         7            3.7
+                            FD1P3AX         1            0.7
+                            FD1S3AX         2            1.9
+                            FD1S3IX        12            4.4
+                               LUT4        13            2.1
+                              TOTAL        35
+----------------------------------------------------------------------
+Report for cell ir_car_detect.v1
+Instance Path : ir_car_detect7
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D         7            3.7
+                            FD1P3AX         1            0.7
+                            FD1S3AX         2            1.9
+                            FD1S3IX        12            4.4
+                               LUT4        13            2.1
+                              TOTAL        35
+----------------------------------------------------------------------
+Report for cell check_IR_defv_U12.v1
+Instance Path : check_IR_defv5
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FD1P3AX         1            0.7
+                            FD1S3IX        10            3.7
+                                INV         2            6.3
+                               LUT4        17            2.7
+                              TOTAL        30
+----------------------------------------------------------------------
+Report for cell ir_car_detect_U4.v1
+Instance Path : ir_car_detect5
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D         7            3.7
+                            FD1P3AX         1            0.7
+                            FD1S3AX         2            1.9
+                            FD1S3IX        12            4.4
+                               LUT4        13            2.1
+                              TOTAL        35
+----------------------------------------------------------------------
+Report for cell pc2mcu_uart_top.v1
+Instance Path : pc2mcu_uart_top1
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D        44           23.3
+                            FD1P3AX        13            9.7
+                            FD1P3IX        16           27.6
+                            FD1P3JX         1           33.3
+                            FD1S3AX        17           16.0
+                            FD1S3IX        17            6.3
+                            FIFO8KB         1           33.3
+                                INV         1            3.1
+                            L6MUX21         1           33.3
+                               LUT4        67           10.7
+                              PFUMX         7           43.8
+SUB MODULES
+                           fifo64x8         1
+                            uart_rx         1
+                            uart_tx         1
+                              TOTAL       188
+----------------------------------------------------------------------
+Report for cell uart_tx.v1
+Instance Path : pc2mcu_uart_top1.pc2mcu_tx
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D        15            7.9
+                            FD1P3AX         9            6.7
+                            FD1P3IX         4            6.9
+                            FD1P3JX         1           33.3
+                            FD1S3AX         1            0.9
+                            FD1S3IX        14            5.2
+                                INV         1            3.1
+                            L6MUX21         1           33.3
+                               LUT4        13            2.1
+                              PFUMX         2           12.5
+                              TOTAL        61
+----------------------------------------------------------------------
+Report for cell uart_rx.v1
+Instance Path : pc2mcu_uart_top1.pc2mcu_rx
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D        29           15.3
+                            FD1P3AX         4            3.0
+                            FD1P3IX        11           19.0
+                            FD1S3AX        13           12.3
+                            FD1S3IX         3            1.1
+                               LUT4        52            8.3
+                              PFUMX         5           31.3
+                              TOTAL       117
+----------------------------------------------------------------------
+Report for cell fifo64x8.v1
+Instance Path : pc2mcu_uart_top1.pc2mcu_fifo
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FIFO8KB         1           33.3
+                              TOTAL         1
+----------------------------------------------------------------------
+Report for cell check_IR_defv_U11.v1
+Instance Path : check_IR_defv6
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FD1P3AX         1            0.7
+                            FD1S3IX        10            3.7
+                                INV         2            6.3
+                               LUT4        17            2.7
+                              TOTAL        30
+----------------------------------------------------------------------
+Report for cell ir_car_detect_U6.v1
+Instance Path : ir_car_detect3
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D         7            3.7
+                            FD1P3AX         1            0.7
+                            FD1S3AX         2            1.9
+                            FD1S3IX        12            4.4
+                               LUT4        13            2.1
+                              TOTAL        35
+----------------------------------------------------------------------
+Report for cell check_IR_defv_U15.v1
+Instance Path : check_IR_defv2
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FD1P3AX         1            0.7
+                            FD1S3IX        10            3.7
+                                INV         2            6.3
+                               LUT4        17            2.7
+                              TOTAL        30
+----------------------------------------------------------------------
+Report for cell check_IR_defv_U17.v1
+Instance Path : check_IR_defv0
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FD1P3AX         1            0.7
+                            FD1S3IX        10            3.7
+                                INV         2            6.3
+                               LUT4        17            2.7
+                              TOTAL        30
+----------------------------------------------------------------------
+Report for cell hc74595.v1
+Instance Path : hc595_u
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FD1S3AX        10            9.4
+                           IFS1P3DX         1          100.0
+                              TOTAL        11
+----------------------------------------------------------------------
+Report for cell check_IR_defv_U16.v1
+Instance Path : check_IR_defv1
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FD1P3AX         1            0.7
+                            FD1S3IX        10            3.7
+                                INV         2            6.3
+                               LUT4        17            2.7
+                              TOTAL        30
+----------------------------------------------------------------------
+Report for cell ir_car_detect_U3.v1
+Instance Path : ir_car_detect6
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D         7            3.7
+                            FD1P3AX         1            0.7
+                            FD1S3AX         2            1.9
+                            FD1S3IX        12            4.4
+                               LUT4        13            2.1
+                              TOTAL        35
+----------------------------------------------------------------------
+Report for cell ir_rx.v1
+Instance Path : ir_rx_isntx
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D         7            3.7
+                            FD1S3AY        10           90.9
+                            FD1S3IX         2            0.7
+                               LUT4        18            2.9
+                              TOTAL        37
+----------------------------------------------------------------------
+Report for cell mcu2pc_uart_top.v1
+Instance Path : mcu2pc_uart_top1
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D        45           23.8
+                            FD1P3AX        13            9.7
+                            FD1P3IX        15           25.9
+                            FD1P3JX         1           33.3
+                            FD1S3AX        27           25.5
+                            FD1S3IX        30           11.1
+                            FD1S3JX         6          100.0
+                            FIFO8KB         1           33.3
+                                INV         7           21.9
+                            L6MUX21         1           33.3
+                               LUT4        82           13.1
+                              PFUMX         7           43.8
+SUB MODULES
+                        fifo64x8_U2         1
+                         uart_rx_U1         1
+                         uart_tx_U0         1
+                              TOTAL       238
+----------------------------------------------------------------------
+Report for cell uart_tx_U0.v1
+Instance Path : mcu2pc_uart_top1.mcu2pc_tx
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D        16            8.5
+                            FD1P3AX         9            6.7
+                            FD1P3IX         4            6.9
+                            FD1P3JX         1           33.3
+                            FD1S3AX         6            5.7
+                            FD1S3IX        20            7.4
+                            FD1S3JX         3           50.0
+                                INV         4           12.5
+                            L6MUX21         1           33.3
+                               LUT4        24            3.8
+                              PFUMX         2           12.5
+                              TOTAL        90
+----------------------------------------------------------------------
+Report for cell uart_rx_U1.v1
+Instance Path : mcu2pc_uart_top1.mcu2pc_rx
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                              CCU2D        29           15.3
+                            FD1P3AX         4            3.0
+                            FD1P3IX        10           17.2
+                            FD1S3AX        18           17.0
+                            FD1S3IX        10            3.7
+                            FD1S3JX         3           50.0
+                                INV         3            9.4
+                               LUT4        56            9.0
+                              PFUMX         5           31.3
+                              TOTAL       138
+----------------------------------------------------------------------
+Report for cell fifo64x8_U2.v1
+Instance Path : mcu2pc_uart_top1.mcu2pc_fifo
+                                  Cell usage:
+                               cell     count   Res Usage(%)
+                            FIFO8KB         1           33.3
+                              TOTAL         1

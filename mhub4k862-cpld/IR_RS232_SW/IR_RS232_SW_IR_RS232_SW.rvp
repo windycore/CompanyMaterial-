@@ -1,0 +1,28 @@
+#-- Lattice Semiconductor Corporation Ltd.
+#-- Bali Reveal project file
+
+#device options
+[Device]
+part = LCMXO2-1200HC-4TG100C
+family = MachXO2
+device = LCMXO2-1200HC
+speed = 4
+package = TQFP100
+operation = Commercial
+
+#design options
+[Design]
+title = IR_RS232_SW
+path = E:/work/MHD44TP_IR_RS232_SW/IR_RS232_SW
+core_generate = E:/work/MHD44TP_IR_RS232_SW/IR_RS232_SW
+search_path = E:/work/MHD44TP_IR_RS232_SW
+top = 
+lpf = E:/work/MHD44TP_IR_RS232_SW/IR_RS232_SW.lpf
+synthesis = synplify
+
+#HDLs options
+[HDLs]
+E:/work/MHD44TP_IR_RS232_SW/IR_RS232_SW.v = Verilog
+E:/work/MHD44TP_IR_RS232_SW/HC74595.v = Verilog
+E:/work/MHD44TP_IR_RS232_SW/ir_rx.v = Verilog
+[HDL_Param]

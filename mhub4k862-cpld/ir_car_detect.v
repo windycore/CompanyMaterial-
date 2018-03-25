@@ -1,0 +1,91 @@
+module ir_car_detect
+(
+	clk,
+	rst_n,
+	ir_sd_i,
+	ir_car_care_i,
+	ir_car_en_o
+);
+	input	clk;
+	input	rst_n;
+	input	ir_sd_i;
+	input	ir_car_care_i;
+	output	ir_car_en_o;
+//-------------------------------------------------------------//
+//载波未滤除之前，检测红外的载波频率,最小3.5K/4,小于此表明无载波
+//-------------------------------------------------------------//
+reg 		ir_sd_reg0;
+reg 		ir_sd_reg1;
+always@(posedge clk)
+begin
+	ir_sd_reg0 <=ir_sd_i;
+	ir_sd_reg1 <=ir_sd_reg0;
+end
+wire	ir_edge_chg=ir_sd_reg0 ^ ir_sd_reg1;
+
+reg		[11:0]	ir_cnt;//
+always@(posedge clk or negedge rst_n)//cycle=40ns
+begin
+	if(!rst_n)
+		ir_cnt <=0;
+	else if(ir_edge_chg)//80us里面有跳变，表明有载波。
+		ir_cnt <=0;
+	else if(ir_cnt[11]==1'b0)
+		ir_cnt <=ir_cnt +1;
+	else
+		ir_cnt <=12'hfff;
+end
+`ifdef SIM
+	reg	ir_car_null;
+	reg	state;
+	always@(posedge clk or negedge rst_n)
+	begin
+		if(!rst_n)begin
+			state <=0;
+			ir_car_null <=0;
+		end
+		else begin
+			case (state)
+				0:begin
+					ir_car_null<=ir_car_null;
+					if(ir_edge_chg==1'b1)
+						if(ir_cnt[11]==1'b1)
+							state <=1;
+						else
+							state <=0;
+					else 
+						state<=state;
+				end
+				1:begin
+					if(ir_edge_chg==1'b1)
+						if(ir_cnt[11]==1'b1)begin
+							state <=1;
+							ir_car_null <=1;
+						end
+						else begin
+							state <=0;
+							ir_car_null <=0;
+						end
+					else begin
+						state <=1;
+						ir_car_null<=ir_car_null;
+					end
+				end
+			endcase
+		end
+	end
+`else
+	reg	ir_car_null;
+	always@(posedge clk)
+	begin
+		if(ir_edge_chg==1'b1)
+			if(ir_cnt[11]==1'b1)
+				ir_car_null <=1;
+			else
+				ir_car_null <=0;
+		else 
+			ir_car_null<=ir_car_null;
+	end
+`endif
+assign ir_car_en_o=ir_car_null && ir_car_care_i;
+endmodule

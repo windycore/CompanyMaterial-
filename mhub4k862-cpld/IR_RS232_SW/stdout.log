@@ -1,0 +1,63 @@
+Running in Lattice mode
+
+
+Starting:    D:\YangProgram\lscc\diamond\2.0\synpbase\bin\mbin\synbatch.exe
+Install:     D:\YangProgram\lscc\diamond\2.0\synpbase
+Date:        Tue Aug 23 14:38:51 2016
+Version:     F-2012.03L 
+
+Arguments:   -product synplify_pro  -batch IR_RS232_SW_IR_RS232_SW_synplify.tcl
+ProductType: synplify_pro
+
+
+
+
+
+
+log file: "E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW\IR_RS232_SW_IR_RS232_SW.srf"
+
+
+Running proj_1|IR_RS232_SW
+
+Running Compile on proj_1|IR_RS232_SW
+
+Running Compile Process on proj_1|IR_RS232_SW
+
+Running Compile Input on proj_1|IR_RS232_SW
+
+Copied E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW\synwork\IR_RS232_SW_IR_RS232_SW_compiler.srs to E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW\IR_RS232_SW_IR_RS232_SW.srs
+
+compiler Completed with warnings
+Return Code: 1
+Run Time:0h:00m:02s
+
+
+Job Compile Process completed on proj_1|IR_RS232_SW
+
+Running Premap on proj_1|IR_RS232_SW
+
+premap Completed with warnings
+Return Code: 1
+Run Time:0h:00m:01s
+
+
+Job Compile completed on proj_1|IR_RS232_SW
+
+Running Map on proj_1|IR_RS232_SW
+
+Running Map & Optimize on proj_1|IR_RS232_SW
+
+fpga_mapper Completed with warnings
+Return Code: 1
+Run Time:0h:00m:05s
+
+
+Job Map completed on proj_1|IR_RS232_SW
+
+Job Logic Synthesis completed on proj_1|IR_RS232_SW
+
+TCL script complete: "IR_RS232_SW_IR_RS232_SW_synplify.tcl"
+
+exit status=0
+
+

@@ -1,0 +1,6 @@
+---- db9_402_en Matches (5 in 1 files) ----
+IR_RS232_SW.v (e:\cpld\muh4k862\muh88e(4k862)):reg db9_402_en;//区分是DB9还是402发送的数据
+IR_RS232_SW.v (e:\cpld\muh4k862\muh88e(4k862)):	db9_402_en=1'd0;
+IR_RS232_SW.v (e:\cpld\muh4k862\muh88e(4k862)):		db9_402_en<=1'd0;//表面此时是MCU发
+IR_RS232_SW.v (e:\cpld\muh4k862\muh88e(4k862)):		db9_402_en<=1'd1;
+IR_RS232_SW.v (e:\cpld\muh4k862\muh88e(4k862)):wire rs232_to_mcu=(wd_disable_402_to_mcu[10]&&f_to_mcu_en&&db9_402_en)?rs232_send_to_db9_changebaud:1'd1;//是402发的 绕一圈后再给MCU ，MCU发的不需要再给mcu

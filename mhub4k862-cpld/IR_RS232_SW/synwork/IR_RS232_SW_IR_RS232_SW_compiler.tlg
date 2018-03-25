@@ -1,0 +1,97 @@
+Selecting top level module IR_RS232_SW
+@N: CG364 :"E:\CPLD\MUH4K862\MUH88E(4K862)\HC74595.v":1:7:1:13|Synthesizing module hc74595
+
+@N: CG364 :"D:\YangProgram\lscc\diamond\2.0\cae_library\synthesis\verilog\machxo2.v":1120:7:1120:9|Synthesizing module VHI
+
+@N: CG364 :"D:\YangProgram\lscc\diamond\2.0\cae_library\synthesis\verilog\machxo2.v":1124:7:1124:9|Synthesizing module VLO
+
+@N: CG364 :"D:\YangProgram\lscc\diamond\2.0\cae_library\synthesis\verilog\machxo2.v":1482:7:1482:13|Synthesizing module FIFO8KB
+
+@N: CG364 :"E:\CPLD\MUH4K862\MUH88E(4K862)\fifo64x8.v":8:7:8:14|Synthesizing module fifo64x8
+
+@N: CG364 :"E:\CPLD\MUH4K862\MUH88E(4K862)\speed_select.v":21:7:21:18|Synthesizing module speed_select
+
+@N: CG364 :"E:\CPLD\MUH4K862\MUH88E(4K862)\my_uart_tx.v":21:7:21:16|Synthesizing module my_uart_tx
+
+@N: CG364 :"E:\CPLD\MUH4K862\MUH88E(4K862)\my_uart_top.v":21:7:21:17|Synthesizing module my_uart_top
+
+@N: CG364 :"E:\CPLD\MUH4K862\MUH88E(4K862)\check_IR_defv.v":21:7:21:19|Synthesizing module check_IR_defv
+
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\check_IR_defv.v":43:39:43:42|Removing redundant assignment
+@A: CL282 :"E:\CPLD\MUH4K862\MUH88E(4K862)\check_IR_defv.v":31:0:31:5|Feedback mux created for signal defv -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@N: CG364 :"E:\CPLD\MUH4K862\MUH88E(4K862)\ir_car_detect.v":1:7:1:19|Synthesizing module ir_car_detect
+
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\ir_car_detect.v":87:16:87:26|Removing redundant assignment
+@N: CG364 :"E:\CPLD\MUH4K862\MUH88E(4K862)\ir_rx.v":1:7:1:11|Synthesizing module ir_rx
+
+@N: CG364 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\uart_rx.v":1:7:1:13|Synthesizing module uart_rx
+
+@W: CG532 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\uart_rx.v":159:0:159:6|Initial statement will only initialize memories through the usage of $readmemh and $readmemb. Everything else is ignored
+@W: CG133 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\uart_rx.v":108:4:108:8|No assignment to rx_en
+@N: CG364 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\mcu2pc_uart_top.v":1:7:1:21|Synthesizing module mcu2pc_uart_top
+
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\mcu2pc_uart_top.v":68:10:68:13|Removing redundant assignment
+@W: CG360 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\mcu2pc_uart_top.v":28:11:28:17|No assignment to wire rs232tx
+
+@N: CG364 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\pc2mcu_uart_top.v":1:7:1:21|Synthesizing module pc2mcu_uart_top
+
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\pc2mcu_uart_top.v":69:10:69:13|Removing redundant assignment
+@W: CG360 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\pc2mcu_uart_top.v":29:11:29:17|No assignment to wire rs232tx
+
+@N: CG364 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":6:7:6:17|Synthesizing module IR_RS232_SW
+
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":92:13:92:19|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":101:17:101:23|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":108:13:108:15|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":157:11:157:14|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":301:17:301:20|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":302:17:302:22|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":303:17:303:21|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":304:17:304:23|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":409:13:409:19|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":410:13:410:19|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":411:13:411:19|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":412:13:412:19|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":413:13:413:19|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":414:13:414:19|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":415:13:415:19|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":416:13:416:19|Removing redundant assignment
+@W: CG532 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":464:0:464:6|Initial statement will only initialize memories through the usage of $readmemh and $readmemb. Everything else is ignored
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":485:16:485:25|Removing redundant assignment
+@N: CG179 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":486:17:486:27|Removing redundant assignment
+@W: CG133 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":58:4:58:12|No assignment to debugreg1
+@W: CL169 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Pruning register debugreg0 
+
+@W: CL169 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Pruning register irn_rs 
+
+@W: CL169 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Pruning register pcto402_ack 
+
+@W: CL169 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":99:0:99:5|Pruning register con_reg[7:0] 
+
+@W: CL271 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Pruning bits 7 to 4 of ir_402_com_i[7:0] -- not in use ...
+
+@W: CL271 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Pruning bits 7 to 4 of ir_com_o[7:0] -- not in use ...
+
+@A: CL282 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Feedback mux created for signal ir_com_o[3:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Feedback mux created for signal ir_402_com_i[3:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Feedback mux created for signal wren -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Feedback mux created for signal sp_com_data[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Feedback mux created for signal getting_com -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Feedback mux created for signal chnum[3:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Feedback mux created for signal bps_sel[2:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@N: CL201 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":200:0:200:5|Trying to extract state machine for register step
+Extracted state machine for register step
+State machine has 10 reachable states with original encodings of:
+   0000
+   0001
+   0101
+   0110
+   1000
+   1001
+   1010
+   1011
+   1101
+   1111
+@W: CL159 :"E:\CPLD\MUH4K862\MUH88E(4K862)\IR_RS232_SW.v":20:14:20:22|Input ir_all_in is unused
+@W: CL159 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\pc2mcu_uart_top.v":9:14:9:20|Input tx_baud is unused
+@W: CL159 :"E:\CPLD\MUH4K862\MUH88E(4K862)\new_uart\mcu2pc_uart_top.v":7:14:7:20|Input rx_baud is unused

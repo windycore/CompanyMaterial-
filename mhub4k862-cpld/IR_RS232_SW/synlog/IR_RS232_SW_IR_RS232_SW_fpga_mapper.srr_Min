@@ -1,0 +1,149 @@
+
+
+##### START OF TIMING REPORT #####[
+# Timing Report written on Tue Aug 23 14:38:58 2016
+#
+
+
+Top view:               IR_RS232_SW
+Requested Frequency:    1.0 MHz
+Wire load mode:         top
+Paths requested:        3
+Constraint File(s):    
+@N: MT320 |Timing report estimates place and route data. Please look at the place and route timing report for final timing.
+
+
+Performance Summary 
+*******************
+
+
+Worst slack in design: -0.074
+
+                                              Requested     Estimated     Requested     Estimated                 Clock                              Clock              
+Starting Clock                                Frequency     Frequency     Period        Period        Slack       Type                               Group              
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+IR_RS232_SW|clk                               1.0 MHz       86.1 MHz      1000.000      11.613        988.387     inferred                           Inferred_clkgroup_0
+IR_RS232_SW|clock_count_derived_clock[15]     1.0 MHz       149.1 MHz     1000.000      6.707         993.293     derived (from IR_RS232_SW|clk)     Inferred_clkgroup_0
+IR_RS232_SW|rclk                              1.0 MHz       1.0 MHz       1000.000      999.225       0.775       inferred                           Inferred_clkgroup_1
+IR_RS232_SW|srclk                             1.0 MHz       870.0 MHz     1000.000      1.149         998.851     inferred                           Inferred_clkgroup_2
+System                                        1.0 MHz       328.1 MHz     1000.000      3.048         988.563     system                             system_clkgroup    
+========================================================================================================================================================================
+
+
+
+Clock Relationships
+*******************
+
+Clocks                                                                                |    rise  to  rise    |    fall  to  fall   |    rise  to  fall   |    fall  to  rise 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Starting                                   Ending                                     |  constraint  slack   |  constraint  slack  |  constraint  slack  |  constraint  slack
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+System                                     System                                     |  0.000       0.000   |  No paths    -      |  No paths    -      |  No paths    -    
+System                                     IR_RS232_SW|clk                            |  0.000       -0.074  |  No paths    -      |  No paths    -      |  No paths    -    
+System                                     IR_RS232_SW|srclk                          |  0.000       1.312   |  No paths    -      |  No paths    -      |  No paths    -    
+System                                     IR_RS232_SW|clock_count_derived_clock[15]  |  0.000       1.254   |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|clk                            System                                     |  0.000       0.680   |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|clk                            IR_RS232_SW|clk                            |  0.000       0.169   |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|rclk                           System                                     |  0.000       0.776   |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|rclk                           IR_RS232_SW|clk                            |  Diff grp    -       |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|srclk                          IR_RS232_SW|rclk                           |  Diff grp    -       |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|srclk                          IR_RS232_SW|srclk                          |  0.000       0.657   |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|clock_count_derived_clock[15]  System                                     |  0.000       5.768   |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|clock_count_derived_clock[15]  IR_RS232_SW|clk                            |  0.000       1.373   |  No paths    -      |  No paths    -      |  No paths    -    
+IR_RS232_SW|clock_count_derived_clock[15]  IR_RS232_SW|clock_count_derived_clock[15]  |  0.000       1.269   |  No paths    -      |  No paths    -      |  No paths    -    
+=============================================================================================================================================================================
+ Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
+       'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
+
+
+
+Interface Information 
+*********************
+
+
+
+Input Ports: 
+
+Port                 Starting            User           Arrival     Required          
+Name                 Reference           Constraint     Time        Time         Slack
+                     Clock                                                            
+--------------------------------------------------------------------------------------
+clk                  NA                  NA             NA          NA           NA   
+ir_402x_i[0]         System (rising)     NA             0.000       -2.081       2.081
+ir_402x_i[1]         System (rising)     NA             0.000       -2.902       2.902
+ir_402x_i[2]         System (rising)     NA             0.000       -2.902       2.902
+ir_402x_i[3]         System (rising)     NA             0.000       -2.902       2.902
+ir_402x_i[4]         System (rising)     NA             0.000       -2.902       2.902
+ir_402x_i[5]         System (rising)     NA             0.000       -2.902       2.902
+ir_402x_i[6]         System (rising)     NA             0.000       -2.902       2.902
+ir_402x_i[7]         System (rising)     NA             0.000       -2.902       2.902
+ir_all_in            NA                  NA             NA          NA           NA   
+ir_eye               System (rising)     NA             0.000       -2.070       2.070
+ir_front             System (rising)     NA             0.000       -2.070       2.070
+irx_i[0]             System (rising)     NA             0.000       -3.259       3.259
+irx_i[1]             System (rising)     NA             0.000       -3.259       3.259
+irx_i[2]             System (rising)     NA             0.000       -3.259       3.259
+irx_i[3]             System (rising)     NA             0.000       -3.259       3.259
+irx_i[4]             System (rising)     NA             0.000       -3.259       3.259
+irx_i[5]             System (rising)     NA             0.000       -3.259       3.259
+irx_i[6]             System (rising)     NA             0.000       -3.259       3.259
+irx_i[7]             System (rising)     NA             0.000       -3.259       3.259
+rclk                 System (rising)     NA             0.000       -1.491       1.491
+rs232_402x_tx[0]     System (rising)     NA             0.000       -2.642       2.642
+rs232_402x_tx[1]     System (rising)     NA             0.000       -2.642       2.642
+rs232_402x_tx[2]     System (rising)     NA             0.000       -2.642       2.642
+rs232_402x_tx[3]     System (rising)     NA             0.000       -2.642       2.642
+rs232_402x_tx[4]     System (rising)     NA             0.000       -2.642       2.642
+rs232_402x_tx[5]     System (rising)     NA             0.000       -2.642       2.642
+rs232_402x_tx[6]     System (rising)     NA             0.000       -2.642       2.642
+rs232_402x_tx[7]     System (rising)     NA             0.000       -2.642       2.642
+rs232_db9_tx         System (rising)     NA             0.000       -1.487       1.487
+rs232_mcu_tx         System (rising)     NA             0.000       -1.511       1.511
+rs232_tcp_tx         System (rising)     NA             0.000       -3.971       3.971
+rstn                 System (rising)     NA             0.000       -1.254       1.254
+ser                  System (rising)     NA             0.000       -1.312       1.312
+srclk                NA                  NA             NA          NA           NA   
+======================================================================================
+
+
+Output Ports: 
+
+Port                 Starting                     User           Arrival     Required          
+Name                 Reference                    Constraint     Time        Time         Slack
+                     Clock                                                                     
+-----------------------------------------------------------------------------------------------
+ack2mcu              IR_RS232_SW|clk (rising)     NA             2.604       0.000        2.604
+ir2mcu               IR_RS232_SW|clk (rising)     NA             4.936       0.000        4.936
+ir_402x_o[0]         System (rising)              NA             3.259       0.000        3.259
+ir_402x_o[1]         System (rising)              NA             3.259       0.000        3.259
+ir_402x_o[2]         System (rising)              NA             3.259       0.000        3.259
+ir_402x_o[3]         System (rising)              NA             3.259       0.000        3.259
+ir_402x_o[4]         System (rising)              NA             3.259       0.000        3.259
+ir_402x_o[5]         System (rising)              NA             3.259       0.000        3.259
+ir_402x_o[6]         System (rising)              NA             3.259       0.000        3.259
+ir_402x_o[7]         System (rising)              NA             3.259       0.000        3.259
+ir_all_out           IR_RS232_SW|clk (rising)     NA             4.028       0.000        4.028
+irx_o[0]             IR_RS232_SW|clk (rising)     NA             3.316       0.000        3.316
+irx_o[1]             IR_RS232_SW|clk (rising)     NA             3.316       0.000        3.316
+irx_o[2]             IR_RS232_SW|clk (rising)     NA             3.316       0.000        3.316
+irx_o[3]             IR_RS232_SW|clk (rising)     NA             3.316       0.000        3.316
+irx_o[4]             IR_RS232_SW|clk (rising)     NA             3.316       0.000        3.316
+irx_o[5]             IR_RS232_SW|clk (rising)     NA             3.316       0.000        3.316
+irx_o[6]             IR_RS232_SW|clk (rising)     NA             3.316       0.000        3.316
+irx_o[7]             IR_RS232_SW|clk (rising)     NA             3.316       0.000        3.316
+rs232_402x_rx[0]     IR_RS232_SW|clk (rising)     NA             2.554       0.000        2.554
+rs232_402x_rx[1]     IR_RS232_SW|clk (rising)     NA             2.554       0.000        2.554
+rs232_402x_rx[2]     IR_RS232_SW|clk (rising)     NA             2.554       0.000        2.554
+rs232_402x_rx[3]     IR_RS232_SW|clk (rising)     NA             2.554       0.000        2.554
+rs232_402x_rx[4]     IR_RS232_SW|clk (rising)     NA             2.554       0.000        2.554
+rs232_402x_rx[5]     IR_RS232_SW|clk (rising)     NA             2.554       0.000        2.554
+rs232_402x_rx[6]     IR_RS232_SW|clk (rising)     NA             2.554       0.000        2.554
+rs232_402x_rx[7]     IR_RS232_SW|clk (rising)     NA             2.554       0.000        2.554
+rs232_db9_rx         IR_RS232_SW|clk (rising)     NA             3.316       0.000        3.316
+rs232_mcu_rx         IR_RS232_SW|clk (rising)     NA             3.316       0.000        3.316
+rs232_tcp_rx         IR_RS232_SW|clk (rising)     NA             3.361       0.000        3.361
+===============================================================================================
+
+
+##### END OF TIMING REPORT #####]
+

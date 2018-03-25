@@ -1,0 +1,1123 @@
+
+synthesis -f "IR_RS232_SW_IR_RS232_SW_lattice.synproj"
+synthesis:  version Diamond Version 2.0.0.154 
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved. Copyright (c) 1995 AT&T Corp.   All rights reserved. Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved. Copyright (c) 2001 Agere Systems   All rights reserved. Copyright (c) 2002-2012 Lattice Semiconductor Corporation,  All rights reserved.
+Thu Mar 09 19:53:01 2017 
+
+Command Line:  synthesis -f IR_RS232_SW_IR_RS232_SW_lattice.synproj 
+
+-- all messages logged in file synthesis.log
+INFO: Synthesis Options: (LSE-1022)
+INFO: -a option is = MachXO2
+INFO: -s option is = 4
+INFO: -t option is = TQFP144
+INFO: -d option is = LCMXO2-1200HC
+INFO: Using package TQFP144
+INFO: Using performance grade 4
+INFO:                                                           
+INFO: ##########################################################
+INFO: ### Lattice Family : MachXO2A
+INFO: ### Device  : LCMXO2-1200HC
+INFO: ### Package : TQFP144
+INFO: ### Speed   : 4
+INFO: ##########################################################
+INFO:                                                           
+INFO: Optimization Goal = Balanced
+INFO: Top level module name = IR_RS232_SW
+INFO: Target Frequency = 200.000000 MHz
+INFO: Max Fanout = 1000
+INFO: Timing Path count = 3
+INFO: bram Utilization = 100.000000 %
+INFO: dsp usage = TRUE (default)
+INFO: dsp utilization = 100 (default)
+INFO: fsm_encoding_style = auto
+INFO: resolve_mixed_drivers = 0
+INFO: Mux style = Auto
+INFO: Use Carry Chain = TRUE
+INFO: carry_chain_length = 0
+INFO: Use IO Insertion = TRUE
+INFO: Use IO Reg = TRUE
+INFO: Resource Sharing = TRUE
+INFO: Propagate Constants = TRUE
+INFO: Remove Duplicate Registers = TRUE
+INFO: force_gsr = auto
+INFO: ROM style = auto
+INFO: RAM style = auto
+INFO: -comp option is FALSE
+INFO: -syn option is FALSE
+INFO: -p G:/zjf/mhub4k862-cpld (searchpath added)
+INFO: -p D:/lscc/diamond/2.0/ispfpga/xo2c00/data (searchpath added)
+INFO: -p G:/zjf/mhub4k862-cpld/IR_RS232_SW (searchpath added)
+INFO: -p G:/zjf/mhub4k862-cpld (searchpath added)
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/ir_rx.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/my_uart_top.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/my_uart_tx.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/speed_select.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/HC74595.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/IR_RS232_SW.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/ir_car_detect.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/check_IR_defv.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/fifo64x8.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/new_uart/uart_rx.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/new_uart/uart_tx.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/new_uart/pc2mcu_uart_top.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/new_uart/mcu2pc_uart_top.v
+INFO: Verilog design file = G:/zjf/mhub4k862-cpld/ir_def_lv.v
+INFO: Ngd file = IR_RS232_SW_IR_RS232_SW.ngd
+INFO: -sdc option: sdc file input not used
+INFO: -lpf option: output file option is OFF
+INFO: hardtimer checking is enabled (default); -dt option not used
+INFO: -r option is OFF [ Remove LOC Properties is OFF ]
+-- Technology check ok...MachXO, MachXO2...
+INFO: * compile design *
+INFO: Compile Design Begin
+g:/zjf/mhub4k862-cpld/ir_rs232_sw.v(6): INFO: compiling module IR_RS232_SW (VERI-1018)
+g:/zjf/mhub4k862-cpld/hc74595.v(1): INFO: compiling module hc74595 (VERI-1018)
+g:/zjf/mhub4k862-cpld/fifo64x8.v(8): INFO: compiling module fifo64x8 (VERI-1018)
+D:/lscc/diamond/2.0/ispfpga/userware/NT/SYNTHESIS_HEADERS/machxo2.v(1120): INFO: compiling module VHI (VERI-1018)
+D:/lscc/diamond/2.0/ispfpga/userware/NT/SYNTHESIS_HEADERS/machxo2.v(1124): INFO: compiling module VLO (VERI-1018)
+D:/lscc/diamond/2.0/ispfpga/userware/NT/SYNTHESIS_HEADERS/machxo2.v(1482): INFO: compiling module FIFO8KB_renamed_due_excessive_length_1 (VERI-1018)
+g:/zjf/mhub4k862-cpld/my_uart_top.v(21): INFO: compiling module my_uart_top (VERI-1018)
+g:/zjf/mhub4k862-cpld/speed_select.v(21): INFO: compiling module speed_select (VERI-1018)
+g:/zjf/mhub4k862-cpld/my_uart_tx.v(21): INFO: compiling module my_uart_tx (VERI-1018)
+g:/zjf/mhub4k862-cpld/check_ir_defv.v(21): INFO: compiling module check_IR_defv (VERI-1018)
+g:/zjf/mhub4k862-cpld/ir_car_detect.v(1): INFO: compiling module ir_car_detect (VERI-1018)
+g:/zjf/mhub4k862-cpld/ir_def_lv.v(11): INFO: compiling module ir_def_lv(BIT_NUM=3'b01,IO_NUM=7'b01) (VERI-1018)
+g:/zjf/mhub4k862-cpld/ir_rx.v(1): INFO: compiling module ir_rx (VERI-1018)
+g:/zjf/mhub4k862-cpld/new_uart/mcu2pc_uart_top.v(1): INFO: compiling module mcu2pc_uart_top (VERI-1018)
+g:/zjf/mhub4k862-cpld/new_uart/uart_rx.v(1): INFO: compiling module uart_rx (VERI-1018)
+g:/zjf/mhub4k862-cpld/new_uart/uart_tx.v(118): INFO: compiling module uart_tx (VERI-1018)
+g:/zjf/mhub4k862-cpld/new_uart/pc2mcu_uart_top.v(1): INFO: compiling module pc2mcu_uart_top (VERI-1018)
+Last elaborated design is IR_RS232_SW()
+Loading NGL library 'D:/lscc/diamond/2.0/ispfpga/xo2c00a/data/xo2alib.ngl'...
+Loading NGL library 'D:/lscc/diamond/2.0/ispfpga/xo2c00/data/xo2clib.ngl'...
+Loading NGL library 'D:/lscc/diamond/2.0/ispfpga/mg5g00/data/mg5glib.ngl'...
+Loading NGL library 'D:/lscc/diamond/2.0/ispfpga/or5g00/data/orc5glib.ngl'...
+Loading device for application map from file 'xo2c1200.nph' in environment: D:/lscc/diamond/2.0/ispfpga.
+Package Status:                     Final          Version 1.33
+INFO: Top level module name = IR_RS232_SW
+
+Extracted state machine for register: step
+State machine has 8 states with original encoding
+original encoding -> new encoding (OneHot Encoding)
+ 0000 -> 00000001
+ 0001 -> 00000010
+ 0101 -> 00000100
+ 0110 -> 00001000
+ 1001 -> 00010000
+ 1010 -> 00100000
+ 1011 -> 01000000
+ 1111 -> 10000000
+Number of Reachable States for this State Machine are 8 
+
+
+
+g:/zjf/mhub4k862-cpld/new_uart/uart_tx.v(142): WARNING: Bit 0 of Register \pc2mcu_uart_top1/pc2mcu_tx/rx_baud_count is stuck at Zero (VDB-5010)
+WARNING - synthesis: g:/zjf/mhub4k862-cpld/new_uart/uart_tx.v(142): WARNING: Bit 0 of Register \pc2mcu_uart_top1/pc2mcu_tx/rx_baud_count is stuck at Zero 
+g:/zjf/mhub4k862-cpld/new_uart/uart_tx.v(142): WARNING: Bit 2 of Register \pc2mcu_uart_top1/pc2mcu_tx/rx_baud_count is stuck at One (VDB-5011)
+WARNING - synthesis: g:/zjf/mhub4k862-cpld/new_uart/uart_tx.v(142): WARNING: Bit 2 of Register \pc2mcu_uart_top1/pc2mcu_tx/rx_baud_count is stuck at One 
+WARNING: Register i1597 is stuck at Zero (VDB-5013)
+WARNING - synthesis: WARNING: Register i1597 is stuck at Zero 
+INFO: GSR Instance connected to net: rstn_c (LSE-1149)
+WARNING: No lpf file will be written because -lpf option is not used or set to 0
+WARNING - synthesis: WARNING: No lpf file will be written because -lpf option is not used or set to 0 
+INFO: Applying 200.000000 MHz constraint to all clocks (LSE-5000)
+INFO: Results of ngd drc checks are available in IR_RS232_SW_drc.log
+Loading NGL library 'D:/lscc/diamond/2.0/ispfpga/xo2c00a/data/xo2alib.ngl'...
+Loading NGL library 'D:/lscc/diamond/2.0/ispfpga/xo2c00/data/xo2clib.ngl'...
+Loading NGL library 'D:/lscc/diamond/2.0/ispfpga/mg5g00/data/mg5glib.ngl'...
+Loading NGL library 'D:/lscc/diamond/2.0/ispfpga/or5g00/data/orc5glib.ngl'...
+ 
+Running DRC... 
+WARNING - synthesis: logical net 'ir_all_in_c' has no load
+WARNING - synthesis: logical net 'rs232_402x_tx_c_7' has no load
+WARNING - synthesis: logical net 'rs232_402x_tx_c_6' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/cnt_1508_add_4_15/CO' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/cnt_1508_add_4_15/S1' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/cnt_1508_add_4_1/S0' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_15/CO' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_15/S0' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_13/S0' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_13/S1' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_11/S0' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_11/S1' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_9/S0' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_9/S1' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_7/S0' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_7/S1' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_5/S0' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_5/S1' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_3/S0' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_3/S1' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_1/S0' has no load
+WARNING - synthesis: logical net 'uart_u2/speed_tx/sub_1294_add_2_1/S1' has no load
+WARNING - synthesis: logical net 'wd_disable_402_to_mcu_1472_add_4_11/CO' has no load
+WARNING - synthesis: logical net 'wd_disable_402_to_mcu_1472_add_4_1/S0' has no load
+WARNING - synthesis: logical net 'clock_count_1473_add_4_17/CO' has no load
+WARNING - synthesis: logical net 'clock_count_1473_add_4_17/S1' has no load
+WARNING - synthesis: logical net 'clock_count_1473_add_4_1/S0' has no load
+WARNING - synthesis: logical net 'car_cnt_1475_add_4_11/CO' has no load
+WARNING - synthesis: logical net 'car_cnt_1475_add_4_11/S1' has no load
+WARNING - synthesis: logical net 'car_cnt_1475_add_4_1/S0' has no load
+WARNING - synthesis: logical net 'ir_car_detect1/add_9_13/CO' has no load
+WARNING - synthesis: logical net 'ir_car_detect1/add_9_13/S1' has no load
+WARNING - synthesis: logical net 'ir_car_detect1/add_9_1/S0' has no load
+WARNING - synthesis: logical net 'ir_car_detect2/add_9_13/CO' has no load
+WARNING - synthesis: logical net 'ir_car_detect2/add_9_13/S1' has no load
+WARNING - synthesis: logical net 'ir_car_detect2/add_9_1/S0' has no load
+WARNING - synthesis: logical net 'ir_car_detect0/add_9_1/S0' has no load
+WARNING - synthesis: logical net 'ir_car_detect0/add_9_13/CO' has no load
+WARNING - synthesis: logical net 'ir_car_detect0/add_9_13/S1' has no load
+WARNING - synthesis: logical net 'ir_car_detect4/add_9_1/S0' has no load
+WARNING - synthesis: logical net 'ir_car_detect4/add_9_13/CO' has no load
+WARNING - synthesis: logical net 'ir_car_detect4/add_9_13/S1' has no load
+WARNING - synthesis: logical net 'ir_car_detect7/add_9_13/CO' has no load
+WARNING - synthesis: logical net 'ir_car_detect7/add_9_13/S1' has no load
+WARNING - synthesis: logical net 'ir_car_detect7/add_9_1/S0' has no load
+WARNING - synthesis: logical net 'ir_car_detect5/add_9_13/CO' has no load
+WARNING - synthesis: logical net 'ir_car_detect5/add_9_13/S1' has no load
+WARNING - synthesis: logical net 'ir_car_detect5/add_9_1/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_14/CO' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_14/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_12/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_12/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_10/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_10/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_8/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_8/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_6/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_6/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_4/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_4/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_2/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/add_26288_2/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506_add_4_15/CO' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506_add_4_15/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_tx/rx_clk_count_1506_add_4_1/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/equal_9_10/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/equal_9_10/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/equal_9_0/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/equal_9_0/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_8_add_2_15/CO' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_8_add_2_15/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_8_add_2_1/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_15/CO' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_15/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_13/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_13/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_11/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_11/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_9/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_9/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_7/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_7/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_5/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_5/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_3/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_3/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_1/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/sub_1291_add_2_1/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/equal_9_14/CO' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/equal_9_14/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/add_6_15/CO' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/add_6_15/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/add_6_1/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/equal_9_14_26288/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/equal_9_14_26288/S1' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/equal_9_12/S0' has no load
+WARNING - synthesis: logical net 'pc2mcu_uart_top1/pc2mcu_rx/equal_9_12/S1' has no load
+WARNING - synthesis: logical net 'ir_car_detect3/add_9_13/CO' has no load
+WARNING - synthesis: logical net 'ir_car_detect3/add_9_13/S1' has no load
+WARNING - synthesis: logical net 'ir_car_detect3/add_9_1/S0' has no load
+WARNING - synthesis: logical net 'ir_car_detect6/add_9_13/CO' has no load
+WARNING - synthesis: logical net 'ir_car_detect6/add_9_13/S1' has no load
+WARNING - synthesis: logical net 'ir_car_detect6/add_9_1/S0' has no load
+WARNING - synthesis: logical net 'ir_rx_isntx/add_7_13/CO' has no load
+WARNING - synthesis: logical net 'ir_rx_isntx/add_7_13/S1' has no load
+WARNING - synthesis: logical net 'ir_rx_isntx/add_7_1/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_15/CO' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_15/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_13/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_13/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_11/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_11/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_9/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_9/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_7/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_7/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_5/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_5/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_3/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_3/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_1/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/sub_1290_add_2_1/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504_add_4_15/CO' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504_add_4_15/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_tx/rx_clk_count_1504_add_4_1/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/equal_9_14/CO' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/equal_9_14/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/equal_9_14_26287/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/equal_9_14_26287/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/equal_9_12/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/equal_9_12/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_8_add_2_1/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/equal_9_10/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/equal_9_10/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_15/CO' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_15/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_13/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_13/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_11/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_11/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_9/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_9/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_7/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_7/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_5/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_5/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_3/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_3/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_1/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_1288_add_2_1/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/equal_9_0/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/equal_9_0/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/add_6_15/CO' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/add_6_15/S1' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/add_6_1/S0' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_8_add_2_15/CO' has no load
+WARNING - synthesis: logical net 'mcu2pc_uart_top1/mcu2pc_rx/sub_8_add_2_15/S1' has no load
+WARNING - synthesis: DRC complete with 157 warnings
+
+Design Results:
+   1536 blocks expanded
+completed the first expansion
+INFO: All blocks are expanded and NGD expansion is successful
+INFO: Writing ngd file IR_RS232_SW_IR_RS232_SW.ngd
+
+################### Begin Area Report (IR_RS232_SW)######################
+Number of register bits => 600 of 1280 (46 % )
+CCU2D => 189
+FD1P3AX => 134
+FD1P3AY => 2
+FD1P3IX => 58
+FD1P3JX => 3
+FD1S3AX => 106
+FD1S3AY => 11
+FD1S3IX => 271
+FD1S3JX => 6
+FIFO8KB => 3
+GSR => 1
+IB => 35
+IFS1P3DX => 1
+INV => 32
+L6MUX21 => 3
+LUT4 => 624
+OB => 30
+OFS1P3DX => 8
+PFUMX => 16
+################### End Area Report ##################
+
+################### Begin Clock Report ######################
+Clock Nets
+Number of Clocks: 4
+  Net : clk_c, loads : 498
+  Net : clock_count_15, loads : 88
+  Net : rclk_c, loads : 9
+  Net : srclk_c, loads : 8
+Clock Enable Nets
+Number of Clock Enables: 78
+Highest fanout non-clock nets
+Top 10 highest fanout non-clock nets:
+  Net : rx_step_1, loads : 25
+  Net : rx_step_1, loads : 23
+  Net : rx_step_2, loads : 21
+  Net : rx_step_2, loads : 19
+  Net : rx_step_3, loads : 19
+  Net : rx_step_0, loads : 19
+  Net : rx_step_0, loads : 18
+  Net : rstn_c, loads : 17
+  Net : n5, loads : 17
+  Net : n5, loads : 17
+################### End Clock Report ##################
+
+Timing Report Summary
+--------------
+--------------------------------------------------------------------------------
+Constraint                              |   Constraint|       Actual|Levels
+--------------------------------------------------------------------------------
+                                        |             |             |
+create_clock -period 5.000000 -name     |             |             |
+clk3 [get_nets srclk_c]                 |  200.000 MHz|  519.481 MHz|     1  
+                                        |             |             |
+create_clock -period 5.000000 -name     |             |             |
+clk2 [get_nets clock_count[15]]         |  200.000 MHz|  137.287 MHz|     4 *
+                                        |             |             |
+create_clock -period 5.000000 -name     |             |             |
+clk1 [get_nets rclk_c]                  |            -|            -|     0  
+                                        |             |             |
+create_clock -period 5.000000 -name     |             |             |
+clk0 [get_nets clk_c]                   |  200.000 MHz|  101.523 MHz|     9 *
+                                        |             |             |
+--------------------------------------------------------------------------------
+
+
+2 constraints not met.
+
+
+Peak Memory Usage: 68.527  MB
+
+--------------------------------------------------------------
+Elapsed CPU time for LSE flow : 4.462  secs
+--------------------------------------------------------------
+
+map -a "MachXO2" -p LCMXO2-1200HC -t TQFP144 -s 4 -oc Industrial  "IR_RS232_SW_IR_RS232_SW.ngd" -o "IR_RS232_SW_IR_RS232_SW_map.ncd" -pr "IR_RS232_SW_IR_RS232_SW.prf" -mp "IR_RS232_SW_IR_RS232_SW.mrp" "G:/zjf/mhub4k862-cpld/IR_RS232_SW.lpf" -c 0            
+map:  version Diamond Version 2.0.0.154
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+     Copyright (c) 1995 AT&T Corp.   All rights reserved.
+     Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+     Copyright (c) 2001 Agere Systems   All rights reserved.
+     Copyright (c) 2002-2012 Lattice Semiconductor Corporation,  All rights reserved.
+   Process the file: IR_RS232_SW_IR_RS232_SW.ngd
+   Picdevice="LCMXO2-1200HC"
+   Pictype="TQFP144"
+   Picspeed=4
+   Remove unused logic
+   Do not produce over sized NCDs.
+Part used: LCMXO2-1200HCTQFP144, Performance used: 4.
+Loading device for application map from file 'xo2c1200.nph' in environment: D:/lscc/diamond/2.0/ispfpga.
+Package Status:                     Final          Version 1.33
+
+Running general design DRC...
+Removing unused logic...
+Optimizing...
+
+
+
+Design Summary:
+   Number of registers:    600
+      PFU registers:    591
+      PIO registers:    9
+   Number of SLICEs:           526 out of   640 (82%)
+      SLICEs(logic/ROM):       160 out of   160 (100%)
+      SLICEs(logic/ROM/RAM):   366 out of   480 (76%)
+          As RAM:            0 out of   480 (0%)
+          As Logic/ROM:    366 out of   480 (76%)
+   Number of logic LUT4s:     649
+   Number of distributed RAM:   0 (0 LUT4s)
+   Number of ripple logic:    189 (378 LUT4s)
+   Number of shift registers:   0
+   Total number of LUT4s:     1027
+   Number of PIO sites used: 62 out of 108 (57%)
+   Number of block RAMs:  3 out of 7 (43%)
+   Number of GSRs:  1 out of 1 (100%)
+   EFB used :       No
+   JTAG used :      No
+   Readback used :  No
+   Oscillator used :  No
+   Startup used :   No
+   POR :            On
+   Bandgap :        On
+   Number of Power Controller:  0 out of 1 (0%)
+   Number of Dynamic Bank Controller (BCINRD):  0 out of 4 (0%)
+   Number of Dynamic Bank Controller (BCLVDSO):  0 out of 1 (0%)
+   Number of DCCA:  0 out of 8 (0%)
+   Number of DCMA:  0 out of 2 (0%)
+   Number of PLLs:  0 out of 1 (0%)
+   Number of DQSDLLs:  0 out of 2 (0%)
+   Number of CLKDIVC:  0 out of 4 (0%)
+   Number of ECLKSYNCA:  0 out of 4 (0%)
+   Number of ECLKBRIDGECS:  0 out of 2 (0%)
+   Notes:-
+      1. Total number of LUT4s = (Number of logic LUT4s) + 2*(Number of distributed RAMs) + 2*(Number of ripple logic)
+      2. Number of logic LUT4s does not include count of distributed RAM and ripple logic.
+   Number of clocks:  4
+     Net clk_c: 309 loads, 309 rising, 0 falling (Driver: PIO clk )
+     Net clock_count_15: 56 loads, 56 rising, 0 falling (Driver: clock_count_1473__i15 )
+     Net rclk_c: 5 loads, 5 rising, 0 falling (Driver: PIO rclk )
+     Net srclk_c: 5 loads, 5 rising, 0 falling (Driver: PIO srclk )
+   Number of Clock Enables:  83
+     Net n2683: 4 loads, 4 LSLICEs
+     Net n2820: 2 loads, 2 LSLICEs
+     Net n2681: 4 loads, 4 LSLICEs
+     Net n2679: 4 loads, 4 LSLICEs
+     Net n4152: 2 loads, 2 LSLICEs
+     Net n4154: 5 loads, 5 LSLICEs
+     Net n4153: 2 loads, 2 LSLICEs
+     Net n30131: 1 loads, 1 LSLICEs
+     Net n30147: 4 loads, 4 LSLICEs
+     Net check_IR_defv7/n4222: 1 loads, 1 LSLICEs
+     Net n2677: 4 loads, 4 LSLICEs
+     Net n2675: 4 loads, 4 LSLICEs
+     Net n2673: 4 loads, 4 LSLICEs
+     Net n2671: 4 loads, 4 LSLICEs
+     Net n4150: 2 loads, 2 LSLICEs
+     Net n4151: 3 loads, 3 LSLICEs
+     Net n1829: 2 loads, 2 LSLICEs
+     Net n2685: 4 loads, 4 LSLICEs
+     Net rden: 2 loads, 0 LSLICEs
+     Net uart_u2/my_uart_tx/tx_int: 4 loads, 4 LSLICEs
+     Net uart_u2/my_uart_tx/n30138: 2 loads, 2 LSLICEs
+     Net uart_u2/my_uart_tx/n3510: 1 loads, 1 LSLICEs
+     Net n29471: 1 loads, 1 LSLICEs
+     Net n29472: 1 loads, 1 LSLICEs
+     Net n4210: 1 loads, 1 LSLICEs
+     Net n121: 1 loads, 1 LSLICEs
+     Net n30328: 1 loads, 1 LSLICEs
+     Net wren_w: 1 loads, 0 LSLICEs
+     Net ir_car_detect1/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net ir_car_detect2/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net check_IR_defv4/n4213: 1 loads, 1 LSLICEs
+     Net ir_def_lv_inst1/n2841: 1 loads, 1 LSLICEs
+     Net check_IR_defv3/n4207: 1 loads, 1 LSLICEs
+     Net ir_car_detect0/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net ir_car_detect4/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net ir_car_detect7/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net check_IR_defv5/n4216: 1 loads, 1 LSLICEs
+     Net ir_car_detect5/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/n31: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/rden: 2 loads, 0 LSLICEs
+     Net pc2mcu_uart_top1/tx_int: 4 loads, 4 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_tx/n7: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_tx/n30123: 2 loads, 2 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_tx/n3577: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/rx_ok: 1 loads, 0 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n16729: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n5: 2 loads, 2 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29541: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n28914: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29465: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n16395: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n75: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29053: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29480: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n17071: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29481: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29537: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n29466: 1 loads, 1 LSLICEs
+     Net check_IR_defv6/n4219: 1 loads, 1 LSLICEs
+     Net ir_car_detect3/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net check_IR_defv2/n4204: 1 loads, 1 LSLICEs
+     Net check_IR_defv0/n4198: 1 loads, 1 LSLICEs
+     Net check_IR_defv1/n4201: 1 loads, 1 LSLICEs
+     Net ir_car_detect6/ir_edge_chg: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/rden: 2 loads, 0 LSLICEs
+     Net mcu2pc_uart_top1/tx_int: 4 loads, 4 LSLICEs
+     Net mcu2pc_uart_top1/n31: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_tx/n30126: 2 loads, 2 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_tx/n3519: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_tx/n7: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n5: 2 loads, 2 LSLICEs
+     Net mcu2pc_uart_top1/rx_ok: 1 loads, 0 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n61: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29054: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29527: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29478: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29535: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29469: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n28916: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29468: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n29477: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n16765: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n16994: 1 loads, 1 LSLICEs
+   Number of LSRs:  55
+     Net rstn_c: 6 loads, 0 LSLICEs
+     Net rs232tx: 6 loads, 6 LSLICEs
+     Net check_IR_defv7/n1918: 3 loads, 3 LSLICEs
+     Net check_IR_defv7/n4413: 3 loads, 3 LSLICEs
+     Net rxbaud_fifo_tx_db9_0: 2 loads, 2 LSLICEs
+     Net to_db9_baud_0: 2 loads, 2 LSLICEs
+     Net rs232_tcp_rx_c_c: 2 loads, 2 LSLICEs
+     Net uart_u2/speed_tx/n23: 8 loads, 8 LSLICEs
+     Net rdy: 1 loads, 1 LSLICEs
+     Net uart_u2/my_uart_tx/n4418: 2 loads, 2 LSLICEs
+     Net to_db9_baud_2: 4 loads, 4 LSLICEs
+     Net to_db9_baud_1: 1 loads, 1 LSLICEs
+     Net rxbaud_fifo_tx_db9_2: 4 loads, 4 LSLICEs
+     Net rxbaud_fifo_tx_db9_1: 1 loads, 1 LSLICEs
+     Net n4438: 5 loads, 5 LSLICEs
+     Net n13: 1 loads, 1 LSLICEs
+     Net n30121: 1 loads, 1 LSLICEs
+     Net ir_car_detect1/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net ir_car_detect2/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net check_IR_defv4/n1891: 3 loads, 3 LSLICEs
+     Net check_IR_defv4/n4423: 3 loads, 3 LSLICEs
+     Net ir_def_lv_inst1/n1945: 4 loads, 4 LSLICEs
+     Net ir_def_lv_inst1/n4414: 6 loads, 6 LSLICEs
+     Net check_IR_defv3/n1882: 3 loads, 3 LSLICEs
+     Net check_IR_defv3/n4436: 3 loads, 3 LSLICEs
+     Net ir_car_detect0/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net ir_car_detect4/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net ir_car_detect7/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net check_IR_defv5/n4434: 3 loads, 3 LSLICEs
+     Net check_IR_defv5/n1900: 3 loads, 3 LSLICEs
+     Net ir_car_detect5/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net pc2mcu_uart_top1/rdy: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/tx_int: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_tx/n34: 8 loads, 8 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_tx/n4432: 2 loads, 2 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n5: 12 loads, 12 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n30124: 1 loads, 1 LSLICEs
+     Net pc2mcu_uart_top1/pc2mcu_rx/n3631: 1 loads, 1 LSLICEs
+     Net check_IR_defv6/n1909: 3 loads, 3 LSLICEs
+     Net check_IR_defv6/n4437: 3 loads, 3 LSLICEs
+     Net ir_car_detect3/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net check_IR_defv2/n4422: 3 loads, 3 LSLICEs
+     Net check_IR_defv2/n1873: 3 loads, 3 LSLICEs
+     Net check_IR_defv0/n4433: 3 loads, 3 LSLICEs
+     Net check_IR_defv0/n1855: 3 loads, 3 LSLICEs
+     Net check_IR_defv1/n4435: 3 loads, 3 LSLICEs
+     Net check_IR_defv1/n1864: 3 loads, 3 LSLICEs
+     Net ir_car_detect6/ir_edge_chg: 6 loads, 6 LSLICEs
+     Net ir_rx_isntx/n3587: 2 loads, 2 LSLICEs
+     Net mcu2pc_uart_top1/tx_int: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/rdy: 1 loads, 1 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_tx/n34: 8 loads, 8 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_tx/n4419: 2 loads, 2 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n5: 12 loads, 12 LSLICEs
+     Net mcu2pc_uart_top1/mcu2pc_rx/n3667: 1 loads, 1 LSLICEs
+   Number of nets driven by tri-state buffers:  0
+   Top 10 highest fanout non-clock nets:
+     Net pc2mcu_uart_top1/pc2mcu_rx/rx_step_1: 25 loads
+     Net mcu2pc_uart_top1/mcu2pc_rx/rx_step_1: 23 loads
+     Net rstn_c: 22 loads
+     Net mcu2pc_uart_top1/mcu2pc_rx/rx_step_2: 21 loads
+     Net mcu2pc_uart_top1/mcu2pc_rx/rx_step_0: 19 loads
+     Net pc2mcu_uart_top1/pc2mcu_rx/rx_step_2: 19 loads
+     Net pc2mcu_uart_top1/pc2mcu_rx/rx_step_3: 19 loads
+     Net pc2mcu_uart_top1/pc2mcu_rx/rx_step_0: 18 loads
+     Net bps_sel_2: 16 loads
+     Net mcu2pc_uart_top1/mcu2pc_rx/n5: 16 loads
+ 
+   Number of warnings:  0
+   Number of errors:    0
+
+
+Total CPU Time: 1 secs  
+Total REAL Time: 0 secs  
+Peak Memory Usage: 49 MB
+
+Dumping design to file IR_RS232_SW_IR_RS232_SW_map.ncd.
+
+trce -f "IR_RS232_SW_IR_RS232_SW.mt" -o "IR_RS232_SW_IR_RS232_SW.tw1" "IR_RS232_SW_IR_RS232_SW_map.ncd" "IR_RS232_SW_IR_RS232_SW.prf"
+trce:  version Diamond Version 2.0.0.154
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+     Copyright (c) 1995 AT&T Corp.   All rights reserved.
+     Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+     Copyright (c) 2001 Agere Systems   All rights reserved.
+     Copyright (c) 2002-2012 Lattice Semiconductor Corporation,  All rights reserved.
+
+Loading design for application trce from file ir_rs232_sw_ir_rs232_sw_map.ncd.
+Design name: IR_RS232_SW
+NCD version: 3.2
+Vendor:      LATTICE
+Device:      LCMXO2-1200HC
+Package:     TQFP144
+Performance: 4
+Loading device for application trce from file 'xo2c1200.nph' in environment: D:/lscc/diamond/2.0/ispfpga.
+Package Status:                     Final          Version 1.33
+Performance Hardware Data Status:   Final          Version 22.4
+Setup and Hold Report
+
+--------------------------------------------------------------------------------
+Lattice TRACE Report - Setup, Version Diamond Version 2.0.0.154
+Thu Mar 09 19:53:08 2017
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2012 Lattice Semiconductor Corporation,  All rights reserved.
+
+Report Information
+------------------
+Command line:    trce -v 1 -gt -mapchkpnt 0 -sethld -o IR_RS232_SW_IR_RS232_SW.tw1 IR_RS232_SW_IR_RS232_SW_map.ncd IR_RS232_SW_IR_RS232_SW.prf 
+Design file:     ir_rs232_sw_ir_rs232_sw_map.ncd
+Preference file: ir_rs232_sw_ir_rs232_sw.prf
+Device,speed:    LCMXO2-1200HC,4
+Report level:    verbose report, limited to 1 item per preference
+--------------------------------------------------------------------------------
+
+Report Type:     based on TRACE automatically generated preferences
+BLOCK ASYNCPATHS
+BLOCK RESETPATHS
+--------------------------------------------------------------------------------
+
+cannot locate caller provided ostream
+
+
+Timing summary (Setup):
+---------------
+
+Timing errors: 1194  Score: 178350240
+Cumulative negative slack: 178350240
+
+Constraints cover 6555 paths, 4 nets, and 3566 connections (91.3% coverage)
+
+--------------------------------------------------------------------------------
+Lattice TRACE Report - Hold, Version Diamond Version 2.0.0.154
+Thu Mar 09 19:53:09 2017
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2012 Lattice Semiconductor Corporation,  All rights reserved.
+
+Report Information
+------------------
+Command line:    trce -v 1 -gt -mapchkpnt 0 -sethld -o IR_RS232_SW_IR_RS232_SW.tw1 IR_RS232_SW_IR_RS232_SW_map.ncd IR_RS232_SW_IR_RS232_SW.prf 
+Design file:     ir_rs232_sw_ir_rs232_sw_map.ncd
+Preference file: ir_rs232_sw_ir_rs232_sw.prf
+Device,speed:    LCMXO2-1200HC,M
+Report level:    verbose report, limited to 1 item per preference
+--------------------------------------------------------------------------------
+
+BLOCK ASYNCPATHS
+BLOCK RESETPATHS
+--------------------------------------------------------------------------------
+
+cannot locate caller provided ostream
+
+
+Timing summary (Hold):
+---------------
+
+Timing errors: 0  Score: 0
+Cumulative negative slack: 0
+
+Constraints cover 6555 paths, 4 nets, and 3605 connections (92.3% coverage)
+
+
+
+Timing summary (Setup and Hold):
+---------------
+
+Timing errors: 1194 (setup), 0 (hold)
+Score: 178350240 (setup), 0 (hold)
+Cumulative negative slack: 178350240 (178350240+0)
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+Total time: 0 secs 
+
+mpartrce -p "IR_RS232_SW_IR_RS232_SW.p2t" -f "IR_RS232_SW_IR_RS232_SW.p3t" -tf "IR_RS232_SW_IR_RS232_SW.pt" "IR_RS232_SW_IR_RS232_SW_map.ncd" "IR_RS232_SW_IR_RS232_SW.ncd"
+
+---- MParTrce Tool ----
+Removing old design directory at request of -rem command line option to this program.
+Running par. Please wait . . .
+
+Lattice Place and Route Report for Design "IR_RS232_SW_IR_RS232_SW_map.ncd"
+Thu Mar 09 19:53:10 2017
+
+PAR: Place And Route Diamond Version 2.0.0.154.
+Command Line: D:/lscc/diamond/2.0/ispfpga\bin\nt\par -f IR_RS232_SW_IR_RS232_SW.p2t
+IR_RS232_SW_IR_RS232_SW_map.ncd IR_RS232_SW_IR_RS232_SW.dir
+IR_RS232_SW_IR_RS232_SW.prf
+Preference file: IR_RS232_SW_IR_RS232_SW.prf.
+Placement level-cost: 5-1.
+Routing Iterations: 6
+
+Loading design for application par from file IR_RS232_SW_IR_RS232_SW_map.ncd.
+Design name: IR_RS232_SW
+NCD version: 3.2
+Vendor:      LATTICE
+Device:      LCMXO2-1200HC
+Package:     TQFP144
+Performance: 4
+Loading device for application par from file 'xo2c1200.nph' in environment: D:/lscc/diamond/2.0/ispfpga.
+Package Status:                     Final          Version 1.33
+Performance Hardware Data Status:   Final          Version 22.4
+License checked out.
+
+
+Ignore Preference Error(s):  True
+Device utilization summary:
+
+   PIO (prelim)      62/108          57% used
+                     62/108          57% bonded
+   IOLOGIC            9/108           8% used
+
+   SLICE            526/640          82% used
+
+   GSR                1/1           100% used
+   EBR                3/7            42% used
+
+
+Number of Signals: 1713
+Number of Connections: 3907
+WARNING - par: Placement timing preferences are hard to meet.  However, placement will continue.  Use static timing analysis to identify errors.  For more information, see online help subjects "Place & Route TRACE Report"  or the "TRACE" application.
+
+Pin Constraint Summary:
+   58 out of 58 pins locked (100% locked).
+
+The following 2 signals are selected to use the primary clock routing resources:
+    clk_c (driver: clk, clk load #: 309)
+    clock_count_15 (driver: SLICE_22, clk load #: 56)
+
+
+The following 4 signals are selected to use the secondary clock routing resources:
+    pc2mcu_uart_top1/pc2mcu_rx/n5 (driver: pc2mcu_uart_top1/pc2mcu_rx/SLICE_561, clk load #: 0, sr load #: 12, ce load #: 2)
+    mcu2pc_uart_top1/mcu2pc_rx/n5 (driver: mcu2pc_uart_top1/mcu2pc_rx/SLICE_571, clk load #: 0, sr load #: 12, ce load #: 2)
+    rclk_c (driver: rclk, clk load #: 5, sr load #: 0, ce load #: 0)
+    srclk_c (driver: srclk, clk load #: 5, sr load #: 0, ce load #: 0)
+
+WARNING - par: Signal "rclk_c" is selected to use Secondary clock resources; however its driver comp "rclk" is located at "111", which is not a dedicated pin for connecting to Secondary clock resources.  General routing has to be used to route this signal, and it may suffer from excessive delay or skew.
+WARNING - par: Signal "srclk_c" is selected to use Secondary clock resources; however its driver comp "srclk" is located at "112", which is not a dedicated pin for connecting to Secondary clock resources.  General routing has to be used to route this signal, and it may suffer from excessive delay or skew.
+Signal rstn_c is selected as Global Set/Reset.
+.
+Starting Placer Phase 0.
+...........
+Finished Placer Phase 0.  REAL time: 0 secs 
+
+Starting Placer Phase 1.
+....................
+Placer score = 2380657.
+Finished Placer Phase 1.  REAL time: 12 secs 
+
+Starting Placer Phase 2.
+.
+Placer score =  2411262
+Finished Placer Phase 2.  REAL time: 12 secs 
+
+
+------------------ Clock Report ------------------
+
+Global Clock Resources:
+  CLK_PIN    : 1 out of 8 (12%)
+  General PIO: 2 out of 108 (1%)
+  PLL        : 0 out of 1 (0%)
+  DCM        : 0 out of 2 (0%)
+  DCC        : 0 out of 8 (0%)
+
+Quadrants All (TL, TR, BL, BR) - Global Clocks:
+  PRIMARY "clk_c" from comp "clk" on CLK_PIN site "128 (PT12A)", clk load = 309
+  PRIMARY "clock_count_15" from Q0 on comp "SLICE_22" on site "R2C12A", clk load = 56
+  SECONDARY "rclk_c" from comp "rclk" on PIO site "111 (PT17B)", clk load = 5, ce load = 0, sr load = 0
+  SECONDARY "srclk_c" from comp "srclk" on PIO site "112 (PT17A)", clk load = 5, ce load = 0, sr load = 0
+  SECONDARY "pc2mcu_uart_top1/pc2mcu_rx/n5" from F1 on comp "pc2mcu_uart_top1/pc2mcu_rx/SLICE_561" on site "R8C21D", clk load = 0, ce load = 2, sr load = 12
+  SECONDARY "mcu2pc_uart_top1/mcu2pc_rx/n5" from F1 on comp "mcu2pc_uart_top1/mcu2pc_rx/SLICE_571" on site "R7C12A", clk load = 0, ce load = 2, sr load = 12
+
+  PRIMARY  : 2 out of 8 (25%)
+  SECONDARY: 4 out of 8 (50%)
+
+Edge Clocks:
+  No edge clock selected.
+
+--------------- End of Clock Report ---------------
+
+
+I/O Usage Summary (final):
+   62 out of 108 (57.4%) PIO sites used.
+   62 out of 108 (57.4%) bonded PIO sites used.
+   Number of PIO comps: 62; differential: 0
+   Number of Vref pins used: 0
+
+I/O Bank Usage Summary:
++----------+----------------+------------+-----------+
+| I/O Bank | Usage          | Bank Vccio | Bank Vref |
++----------+----------------+------------+-----------+
+| 0        | 10 / 28 ( 35%) | 3.3V       | -         |
+| 1        | 17 / 26 ( 65%) | 3.3V       | -         |
+| 2        | 17 / 28 ( 60%) | 3.3V       | -         |
+| 3        | 18 / 26 ( 69%) | 3.3V       | -         |
++----------+----------------+------------+-----------+
+
+Total placer CPU time: 12 secs 
+
+Dumping design to file IR_RS232_SW_IR_RS232_SW.dir/5_1.ncd.
+
+0 connections routed; 3907 unrouted.
+Starting router resource preassignment
+
+Completed router resource preassignment. Real time: 13 secs 
+
+Start NBR router at 19:53:24 03/09/17
+
+*****************************************************************
+Info: NBR allows conflicts(one node used by more than one signal)
+      in the earlier iterations. In each iteration, it tries to  
+      solve the conflicts while keeping the critical connections 
+      routed as shorter as possible. The routing process is said 
+      to be completed when no conflicts exist and all connections
+      are routed.                                                
+Note: NBR uses a different method to calculate timing slacks. The
+      worst slack and total negative slack may not be the same as
+      that in TRCE report. You should always run TRCE to verify  
+      your design. Thanks.                                       
+*****************************************************************
+
+Start NBR special constraint process at 19:53:24 03/09/17
+
+Start NBR section for initial routing
+Level 1, iteration 1
+0(0.00%) conflict; 2857(73.13%) untouched conns; 345715371 (nbr) score; 
+Estimated worst slack/total negative slack: -2141.505ns/-345715.371ns; real time: 14 secs 
+Level 2, iteration 1
+1(0.00%) conflict; 2837(72.61%) untouched conns; 341543106 (nbr) score; 
+Estimated worst slack/total negative slack: -2088.973ns/-341543.107ns; real time: 14 secs 
+Level 3, iteration 1
+0(0.00%) conflict; 2837(72.61%) untouched conns; 342732336 (nbr) score; 
+Estimated worst slack/total negative slack: -2116.126ns/-342732.337ns; real time: 14 secs 
+Level 4, iteration 1
+40(0.05%) conflicts; 0(0.00%) untouched conn; 351157257 (nbr) score; 
+Estimated worst slack/total negative slack: -2137.423ns/-351157.257ns; real time: 15 secs 
+
+Info: Initial congestion level at 75% usage is 0
+Info: Initial congestion area  at 75% usage is 0 (0.00%)
+
+Start NBR section for normal routing
+Level 4, iteration 1
+16(0.02%) conflicts; 0(0.00%) untouched conn; 348019008 (nbr) score; 
+Estimated worst slack/total negative slack: -2136.004ns/-348019.009ns; real time: 15 secs 
+Level 4, iteration 2
+4(0.00%) conflicts; 0(0.00%) untouched conn; 350299165 (nbr) score; 
+Estimated worst slack/total negative slack: -2143.990ns/-350299.166ns; real time: 16 secs 
+Level 4, iteration 3
+3(0.00%) conflicts; 0(0.00%) untouched conn; 349759295 (nbr) score; 
+Estimated worst slack/total negative slack: -2127.662ns/-349759.296ns; real time: 16 secs 
+Level 4, iteration 4
+1(0.00%) conflict; 0(0.00%) untouched conn; 349759295 (nbr) score; 
+Estimated worst slack/total negative slack: -2127.662ns/-349759.296ns; real time: 16 secs 
+Level 4, iteration 5
+0(0.00%) conflict; 0(0.00%) untouched conn; 363701510 (nbr) score; 
+Estimated worst slack/total negative slack: -2356.958ns/-363701.511ns; real time: 16 secs 
+Level 4, iteration 6
+1(0.00%) conflict; 0(0.00%) untouched conn; 363701510 (nbr) score; 
+Estimated worst slack/total negative slack: -2356.958ns/-363701.511ns; real time: 16 secs 
+Level 4, iteration 7
+0(0.00%) conflict; 0(0.00%) untouched conn; 351782616 (nbr) score; 
+Estimated worst slack/total negative slack: -2136.358ns/-351782.616ns; real time: 16 secs 
+
+Start NBR section for performance tunning (iteration 1)
+Level 4, iteration 1
+3(0.00%) conflicts; 0(0.00%) untouched conn; 349759295 (nbr) score; 
+Estimated worst slack/total negative slack: -2127.662ns/-349759.296ns; real time: 16 secs 
+Level 4, iteration 2
+0(0.00%) conflict; 0(0.00%) untouched conn; 354439338 (nbr) score; 
+Estimated worst slack/total negative slack: -2206.106ns/-354439.339ns; real time: 16 secs 
+
+Start NBR section for post-routing
+0(0.00%) conflict; 0(0.00%) untouched conn; 351782616 (nbr) score; 
+Estimated worst slack/total negative slack: -2136.358ns/-351782.616ns; real time: 17 secs 
+
+Dumping design to file IR_RS232_SW_IR_RS232_SW.dir/5_1.ncd.
+End NBR router with 0 unrouted connection
+
+NBR Summary
+-----------
+  Number of unrouted connections : 0 (0.00%)
+  Number of connections with timing violations : 749 (19.17%)
+  Estimated worst slack : -2136.358ns
+  Timing score : 289274627
+-----------
+Notes: The timing info is calculated for SETUP only and all PAR_ADJs are ignored.
+
+
+Total CPU time 16 secs 
+Total REAL time: 17 secs 
+Completely routed.
+End of route.  3907 routed (100.00%); 0 unrouted.
+Checking DRC ... 
+No errors found.
+
+Timing score: 289303036 
+
+Dumping design to file IR_RS232_SW_IR_RS232_SW.dir/5_1.ncd.
+
+
+par done!
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2012 Lattice Semiconductor Corporation,  All rights reserved.
+Exiting par with exit code 0
+Exiting mpartrce with exit code 0
+
+trce -f "IR_RS232_SW_IR_RS232_SW.pt" -o "IR_RS232_SW_IR_RS232_SW.twr" "IR_RS232_SW_IR_RS232_SW.ncd" "IR_RS232_SW_IR_RS232_SW.prf"
+trce:  version Diamond Version 2.0.0.154
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+     Copyright (c) 1995 AT&T Corp.   All rights reserved.
+     Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+     Copyright (c) 2001 Agere Systems   All rights reserved.
+     Copyright (c) 2002-2012 Lattice Semiconductor Corporation,  All rights reserved.
+
+Loading design for application trce from file ir_rs232_sw_ir_rs232_sw.ncd.
+Design name: IR_RS232_SW
+NCD version: 3.2
+Vendor:      LATTICE
+Device:      LCMXO2-1200HC
+Package:     TQFP144
+Performance: 4
+Loading device for application trce from file 'xo2c1200.nph' in environment: D:/lscc/diamond/2.0/ispfpga.
+Package Status:                     Final          Version 1.33
+Performance Hardware Data Status:   Final          Version 22.4
+Setup and Hold Report
+
+--------------------------------------------------------------------------------
+Lattice TRACE Report - Setup, Version Diamond Version 2.0.0.154
+Thu Mar 09 19:53:29 2017
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2012 Lattice Semiconductor Corporation,  All rights reserved.
+
+Report Information
+------------------
+Command line:    trce -v 10 -gt -sethld -sp 4 -sphld m -o IR_RS232_SW_IR_RS232_SW.twr IR_RS232_SW_IR_RS232_SW.ncd IR_RS232_SW_IR_RS232_SW.prf 
+Design file:     ir_rs232_sw_ir_rs232_sw.ncd
+Preference file: ir_rs232_sw_ir_rs232_sw.prf
+Device,speed:    LCMXO2-1200HC,4
+Report level:    verbose report, limited to 10 items per preference
+--------------------------------------------------------------------------------
+
+Report Type:     based on TRACE automatically generated preferences
+BLOCK ASYNCPATHS
+BLOCK RESETPATHS
+--------------------------------------------------------------------------------
+
+cannot locate caller provided ostream
+
+
+Timing summary (Setup):
+---------------
+
+Timing errors: 1468  Score: 289303036
+Cumulative negative slack: 289303036
+
+Constraints cover 6555 paths, 4 nets, and 3605 connections (92.3% coverage)
+
+--------------------------------------------------------------------------------
+Lattice TRACE Report - Hold, Version Diamond Version 2.0.0.154
+Thu Mar 09 19:53:29 2017
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2012 Lattice Semiconductor Corporation,  All rights reserved.
+
+Report Information
+------------------
+Command line:    trce -v 10 -gt -sethld -sp 4 -sphld m -o IR_RS232_SW_IR_RS232_SW.twr IR_RS232_SW_IR_RS232_SW.ncd IR_RS232_SW_IR_RS232_SW.prf 
+Design file:     ir_rs232_sw_ir_rs232_sw.ncd
+Preference file: ir_rs232_sw_ir_rs232_sw.prf
+Device,speed:    LCMXO2-1200HC,m
+Report level:    verbose report, limited to 10 items per preference
+--------------------------------------------------------------------------------
+
+BLOCK ASYNCPATHS
+BLOCK RESETPATHS
+--------------------------------------------------------------------------------
+
+cannot locate caller provided ostream
+
+
+Timing summary (Hold):
+---------------
+
+Timing errors: 0  Score: 0
+Cumulative negative slack: 0
+
+Constraints cover 6555 paths, 4 nets, and 3605 connections (92.3% coverage)
+
+
+
+Timing summary (Setup and Hold):
+---------------
+
+Timing errors: 1468 (setup), 0 (hold)
+Score: 289303036 (setup), 0 (hold)
+Cumulative negative slack: 289303036 (289303036+0)
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+Total time: 0 secs 
+
+bitgen -f "IR_RS232_SW_IR_RS232_SW.t2b" -w "IR_RS232_SW_IR_RS232_SW.ncd" -jedec "IR_RS232_SW_IR_RS232_SW.prf"
+
+
+BITGEN: Bitstream Generator Diamond Version 2.0.0.154
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2012 Lattice Semiconductor Corporation,  All rights reserved.
+
+
+Loading design for application Bitgen from file IR_RS232_SW_IR_RS232_SW.ncd.
+Design name: IR_RS232_SW
+NCD version: 3.2
+Vendor:      LATTICE
+Device:      LCMXO2-1200HC
+Package:     TQFP144
+Performance: 4
+Loading device for application Bitgen from file 'xo2c1200.nph' in environment: D:/lscc/diamond/2.0/ispfpga.
+Package Status:                     Final          Version 1.33
+Performance Hardware Data Status:   Final          Version 22.4
+
+Running DRC.
+INFO: Design contains EBR with ASYNC Reset Mode that has a limitation: The use of the EBR block asynchronous reset requires that certain timing be met between the clock and the reset within the memory block. See the device specific datasheet for additional details.
+DRC detected 0 errors and 0 warnings.
+Reading Preference File from IR_RS232_SW_IR_RS232_SW.prf...
+
+Preference Summary:
++---------------------------------+---------------------------------+
+|  Preference                     |  Current Setting                |
++---------------------------------+---------------------------------+
+|                         RamCfg  |                        Reset**  |
++---------------------------------+---------------------------------+
+|                     MCCLK_FREQ  |                         2.08**  |
++---------------------------------+---------------------------------+
+|                  CONFIG_SECURE  |                          OFF**  |
++---------------------------------+---------------------------------+
+|                      JTAG_PORT  |                       ENABLE**  |
++---------------------------------+---------------------------------+
+|                       SDM_PORT  |                      DISABLE**  |
++---------------------------------+---------------------------------+
+|                 SLAVE_SPI_PORT  |                      DISABLE**  |
++---------------------------------+---------------------------------+
+|                MASTER_SPI_PORT  |                      DISABLE**  |
++---------------------------------+---------------------------------+
+|                       I2C_PORT  |                      DISABLE**  |
++---------------------------------+---------------------------------+
+|        MUX_CONFIGURATION_PORTS  |                      DISABLE**  |
++---------------------------------+---------------------------------+
+|             GENERATE_BITSTREAM  |                      DISABLE**  |
++---------------------------------+---------------------------------+
+|                  CONFIGURATION  |                          CFG**  |
++---------------------------------+---------------------------------+
+|                COMPRESS_CONFIG  |                           ON**  |
++---------------------------------+---------------------------------+
+|                        MY_ASSP  |                          OFF**  |
++---------------------------------+---------------------------------+
+|               ONE_TIME_PROGRAM  |                          OFF**  |
++---------------------------------+---------------------------------+
+|                 ENABLE_TRANSFR  |                      DISABLE**  |
++---------------------------------+---------------------------------+
+|                  SHAREDEBRINIT  |                      DISABLE**  |
++---------------------------------+---------------------------------+
+ *  Default setting.
+ ** The specified setting matches the default setting.
+
+
+Creating bit map...
+ 
+Bitstream Status:   Final           Version 1.82
+ 
+ 
+===========
+UFM Summary
+===========
+UFM Size:        511 Pages (128*511 Bits)
+UFM Utilization: General Purpose Flash Memory
+ 
+Available General Purpose Flash Memory:  511 Pages (Page 0 to Page 510)
+Initialized UFM Pages:                     0 Page
+ 
+Saving JEDEC in IR_RS232_SW_IR_RS232_SW.jed.

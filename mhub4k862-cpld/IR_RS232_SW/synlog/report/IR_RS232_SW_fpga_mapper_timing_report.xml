@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- *************************************************************************************
+FILE DESCRIPTION
+Max Top 5 critical clocks will be reported. For rest user needs to refer to Detailed report
+*******************************************************************************************-->
+<report_table display_priority="2" name="Timing Summary">
+<report_link name="Detailed report">
+<data>E:\pjk\MHD44TP_IR_RS232_SW_130701\IR_RS232_SW\synlog\IR_RS232_SW_fpga_mapper.srr</data>
+<title>##### START OF TIMING REPORT #####[</title>
+</report_link>
+<row>
+<data>Clock Name</data>
+<data>Req Freq</data>
+<data>Est Freq</data>
+<data>Slack</data>
+</row>
+<row>
+<data>IR_RS232_SW|clk</data>
+<data>168.0 MHz</data>
+<data>142.8 MHz</data>
+<data>-1.051</data>
+</row>
+<row>
+<data>IR_RS232_SW|rclk</data>
+<data>1.0 MHz</data>
+<data>809.2 MHz</data>
+<data>998.764</data>
+</row>
+<row>
+<data>IR_RS232_SW|srclk</data>
+<data>1000.0 MHz</data>
+<data>870.0 MHz</data>
+<data>-0.149</data>
+</row>
+<row>
+<data>System</data>
+<data>1157.0 MHz</data>
+<data>2228.2 MHz</data>
+<data>0.415</data>
+</row>
+</report_table>
