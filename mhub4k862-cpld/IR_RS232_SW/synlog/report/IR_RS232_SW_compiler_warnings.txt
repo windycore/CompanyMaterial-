@@ -1,2 +1,0 @@
-@W: CL159 :"E:\pjk\MHD44TP_IR_RS232_SW_130701\ir_car_detect.v":10:7:10:11|Input rst_n is unused
-

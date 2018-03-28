@@ -1,5 +1,0 @@
-@W: MT453 |clock period is too long for clock IR_RS232_SW|srclk, changing period from 10000000.0 to 20000.0 ns, rise from 0.0 ns to 0.0 ns, and fall from 5000000.0 ns to 10000.0 ns. 
-@W: MT246 :"e:\pjk\mhd44tp_ir_rs232_sw_130701\fifo64x8.v":46:12:46:23|Blackbox FIFO8KB is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results) 
-@W: MT420 |Found inferred clock IR_RS232_SW|clk with period 5.95ns. Please declare a user-defined clock on object "p:clk"
-@W: MT420 |Found inferred clock IR_RS232_SW|rclk with period 1000.00ns. Please declare a user-defined clock on object "p:rclk"
-@W: MT420 |Found inferred clock IR_RS232_SW|srclk with period 1.00ns. Please declare a user-defined clock on object "p:srclk"

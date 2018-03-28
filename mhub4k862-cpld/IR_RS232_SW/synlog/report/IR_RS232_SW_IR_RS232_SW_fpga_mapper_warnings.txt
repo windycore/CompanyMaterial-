@@ -1,4 +1,0 @@
-@W: MT246 :"e:\cpld\muh4k862\muh88e(4k862)\fifo64x8.v":46:12:46:23|Blackbox FIFO8KB is missing a user supplied timing model. This may have a negative effect on timing analysis and optimizations (Quality of Results) 
-@W: MT420 |Found inferred clock IR_RS232_SW|clk with period 1000.00ns. Please declare a user-defined clock on object "p:clk"
-@W: MT420 |Found inferred clock IR_RS232_SW|rclk with period 1000.00ns. Please declare a user-defined clock on object "p:rclk"
-@W: MT420 |Found inferred clock IR_RS232_SW|srclk with period 1000.00ns. Please declare a user-defined clock on object "p:srclk"
